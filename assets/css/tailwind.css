@@ -1,0 +1,16 @@
+@import url("https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@400;500;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    background: linear-gradient(98deg, #466061 0%, #284241 69.64%);
+    @apply pl-16 overflow-hidden;
+}
+
+canvas {
+    @apply mix-blend-luminosity;
+}
+
+
