@@ -1,16 +1,95 @@
-@import url("https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@400;500;600;700&display=swap");
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+html {
+    min-height: calc(100% + env(safe-area-inset-top));
+    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+
 body {
-    background: linear-gradient(98deg, #466061 0%, #284241 69.64%);
-    @apply pl-16 overflow-hidden;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    @apply bg-white dark:bg-neutral-900 ;
 }
 
-canvas {
-    @apply mix-blend-luminosity;
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
 }
 
+::-webkit-scrollbar {
+    scroll-margin: 5em;
+    @apply w-4 hidden
+}
+
+
+::-webkit-scrollbar-track {
+    @apply hidden
+}
+
+::-webkit-scrollbar-thumb {
+    @apply bg-neutral-900 dark:bg-white dark:hover:bg-white hover:bg-neutral-800 rounded-full
+}
+
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+    @apply lighty ring-1 ring-black outline-none appearance-none
+}
+
+
+@layer components {
+    
+
+    .btn-Input {
+        border-radius: 0.8em;
+        @apply w-full p-2 px-3 font-normal text-black bg-transparent border border-black appearance-none;
+    }
+
+    .btn-Input:focus {
+        @apply ring-1 ring-black outline-none
+    }
+    
+
+    .btn-login {
+        border-radius: 0.8em;
+        @apply p-3 px-3 font-semibold text-white bg-neutral-900;
+    }
+
+    .btn-login:hover {
+        @apply bg-neutral-800
+    }
+
+    .btn-login:focus {
+        @apply ring-1 ring-neutral-800 
+    }
+
+}
+
+@layer utilities {
+    .lighty {
+        -webkit-box-shadow: 0 0 0 30px #ffffff inset !important; 
+        -webkit-text-fill-color: #000000 !important;
+        box-shadow: 0 0 0 30px #ffffff inset !important;
+        background-clip: content-box !important;
+    }
+
+
+    .otpLight {
+        -webkit-box-shadow: 0 0 0 30px #ffffff inset !important; 
+        -webkit-text-fill-color: #000000 !important;
+        box-shadow: 0 0 0 30px #ffffff inset !important;
+        background-clip: content-box !important;
+    }
+
+    .otpDark {
+        -webkit-box-shadow: 0 0 0 30px #171717 inset !important;
+        -webkit-text-fill-color: #ffffff !important;
+        box-shadow: 0 0 0 30px #171717 inset !important;
+        background-clip: content-box !important;
+    }
+
+}
 
