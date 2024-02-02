@@ -1,11 +1,11 @@
 <template>
     <ClientOnly>
         <Transition name="modal">
-            <div v-if="status" class="fixed top-0 z-10 flex items-end justify-center w-screen h-full bg-black md:justify-end bg-opacity-60 backdrop-blur-sm ">
-                <div tabindex="0" class="mx-6 mb-[8%] md:mb-8 md:ml-[58%] xl:ml-[68%] outline-none rounded-xl" ref="modal">
+            <div v-if="status" class="fixed top-0 z-10 flex items-end justify-center w-screen h-full bg-black md:justify-center md:items-center bg-opacity-60 backdrop-blur-sm ">
+                <div tabindex="0" class="mx-6 mb-[8%] md:mb-0 outline-none rounded-xl" ref="modal">
                     <Transition name="modalDelay">
                         <div ref="modalDelay" v-if="DelayStatus">
-                            <div class="p-8 bg-white rounded-2xl ">
+                            <div class="p-8 bg-white md:max-w-[30vw] rounded-2xl ">
                                 <div class="flex items-center justify-between mb-2 ">
                                     <h1 class="text-3xl font-bold ">{{ texthead }}</h1>
                                     <button @click="closeModal"><Icon name="pajamas:close-xs" size="2em"></Icon></button>
@@ -18,7 +18,7 @@
                                         <p v-else>{{ textLabel }}</p>
                                     </button>
                                     <span role="alert" v-if="meta.touched && msgError" class="flex text-xs text-left text-[#B92538]">{{ msgError }}</span>
-                                    <span role="alert" v-if=" MessageSend " class="flex text-xs text-left ">Je bericht is vestuured</span>
+                                    <span role="alert" v-if=" MessageSend && type == 'Contact' " class="flex text-xs text-left ">Je bericht is vestuured</span>
                                 </Form>
                             </div>
                         </div>
@@ -55,7 +55,7 @@ watch(AuthModule, (Auth: Boolean) => {
         email: yup.string().email().required(),
         naam: yup.string().required(),
         bericht: yup.string().required(),
-        telefoon: yup.string().matches(phoneRegExp, 'telefoon number is not valid')
+        telefoon: yup.string().matches(phoneRegExp, 'telefoon number is not valid').optional(),
     }) 
 
     else schema = yup.object().shape({
@@ -75,7 +75,7 @@ else if (type.value == "Contact") schema = yup.object().shape({
     email: yup.string().email().required(),
     naam: yup.string().required(),
     bericht: yup.string().required(),
-    telefoon: yup.string().matches(phoneRegExp, 'telefoon number is not valid')
+    telefoon: yup.string().matches(phoneRegExp, 'telefoon number is not valid').optional(),
 });
 
 else schema = yup.object().shape({
@@ -103,9 +103,9 @@ const handleRequest = async (values: any, actions: any) => {
 
     loading.value = true
     const { data, error, pending, refresh }: Record<string, any> = AuthModule.value ? 
-        await useFetch('/api/auth', { method: "post", body: values }) : type.value == "Contact" ?
-        await useFetch('/api/contact', { method: "post", body: values }) :
-        await useFetch('/api/register', { method: "post", body: values })
+        await useCsrfFetch('/api/auth', { method: "post", body: values }) : type.value == "Contact" ?
+        await useCsrfFetch('/api/contact', { method: "post", body: values }) :
+        await useCsrfFetch('/api/register', { method: "post", body: values })
     
     if (error.value) {
         loading.value = false
@@ -116,6 +116,10 @@ const handleRequest = async (values: any, actions: any) => {
 
         else if(error.value.data?.statusCode == 429){
             msgError.value = "Je hebt te veel berichten gestuurd, probeer het later opnieuw"
+        }
+
+        else if(error.value.data?.statusCode == 409){
+            msgError.value = "Er is al een account met dit email adres geregistreerd gebruik een ander email adres"
         }
 
         else  {
@@ -140,13 +144,17 @@ const handleRequest = async (values: any, actions: any) => {
         setTimeout(() => {
             closeModal()
 
-            if (data.value.statusCode == 200 && type.value == "Aanmelden") navigateTo('/profile')
+            
 
             if(AuthModule.value && data.value.user.is2FAEnabled) navigateTo(`/auth/prompt?id=${data.value.user.Id}`)
             else if (AuthModule.value && data.value.user.Admin) navigateTo('/dashboard')
             else if (AuthModule.value) navigateTo('/profile')
             else if (AuthModule.value && data.value.user.Admin) navigateTo('/dashboard')
             else if (AuthModule.value) navigateTo('/profile') 
+
+            setTimeout(() => {
+                if (data.value.statusCode == 200 && type.value == "Aanmelden") navigateTo('/profile')
+            }, 500);
             
             MessageSend.value = false
         }, 1000)

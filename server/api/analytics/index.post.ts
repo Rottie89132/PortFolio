@@ -1,10 +1,11 @@
 
 export default defineEventHandler(async (event) => {
-    const NowMonth: number = new Date().getMonth() + 1
-    const Analytics: Record<string, any> | null = await analytics.findOne({ CurrentMonth: NowMonth })
-    
-    if (!Analytics) await analytics.create({ CurrentMonth: NowMonth, MonthlyVisted: 1 })
-    else await analytics.findOneAndUpdate({ CurrentMonth: NowMonth }, { 
-        $set: { MonthlyVisted: Analytics.MonthlyVisted += 1 }
-    }); return 
+    const now: Date = new Date();
+    const NowMonth: number = now.getMonth() + 1;
+    const NowYear: number = now.getFullYear();
+    const Analytics: Record<string, any> | null = await analytics.findOne({ CurrentMonth: NowMonth, CurrentYear: NowYear });
+
+    if (!Analytics) await analytics.create({ CurrentMonth: NowMonth, MonthlyVisted: 1, CurrentYear: NowYear });
+    else await analytics.findOneAndUpdate({ CurrentMonth: NowMonth, CurrentYear: NowYear }, { $inc: { MonthlyVisted: 1 } });
+    return;
 });

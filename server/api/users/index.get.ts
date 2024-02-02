@@ -12,9 +12,6 @@ export default defineEventHandler(async (event) => {
         message: "the request requires an authentication with an OTP token."
     } 
 
-
-
-
     if (!user ) return {
         statusCode: 401,
         statusMessage: "Unauthorized",

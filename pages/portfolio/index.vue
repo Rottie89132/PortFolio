@@ -21,9 +21,16 @@
                         <HeaderTitel Title="Hallo leer mij kennen!"
                             SubTitle="Hoi, ik ben Roland Meijer, een Software Developer in de maak! Momenteel zit ik in mijn tweede leerjaar en ontdek ik de kunst van het programmeren." />
                         <div class="flex items-center gap-5">
-                            <NuxtLink :to="repoLink"
-                                class="flex dark:text-neutral-800 font-semibold dark:bg-white dark:hover:bg-white dark:hover:ring-white dark:ring-white items-center gap-2 px-5 py-3 text-sm text-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-xl">Bekijk Repositories
-                            </NuxtLink>
+                            <ClientOnly>
+                                <NuxtLink :to="repoLink"
+                                    class="flex dark:text-neutral-800 font-semibold dark:bg-white dark:hover:bg-white dark:hover:ring-white dark:ring-white items-center gap-2 px-5 py-3 text-sm text-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-xl">Bekijk Repositories
+                                </NuxtLink>
+                                <template #fallback>
+                                    <NuxtLink to="/Repos" class="flex dark:text-neutral-800 font-semibold dark:bg-white dark:hover:bg-white dark:hover:ring-white dark:ring-white items-center gap-2 px-5 py-3 text-sm text-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-xl">Bekijk Repositories
+                                </NuxtLink>
+                                </template>
+                            </ClientOnly>
+                            
                             <button @click="HandleModule('Contact')"
                                 class="px-6 py-3 dark:hover:text-white  dark:ring-white dark:hover:ring-white text-sm font-semibold dark:text-white text-neutral-800 hover:text-neutral-900 ring-2 ring-neutral-800 hover:ring-neutral-900 rounded-xl"> Contact
                             </button>
@@ -68,7 +75,7 @@ useHead({
     link: [{ rel: 'icon', type: 'image/png'}]
 })
 
-const { $pwa, $StartSocket } = useNuxtApp()
+const { $pwa, $StartSocket, $csrfFetch } = useNuxtApp()
 const OpenModule = ref(false)
 const OpenModuleDelay = ref(false)
 const AuthModule = ref(true)
@@ -78,18 +85,19 @@ const buttonLabel = ref("")
 const textLabel = ref("Inloggen")
 const Installed = ref(false)
 const datatype = ref("")
-const repoLink = ref()
+const repoLink = ref("")
 const currentPage = useLocalStorage('RepoPage').value
-repoLink.value = `/Repos?Page=${currentPage}`
+repoLink.value = `/Repos?Page=${currentPage || 1}`
 
 const { data, error, pending, refresh } = await useFetch('/api/users')
+
 
 if(useRoute().query.Page){
     navigateTo("/")
 }
 
 const Logout = async () => {
-    await $fetch('/api/users', { method: 'DELETE' }); return location.reload();
+    await $csrfFetch('/api/users', { method: 'DELETE' }); return location.reload();
 }
 
 onMounted(() => {

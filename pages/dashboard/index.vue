@@ -27,11 +27,21 @@
                 </div>
                 <div class="flex items-center gap-2 mb-3">
                     <h1 class="text-[1.2em] dark:text-white text-black font-extrabold ">Recent toevoeged</h1>
-                    <NuxtLink :to="`/dashboard/Repos?Page=${currentPage}`" class="text-indigo-600 dark:text-indigo-500 text-[0.65em] text-right ">Bekijken</NuxtLink>
+                    <ClientOnly>
+                        <NuxtLink :to="`/dashboard/Repos?Page=${currentPage}`" class="text-indigo-600 dark:text-indigo-500 text-[0.65em] text-right ">Bekijken</NuxtLink>
+                        <template #fallback>
+                            <NuxtLink to="/dashboard/Repos" class="text-indigo-600 dark:text-indigo-500 text-[0.65em] text-right ">Bekijken</NuxtLink>
+                        </template>
+                    </ClientOnly>
                 </div>
                 <div class="mb-[4.85em] -mt-2" v-if="Repos.length < 1">
                     <p class="opacity-75 mb-4 dark:text-white ">Je hebt nog geen repositories toegevoegd!</p>
-                    <NuxtLink :to="`/dashboard/Repos?Page=${currentPage}`" class="px-4 py-2 text-sm font-medium text-white dark:bg-indigo-500 dark:ring-indigo-500 bg-indigo-600 rounded-lg ring-2 ring-indigo-600">Toevoegen</NuxtLink>
+                    <ClientOnly>
+                        <NuxtLink :to="`/dashboard/Repos?Page=${currentPage}`" class="px-4 py-2 text-sm font-medium text-white dark:bg-indigo-500 dark:ring-indigo-500 bg-indigo-600 rounded-lg ring-2 ring-indigo-600">Toevoegen</NuxtLink>
+                        <template #fallback>
+                            <NuxtLink to="/dashboard/Repos" class="px-4 py-2 text-sm font-medium text-white dark:bg-indigo-500 dark:ring-indigo-500 bg-indigo-600 rounded-lg ring-2 ring-indigo-600">Toevoegen</NuxtLink>
+                        </template>
+                    </ClientOnly>
                 </div>
                 <div v-else :class="Repos.length <= 2 ? 'h-fit' : Messages.length > 2 ? 'h-[15.6svh] md:h-[17.3svh] xl:h-[15.5svh]' : 'h-[22.4svh] md:h-[25svh] xl:h-[22.5svh]'" class=" p-3 bg-[#F7F7F7] dark:bg-[#111111] rounded-2xl mb-6 ">
                     <div class="w-full h-full overflow-y-auto md:pr-2 rounded-xl snap-y snap-proximity scroll-smooth ">
@@ -51,7 +61,13 @@
                 </div>
                 <div class="flex items-center gap-2 mb-3">
                     <h1 class="text-[1.2em] dark:text-white text-black font-extrabold ">Recente berichten</h1>
-                    <NuxtLink :to="`/dashboard/Berichten?Page=${currentPageBerichten}`" class="text-indigo-600 dark:text-indigo-500 text-[0.65em] text-right ">Bekijken</NuxtLink>
+                    <ClientOnly>
+                        <NuxtLink :to="`/dashboard/Berichten?Page=${currentPageBerichten}`" class="text-indigo-600 dark:text-indigo-500 text-[0.65em] text-right ">Bekijken</NuxtLink>
+                        <template #fallback>
+                            <NuxtLink to="`/dashboard/Berichten?" class="text-indigo-600 dark:text-indigo-500 text-[0.65em] text-right ">Bekijken</NuxtLink>
+                        </template>
+                    </ClientOnly>
+                    
                 </div>
                 <div class="mb-6 -mt-2" v-if="Messages.length < 1">
                     <p class="opacity-75 dark:text-white">Je hebt nog geen berichten ontvangen</p>
@@ -98,7 +114,7 @@ definePageMeta({
 })
 
 
-const { $pwa, $StartSocket, $Socket } = useNuxtApp()
+const { $pwa, $StartSocket, $Socket , $csrfFetch } = useNuxtApp()
 const MonthlyVisted = ref(25)
 const MonthlyMessages = ref(5)
 const currentPage = useLocalStorage('AdminRepoPage', 1)
@@ -121,7 +137,7 @@ MonthlyVisted.value = Analytics.value.result.MonthlyVisted
 MonthlyMessages.value = messages.value.Response.length
 
 const Logout = async () => {
-    await $fetch('/api/users', {method: 'DELETE'}); return navigateTo("/")
+    await $csrfFetch('/api/users', { method: 'DELETE' }); return navigateTo("/")
 }
 
 onMounted(() => {

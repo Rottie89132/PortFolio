@@ -51,7 +51,7 @@
                     </div>
                 </div>
                 <div v-if="Repositories && Repositories.length < 1" class="mb-[5.2em] -mt-2">
-                    <p class="mb-6 opacity-75 text-white">Voordat u verder gaat, moet u eerst een verbinding maken met uw GitHub-account.</p>
+                    <p class="mb-6 opacity-75 dark:text-white">Voordat u verder gaat, moet u eerst een verbinding maken met uw GitHub-account.</p>
                     <a href="https://github.com/apps/rottie-portfolio/installations/new" target="_blank" class="px-6 py-2 mt-4 dark:text-neutral-800 dark:bg-white dark:ring-white text-white bg-neutral-800 rounded-lg ring-2 ring-neutral-800">
                         Verbinden met GitHub
                     </a>
@@ -70,14 +70,15 @@
                                 </div>
                                 <p class="mt-3 md:mt-1 whitespace-pre-wrap text-balance dark:text-white mr-5 text-sm break-words opacity-70 line-clamp-2 ">{{ item.description || defaultDescription }}</p>
                                 <div class="flex items-center gap-3 font-semibold">
-                                    <button v-if="item.saved" @click="DeleteRepo(item)"
-                                        class="flex items-center justify-center font-semibold px-3 py-1 mt-3 mb-1 text-xs dark:text-black dark:bg-white dark:ring-white text-white bg-black rounded ring-2 ring-black">Verwijderen</button>
-                                    <button v-else @click="SaveRepo(item)"
-                                        class="flex items-center justify-center px-3 py-1 mt-3 mb-1 font-semibold text-xs dark:text-black dark:bg-white dark:ring-white text-white bg-black rounded ring-2 ring-black">Toevoegen</button>
+                                    <button v-if="item.saved" @click="DeleteRepo(item)" class="flex items-center justify-center font-semibold px-3 py-1 mt-3 mb-1 text-xs dark:text-black dark:bg-white dark:ring-white text-white bg-black rounded ring-2 ring-black">Verwijderen</button>
+                                    <button v-else @click="SaveRepo(item)" class="flex items-center justify-center px-3 py-1 mt-3 mb-1 font-semibold text-xs dark:text-black dark:bg-white dark:ring-white text-white bg-black rounded ring-2 ring-black">Toevoegen</button>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class=" absolute md:right-[9%] md:top-[89%] right-[8%] top-[85.8%] p-2 dark:bg-indigo-500 bg-indigo-600  rounded-xl flex items-center justify-center text-white">
+                    <icon name="ic:outline-plus" size="1.5em"></icon>
                 </div>
             </div>
         </div>
@@ -131,7 +132,7 @@ useHead({
 })
 
 useLocalStorage('AdminRepoPage', 1)
-const { $pwa, $StartSocket } = useNuxtApp()
+const { $pwa, $StartSocket, $csrfFetch } = useNuxtApp()
 const currentPage = ref()
 const hidebuttons = ref([])
 const loading = ref(false)
@@ -154,7 +155,7 @@ if (SavedRepo.value.statusCode == 200) {
 }
 
 const Logout = async () => {
-    await $fetch('/api/users', { method: 'DELETE' }); return navigateTo("/")
+    await $csrfFetch('/api/users', { method: 'DELETE' }); return navigateTo("/")
 }
 
 onMounted(() => {
@@ -167,8 +168,8 @@ const navigateToPage = async () => {
 
     if (currentPage.value > hidebuttons.value.total) currentPage.value = hidebuttons.value.total
     else if (currentPage.value < 1) currentPage.value = 1
+    
     useLocalStorage('AdminRepoPage').value = currentPage.value
-
     router.push({ path: '/dashboard/Repos', query: { Page: currentPage.value } })
 
     const { data: Repositories } = await useFetch(`/api/repo/auth?page=${currentPage.value}`)
@@ -225,7 +226,6 @@ const animateIn = () => {
 }
 
 const loadedRepos = async (data, saved) => {
-
     if (data.value.statusCode == 200) {
         items.value = []
         Repositories.value = data.value.repositories
@@ -267,31 +267,26 @@ const loadedRepos = async (data, saved) => {
 }
 
 const SaveRepo = async (item) => {
-
-    await useFetch(`/api/repo/`, { method: 'POST', body: { data: item } })
-
+    await useCsrfFetch(`/api/repo/`, { method: 'POST', body: { data: item } })
+    
     const { data: Repositories } = await useFetch(`/api/repo/auth?page=${currentPage.value}`)
     const { data: SavedRepo } = await useFetch(`/api/repo`)
     loadedRepos(Repositories, SavedRepo)
-
 }
 
 const DeleteRepo = async (item) => {
-
     Saved.value = false
     ItemData.value = item
     title.value = item.full_name
     subtitle.value = "Weet je zeker dat je deze repository wilt verwijderen van je portfolio?"
-
+    
     OpenModule.value = true
     setTimeout(() => { OpenModuleDelay.value = true }, 100)
-
-
 }
 
 const DeleteRepoConfirm = async () => {
     loadingRepos.value = true
-    await useFetch(`/api/repo/`, { method: 'DELETE', body: { data: ItemData.value.id } })
+    await useCsrfFetch(`/api/repo/`, { method: 'DELETE', body: { data: ItemData.value.id } })
 
     const { data: Repositories } = await useFetch(`/api/repo/auth?page=${currentPage.value}`)
     const { data: SavedRepo } = await useFetch(`/api/repo`)

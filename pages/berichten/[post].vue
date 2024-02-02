@@ -50,7 +50,11 @@ useHead({
     link: [{ rel: 'icon', type: 'image/png' }],
 });
 
-const { $pwa } = useNuxtApp();
+definePageMeta({
+    middleware: ["user-auth"],
+});
+
+const { $pwa, $csrfFetch } = useNuxtApp();
 const Installed = ref(false);
 const OpenModule = ref(false);
 const OpenModuleDelay = ref(false);
@@ -70,8 +74,7 @@ const PostID = useRoute().params.post;
 const { data, error, pending, refresh } = await useFetch('/api/users');
 
 const Logout = async () => {
-    await $fetch('/api/users', { method: 'DELETE' });
-    return navigateTo('/');
+    await $csrfFetch('/api/users', { method: 'DELETE' }); return navigateTo('/');
 };
 
 const HandleModule = async type => {

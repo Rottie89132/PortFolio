@@ -4,9 +4,16 @@
         <NuxtLink class="opacity-50 hover:opacity-80" to="/portfolio">Home</NuxtLink>
         <NuxtLink class="opacity-50 hover:opacity-80" to="/profile">Profiel</NuxtLink>
         <NuxtLink class="opacity-50 hover:opacity-80" to="/dashboard">Dashboard</NuxtLink>
-        <NuxtLink class="opacity-50 hover:opacity-80" :to="repoLinkPublic">Projecten</NuxtLink>
-        <NuxtLink class="opacity-50 hover:opacity-80" :to="repoLink">Github</NuxtLink>
-        <NuxtLink class="opacity-50 hover:opacity-80" :to="berichtenLinkPublic">Berichten</NuxtLink>
+        <ClientOnly>
+            <NuxtLink class="opacity-50 hover:opacity-80" :to="berichtenLinkPublic">Berichten</NuxtLink>
+            <NuxtLink class="opacity-50 hover:opacity-80" :to="repoLinkPublic">Projecten</NuxtLink>
+            <NuxtLink class="opacity-50 hover:opacity-80" :to="repoLink">Github</NuxtLink>
+            <template #fallback>
+                <NuxtLink class="opacity-50 hover:opacity-80" to="/dashboard/berichten">Berichten</NuxtLink>
+                <NuxtLink class="opacity-50 hover:opacity-80" to="/Repos">Projecten</NuxtLink>
+                <NuxtLink class="opacity-50 hover:opacity-80" to="/dashboard/Repos">Github</NuxtLink>
+            </template>
+        </ClientOnly>
     </div>
     <div v-if="openMenu" class="absolute top-0 left-0 z-10 w-full h-full p-4 pb-5 bg-black bg-opacity-20 ">
         <div :class="!Installed ? 'h-full' : 'h-[95%]'" class="w-full md:h-full p-5 bg-white dark:bg-[#0e0e0e] rounded-3xl">
@@ -15,9 +22,16 @@
                 <NuxtLink class="opacity-20 dark:opacity-60 hover:opacity-80" to="/portfolio">Home</NuxtLink>
                 <NuxtLink class="opacity-20 dark:opacity-60 hover:opacity-80" to="/profile">Profiel</NuxtLink>
                 <NuxtLink class="opacity-20 dark:opacity-60 hover:opacity-80" to="/dashboard">Dashboard</NuxtLink>
-                <NuxtLink class="opacity-20 dark:opacity-60 hover:opacity-80" :to="repoLinkPublic">Projecten</NuxtLink>
-                <NuxtLink class="opacity-20 dark:opacity-60 hover:opacity-80" :to="repoLink">Github</NuxtLink>
-                <NuxtLink class="opacity-20 dark:opacity-60 hover:opacity-80" :to="berichtenLinkPublic">Berichten</NuxtLink>
+                <ClientOnly>
+                    <NuxtLink class="opacity-20 dark:opacity-60 hover:opacity-80" :to="berichtenLinkPublic">Berichten</NuxtLink>
+                    <NuxtLink class="opacity-20 dark:opacity-60 hover:opacity-80" :to="repoLinkPublic">Projecten</NuxtLink>
+                    <NuxtLink class="opacity-20 dark:opacity-60 hover:opacity-80" :to="repoLink">Github</NuxtLink>
+                    <template #fallback>
+                        <NuxtLink class="opacity-20 dark:opacity-60 hover:opacity-80" to="/dashboard/berichten">Berichten</NuxtLink>
+                        <NuxtLink class="opacity-20 dark:opacity-60 hover:opacity-80" to="/Repos">Projecten</NuxtLink>
+                        <NuxtLink class="opacity-20 dark:opacity-60 hover:opacity-80" to="/dashboard/Repos">Github</NuxtLink>
+                    </template>
+                </ClientOnly>
             </div>
         </div>
     </div>
@@ -34,14 +48,14 @@ const openMenu = ref(false)
 const Installed = ref(false)
 
 const currentPage = useLocalStorage('AdminRepoPage').value
-repoLink.value = `/dashboard/Repos?Page=${currentPage}`
+repoLink.value = `/dashboard/Repos?Page=${currentPage || 1}`
 
 const currentPagePublic = useLocalStorage('RepoPage').value
-repoLinkPublic.value = `/Repos?Page=${currentPagePublic}`
+repoLinkPublic.value = `/Repos?Page=${currentPagePublic || 1}`
 
 
 const currentPageBerichten = useLocalStorage('BerichtenPage').value
-berichtenLinkPublic.value = `/dashboard/berichten?Page=${currentPageBerichten}`
+berichtenLinkPublic.value = `/dashboard/berichten?Page=${currentPageBerichten || 1}`
 
 onMounted(() => {
     if ($pwa.isInstalled) {

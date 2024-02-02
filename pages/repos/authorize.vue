@@ -26,7 +26,6 @@ const message = ref('')
 const loading =  ref(false)
 const Installed = ref(false)
 
-
 message.value = 'We zijn nu even de connectie aan het maken heb geduld. Je wordt zo door gestuurd naar de juiste pagina'
 const { code, installation_id } = useRoute().query
 if(!code || !installation_id) navigateTo('/')

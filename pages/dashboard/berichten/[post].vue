@@ -71,7 +71,7 @@ useHead({
     link: [{ rel: 'icon', type: 'image/png' }]
 })
 
-const { $pwa } = useNuxtApp()
+const { $pwa, $csrfFetch } = useNuxtApp()
 const Installed = ref(false)
 const MarkedPostId = ref(false)
 
@@ -98,7 +98,7 @@ if(error.value) {
 }
 
 const Logout = async () => {
-    await $fetch('/api/users', { method: 'DELETE' }); return navigateTo("/")
+    await $csrfFetch('/api/users', { method: 'DELETE' }); return navigateTo("/")
 }
 
 const OpenMail = async () => {
@@ -110,7 +110,7 @@ const OpenMail = async () => {
 
 const markMessage = async () => {
 
-    const data = await $fetch(`/api/berichten/posts/${PostID}`, {
+    const data = await $csrfFetch(`/api/berichten/posts/${PostID}`, {
         method: "PATCH",
     })
 

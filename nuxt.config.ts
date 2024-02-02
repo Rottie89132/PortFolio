@@ -19,7 +19,12 @@ export default defineNuxtConfig({
     "@formkit/auto-animate/nuxt",
     '@nuxtjs/color-mode',
     'nuxt-rate-limit',
+    "nuxt-csurf",
   ],
+  csurf: {
+    methodsToProtect: ['POST', 'PUT', 'PATCH', 'DELETE'],
+    addCsrfTokenToEventCtx: true
+  },
   colorMode: {
     classSuffix: ''
   },
@@ -113,8 +118,8 @@ export default defineNuxtConfig({
       enabled: true,
       type: "module",
       suppressWarnings: true,
-    }, 
-  }, 
+    },
+  },
   app: {
     head: {
       meta: [
@@ -131,6 +136,6 @@ export default defineNuxtConfig({
   nitro: {
     imports: {
       dirs: ["./server/serverUtils"],
-    }
-  },
+    },
+  }
 })

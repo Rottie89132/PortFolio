@@ -1,11 +1,11 @@
 <template>
     <ClientOnly>
         <Transition name="modal">
-            <div v-if="status" class="fixed top-0 z-10 flex items-end justify-center w-screen h-full bg-black md:justify-end bg-opacity-60 backdrop-blur-sm select-none ">
-                <div tabindex="0" class="mx-6 mb-[8%] md:mb-8 md:ml-[62%] xl:ml-[72%] outline-none rounded-xl" ref="modal">
+            <div v-if="status" class="fixed top-0 z-10 flex items-end justify-center w-screen h-full bg-black md:justify-center md:items-center bg-opacity-60 backdrop-blur-sm">
+                <div tabindex="0" class="mx-6 mb-[8%] md:mb-0 outline-none rounded-xl" ref="modal">
                     <Transition name="modalDelay">
                         <div ref="modalDelay" v-if="DelayStatus">
-                            <div class="p-8 bg-white rounded-2xl "> 
+                            <div class="p-8 bg-white md:max-w-[30vw] rounded-2xl "> 
                                 <div class="flex items-center justify-between mb-2 ">
                                     <h1 class="text-3xl font-bold ">{{ title }}</h1>
                                     <button @click="closeModal"><Icon name="pajamas:close-xs" size="2em"></Icon></button>
@@ -90,8 +90,8 @@ const schema = yup.object().shape({
 
 
 const schemaPut = yup.object().shape({
-    Naam: yup.string().min(4).max(32),
-    Email: yup.string().email(),
+    Naam: yup.string().min(4).max(32).optional(),
+    Email: yup.string().email().optional(),
 })
 
 const handleRequest = async (values: any, actions: any) => {
@@ -100,8 +100,8 @@ const handleRequest = async (values: any, actions: any) => {
 
 
     const { data, error, pending, refresh }: Record<string, any> = type.value == "password" ? 
-    await useFetch('/api/users', { method: "patch", body: values }) :
-    await useFetch('/api/users', { method: "put", body: values })
+    await useCsrfFetch('/api/users', { method: "patch", body: values }) :
+    await useCsrfFetch('/api/users', { method: "put", body: values })
 
     if (error.value) {
         loading.value = false

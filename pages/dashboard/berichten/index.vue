@@ -99,7 +99,7 @@ useHead({
     link: [{ rel: 'icon', type: 'image/png' }]
 })
 
-const { $pwa, $StartSocket, $Socket } = useNuxtApp();
+const { $pwa, $StartSocket, $Socket, $csrfFetch } = useNuxtApp();
 const Installed = ref(false);
 const Items = ref([]);
 const currentPage = ref();
@@ -120,7 +120,7 @@ onMounted(() => {
 })
 
 const Logout = async () => {
-    await $fetch('/api/users', { method: 'DELETE' }); return navigateTo("/")
+    await $csrfFetch('/api/users', { method: 'DELETE' }); return navigateTo("/")
 }
 
 const navigateToPage = async () => {

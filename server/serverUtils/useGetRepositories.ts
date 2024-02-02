@@ -10,9 +10,6 @@ export default async (token: any, currentPage: any, resolve: any) => {
     }
 
     response.data.repositories.sort((a: any, b: any) => new Date(b.pushed_at).getTime() - new Date(a.pushed_at).getTime());
-    
-
-
     const result = [];
     
     for (let i = 0; i < response.data.repositories.length; i += 4) result.push(response.data.repositories.slice(i, i + 4))

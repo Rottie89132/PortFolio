@@ -25,7 +25,13 @@ export default defineEventHandler((event) => {
                 message: "The request requires user authentication."
             })
 
-            if (Naam) await User.findOneAndUpdate({ _id: user.Id }, { Username: Naam })
+            if (Naam) await User.findOneAndUpdate({ _id: user.Id }, { Username: Naam }).catch((err) => {
+                return reject({
+                    statusCode: 500,
+                    statusMessage: "Internal Server Error",
+                    message: "The server encountered an unexpected condition that prevented it from fulfilling the request."
+                })
+            })
             if (Email) await User.findOneAndUpdate({ _id: user.Id }, { Email: Email })
 
             const AuthUser: any = await User.findById(user.Id);

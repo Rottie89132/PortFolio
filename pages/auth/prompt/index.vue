@@ -18,7 +18,7 @@
                     <h1 class="text-2xl text-clip md:text-left text-center font-bold text-[#131313] dark:text-white">Account verfificatie </h1>
                     <p class="text-xs text-center md:text-left md:text-sm opacity-85 text-[#131313] dark:text-white">Voer de 6-cijferige code in die je via de authenticator app hebt ontvangen. </p>
                 </div>
-                <v-otp-input ref="otpInput" v-model:value="bindModal" class=" md:pb-16 flex mt-6 items-center md:gap-4 gap-2 justify-center md:justify-normal " :input-classes="error ? 'otp-input opt-inputErorr' : success ? 'otp-input opt-inputSuccess' : 'otp-input'" separator="" :num-inputs="6"
+                <v-otp-input ref="otpInput" v-model:value="bindModal" class=" md:pb-16 flex mt-6 items-center md:gap-4 gap-2 justify-center md:justify-normal " :input-classes="error ? ' otp-input opt-inputErorr' : success ? ' otp-input opt-inputSuccess' : 'otp-input opt-default'" separator="" :num-inputs="6"
                     :should-auto-focus="true" input-type="number"
                     :conditionalClass="['code-1', 'code-2', 'code-3', 'code-4', 'code-5', 'code-6']"
                     :is-disabled="loading"
@@ -38,7 +38,7 @@
 <script setup >
 import VOtpInput from "vue3-otp-input";
 
-const { $pwa } = useNuxtApp()
+const { $pwa, $csrfFetch } = useNuxtApp()
 const Installed = ref(false)
 const otpInput = ref(null);
 const bindModal = ref("");
@@ -55,7 +55,7 @@ const handleOnComplete = (value) => {
     loading.value = true
 
     setTimeout(async () => {
-        const data = await $fetch('/api/auth/verify', {
+        const data = await $csrfFetch('/api/auth/verify', {
             method: 'POST',
             body: {token: value}
         })
@@ -91,7 +91,11 @@ onMounted(() => {
 
 <style>
 .otp-input {
-    @apply w-9 h-9 md:w-10 md:h-10 text-center flex items-center justify-center transition-opacity delay-100 border-2 opacity-45 border-black dark:border-white dark:text-white rounded-md outline-none focus:outline-none bg-white dark:bg-neutral-900;
+    @apply w-9 h-9 md:w-10 md:h-10 text-center flex items-center justify-center transition-opacity delay-100 border-2 opacity-45 rounded-md outline-none focus:outline-none bg-white dark:bg-neutral-900 dark:text-white
+}
+
+.opt-default {
+    @apply border-black dark:border-white
 }
 
 .otp-input.is-complete {
@@ -99,12 +103,11 @@ onMounted(() => {
 }
 
 .opt-inputErorr {
-    @apply border-[#B92538] 
+    @apply border-[#B92538] opacity-60 text-red-600
 }
 
 .opt-inputSuccess {
-    @apply border-[#28B925]
-    
+    @apply border-[#28B925] opacity-60
 }
 
 .otp-input:-webkit-autofill,

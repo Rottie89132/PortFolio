@@ -37,7 +37,7 @@
                         <div v-if="!userAuthorized" class="bg-[#F7F7F7] dark:bg-[#111111] p-4 rounded-xl">
                             <div class="flex items-center justify-between">
                                 <h1 class="text-xl dark:text-white font-extrabold mb-1">Berichten</h1>
-                                <NuxtLink to="/about" class="text-indigo-600 dark:text-indigo-500 text-[0.65em] text-right"> Bekijk alle berichten</NuxtLink>
+                                <NuxtLink to="/berichten" class="text-indigo-600 dark:text-indigo-500 text-[0.65em] text-right"> Bekijk alle berichten</NuxtLink>
                             </div>
                             <p class="text-[0.7em] dark:text-white opacity-75 font-medium leading-4">Je hebt nog geen berichten ontvangen, stuur een bericht. Of wacht tot je een bericht ontvangt. <!-- Je hebt 2 nieuwe berichten ontvangen, check je mailbox! --></p>
                         </div>
@@ -45,7 +45,12 @@
                             <div class="flex items-center justify-between">
                                 <h1 class="text-xl dark:text-white font-extrabold mb-1">Projecten
                                 </h1>
-                                <NuxtLink :to="repoLink" class="text-indigo-600 dark:text-indigo-500 text-[0.65em] text-right">Bekijk alle projecten</NuxtLink>
+                                <ClientOnly>
+                                    <NuxtLink :to="repoLink" class="text-indigo-600 dark:text-indigo-500 text-[0.65em] text-right">Bekijk alle projecten</NuxtLink>
+                                    <template #fallback>
+                                        <NuxtLink to="/Repos" class="text-indigo-600 dark:text-indigo-500 text-[0.65em] text-right">Bekijk alle projecten</NuxtLink>
+                                    </template>
+                                </ClientOnly>
                             </div>
                             <p class="text-[0.7em] dark:text-white opacity-75 leading-4 font-medium" v-if="loading">Even wachten we zijn jouw gemarkeerde projecten aan het ophalen.</p>
                             <div :class="savedLikes.length < 4 ? ' gap-[0.45rem]' : ' gap-[0.6rem]'" class="snap-x snap-proximity scroll-smooth w-full rounded-lg overflow-auto flex items-center mt-1" v-else-if="savedLikes.length > 0">
@@ -114,9 +119,8 @@
         </div>
     </div>
     <ModalVerification v-model:username="username" v-model:email="email" v-model:type="type" v-model:status="OpenModule" v-model:DelayStatus="OpenModuleDelay" v-model:title="title">
-        <Action2fa v-if="type == '2fa'" 
-        v-model:Generated="Generated"   />
-        <ActionDeletion v-else-if="type == 'delete'" />
+        <Action2fa v-if="type == '2fa'" v-model:Generated="Generated"   />
+        <ActionDeletion v-model:status="OpenModule" v-model:DelayStatus="OpenModuleDelay" v-else-if="type == 'delete'" />
     </ModalVerification>
 </template>
 
@@ -143,7 +147,7 @@ useHead({
     link: [{ rel: "icon", type: "image/png" }],
 });
 
-const { $pwa, $StartSocket } = useNuxtApp();
+const { $pwa, $StartSocket, $csrfFetch } = useNuxtApp();
 const OpenModule = ref(false);
 const OpenModuleDelay = ref(false);
 const Installed = ref(false);
@@ -161,7 +165,7 @@ const email = ref("");
 
 const currentPage = useLocalStorage("RepoPage").value;
 const storage = useLocalStorage("SavedLikes", []);
-repoLink.value = `/Repos?Page=${currentPage}`;
+repoLink.value = `/Repos?Page=${currentPage || 1}`;
 
 const { data } = await useFetch("/api/users");
 TwoFAEnabled.value = data.value.user.is2FAEnabled;
@@ -220,8 +224,7 @@ const RemoveTwoFactor = async () => {
 };
 
 const Logout = async () => {
-    await $fetch("/api/users", { method: "DELETE" });
-    return navigateTo("/");
-};
+    await $csrfFetch('/api/users', { method: 'DELETE' }); return navigateTo("/")
+}
 
 </script>

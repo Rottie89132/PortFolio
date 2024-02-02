@@ -12,10 +12,8 @@
                         <ClientOnly>
                             <ColorMode />
                             <Online />
-                            <button v-if="data?.statusCode == 200" @click="Logout"
-                                class="px-6 py-1 dark:text-neutral-800 font-semibold dark:bg-white dark:hover:bg-white dark:hover:ring-white dark:ring-white text-white rounded-lg bg-neutral-800 hover:bg-neutral-900 ring-2 ring-neutral-800 hover:ring-neutral-900">Uitloggen</button>
-                            <button v-else @click="HandleModule('Inloggen')"
-                                class="px-6 py-1 dark:text-neutral-800 font-semibold dark:bg-white dark:hover:bg-white dark:hover:ring-white dark:ring-white text-white rounded-lg bg-neutral-800 hover:bg-neutral-900 ring-2 ring-neutral-800 hover:ring-neutral-900">{{ textLabel }}</button>
+                            <button v-if="data?.statusCode == 200" @click="Logout" class="px-6 py-1 dark:text-neutral-800 font-semibold dark:bg-white dark:hover:bg-white dark:hover:ring-white dark:ring-white text-white rounded-lg bg-neutral-800 hover:bg-neutral-900 ring-2 ring-neutral-800 hover:ring-neutral-900">Uitloggen</button>
+                            <button v-else @click="HandleModule('Inloggen')" class="px-6 py-1 dark:text-neutral-800 font-semibold dark:bg-white dark:hover:bg-white dark:hover:ring-white dark:ring-white text-white rounded-lg bg-neutral-800 hover:bg-neutral-900 ring-2 ring-neutral-800 hover:ring-neutral-900">{{ textLabel }}</button>
                         </ClientOnly>
                     </div>
                 </div>
@@ -121,7 +119,7 @@
 
 <script setup>
 
-const { $pwa, $StartSocket, $Socket } = useNuxtApp()
+const { $pwa, $StartSocket, $Socket, $csrfFetch  } = useNuxtApp()
 const items = ref([]);
 const currentPage = ref()
 const router = useRouter();
@@ -171,7 +169,7 @@ currentPage.value = useRoute().query.Page
 const { data } = await useFetch('/api/users')
 
 const Logout = async () => {
-    await $fetch('/api/users', { method: 'DELETE' }); return navigateTo("/")
+    await $csrfFetch('/api/users', { method: 'DELETE' }); return navigateTo("/")
 }
 
 const navigateToPage = async () => {
@@ -182,8 +180,7 @@ const navigateToPage = async () => {
 
     router.push({ path: '/Repos', query: { Page: currentPage.value } })
 
-    //const { data: Repositories } = await useFetch(`/api/repo/${currentPage.value}`)
-    const { data: Repositories } = await useFetch(`/api/repo/${currentPage.value}`, {
+    const { data: Repositories } = await useCsrfFetch(`/api/repo/${currentPage.value}`, {
         method: "POST", body: useLocalStorage('SavedLikes', []).value.filter(e => e.liked == true)
     })
     loadedRepos(Repositories)
@@ -198,8 +195,7 @@ const PreviousPage = async () => {
     router.push({ path: '/Repos', query: { Page: page.value } })
     currentPage.value = page.value
 
-    // const { data: Repositories } = await useFetch(`/api/repo/${page.value}`)
-    const { data: Repositories } = await useFetch(`/api/repo/${page.value}`, {
+    const { data: Repositories } = await useCsrfFetch(`/api/repo/${page.value}`, {
         method: "POST", body: useLocalStorage('SavedLikes', []).value.filter(e => e.liked == true)
     })
     loadedRepos(Repositories)
@@ -215,8 +211,7 @@ const NextPage = async () => {
     router.push({ path: '/Repos', query: { Page: page.value } })
     currentPage.value = page.value
 
-    // const { data: Repositories } = await useFetch(`/api/repo/${page.value}`)
-    const { data: Repositories } = await useFetch(`/api/repo/${page.value}`, {
+    const { data: Repositories } = await useCsrfFetch(`/api/repo/${page.value}`, {
         method: "POST", body: useLocalStorage('SavedLikes', []).value.filter(e => e.liked == true)
     })
     loadedRepos(Repositories)
@@ -266,7 +261,6 @@ const loadedRepos = async (Repositories) => {
         useLocalStorage('RepoPage').value = Repositories.value.page
 
         Repos.value.forEach(item => {
-            // items.value.push({ ...item, loaded: false })
             const saved = savedRepos.value.find(e => e.id == item.repo_id) || { liked: false }
             if (!saved.liked) items.value.push({ ...item, loaded: false })
             else items.value.unshift({ ...item, loaded: false })
@@ -276,7 +270,7 @@ const loadedRepos = async (Repositories) => {
     else {
         currentPage.value = 1
         useLocalStorage('RepoPage').value = 1
-        const { data: Repositories } = await useFetch(`/api/repo/${currentPage.value}`)
+        const { data: Repositories } = await useCsrfFetch(`/api/repo/${currentPage.value}`)
         router.push({ path: '/Repos', query: { Page: currentPage.value } })
 
         Repos.value = Repositories.value?.Response
@@ -286,7 +280,6 @@ const loadedRepos = async (Repositories) => {
             currentPage.value = Repositories.value.page
             useLocalStorage('RepoPage').value = Repositories.value.page
             Repos.value.forEach(item => {
-                // items.value.push({ ...item, loaded: false })
                 const saved = savedRepos.value.find(e => e.id == item.repo_id) || { liked: false }
                 if (!saved.liked) items.value.push({ ...item, loaded: false })
                 else items.value.unshift({ ...item, loaded: false })
@@ -300,8 +293,7 @@ const loadedRepos = async (Repositories) => {
 
 
 watch(ReactiveEvent, async () => {
-    // const { data: Repositories } = await useFetch(`/api/repo/${useRoute().query.Page}`)
-    const { data: Repositories } = await useFetch(`/api/repo/${useRoute().query.Page}`, {
+    const { data: Repositories } = await useCsrfFetch(`/api/repo/${useRoute().query.Page}`, {
         method: "POST", body: useLocalStorage('SavedLikes', []).value.filter(e => e.liked == true)
     })
 
@@ -312,7 +304,7 @@ watch(ReactiveEvent, async () => {
 
 if(process.client){
     setTimeout(async () => {
-        const { data: Repositories } = await useFetch(`/api/repo/${currentPage.value}`, {
+        const { data: Repositories } = await useCsrfFetch(`/api/repo/${currentPage.value}`, {
             method: "POST", body: useLocalStorage('SavedLikes', []).value.filter(e => e.liked == true)
         })
 

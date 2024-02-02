@@ -1,11 +1,11 @@
 <template>
     <ClientOnly>
         <Transition name="modal">
-            <div v-if="status" class="fixed select-none top-0 bg-black bg-opacity-60 backdrop-blur-sm items-end z-10 flex justify-center w-screen h-full md:justify-end ">
-                <div tabindex="0" class="mx-6 mb-[8%] md:mb-8 md:ml-[64%] xl:ml-[68%] outline-none rounded-xl" ref="modal">
+            <div v-if="status" class="fixed top-0 z-10 flex items-end justify-center w-screen h-full bg-black md:justify-center md:items-center bg-opacity-60 backdrop-blur-sm">
+                <div tabindex="0" class="mx-6 mb-[8%] md:mb-0 outline-none rounded-xl" ref="modal">
                     <Transition name="modalDelay">
                         <div v-if="DelayStatus" ref="modalDelay">
-                            <div class="p-4 bg-white rounded-xl ">
+                            <div class="p-4 bg-white md:max-w-[30vw] rounded-xl ">
                                 <div class="flex items-center gap-2 ">
                                     <h1 class="text-xl font-bold mb-1 ">{{ texthead }}</h1>
                                 </div>

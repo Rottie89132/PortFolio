@@ -3,7 +3,12 @@
     <div class="items-center hidden gap-6 font-bold md:flex dark:text-white">
         <NuxtLink class="opacity-50 hover:opacity-80" to="/portfolio">Home</NuxtLink>
         <NuxtLink class="opacity-50 hover:opacity-80" to="/profile">Profiel</NuxtLink>
-        <NuxtLink class="opacity-50 hover:opacity-80" :to="repoLink">Projecten</NuxtLink>
+        <ClientOnly>
+            <NuxtLink class="opacity-50 hover:opacity-80" :to="repoLink">Projecten</NuxtLink>
+            <template #fallback>
+                    <NuxtLink class="opacity-50 hover:opacity-80" to="/Repos">Projecten</NuxtLink>
+            </template>
+        </ClientOnly>
         <NuxtLink class="opacity-50 hover:opacity-80" to="/berichten">Berichten</NuxtLink>
         <NuxtLink class="opacity-50 hover:opacity-80" to="/about">About</NuxtLink>
     </div>
@@ -13,7 +18,12 @@
                 <div class="grid text-[3.2em] dark:text-white font-black mt-6 leading-[1.2em] select-none">
                     <NuxtLink class="opacity-20 dark:opacity-60 hover:opacity-80" to="/portfolio">Home</NuxtLink>
                     <NuxtLink class="opacity-20 dark:opacity-60 hover:opacity-80" to="/profile">Profiel</NuxtLink>
-                    <NuxtLink class="opacity-20 dark:opacity-60 hover:opacity-80" :to="repoLink">Projecten</NuxtLink>
+                    <ClientOnly>
+                        <NuxtLink class=" dark:opacity-60 opacity-20 hover:opacity-80" :to="repoLink">Projecten</NuxtLink>
+                        <template #fallback>
+                            <NuxtLink to="/Repos" class=" dark:opacity-60 opacity-20 hover:opacity-80">Projecten</NuxtLink>
+                        </template>
+                    </ClientOnly>
                     <NuxtLink class="opacity-20 dark:opacity-60 hover:opacity-80" to="/berichten">Berichten</NuxtLink>
                     <NuxtLink class="opacity-20 dark:opacity-60 hover:opacity-80" to="/about">About</NuxtLink>
                 </div>
@@ -30,7 +40,7 @@ const openMenu = ref(false)
 const Installed = ref(false)
 
 const currentPage = useLocalStorage('RepoPage').value
-repoLink.value = `/Repos?Page=${currentPage}`
+repoLink.value = `/Repos?Page=${currentPage || 1}`
 
 onMounted(() => {
     if ($pwa.isInstalled) {

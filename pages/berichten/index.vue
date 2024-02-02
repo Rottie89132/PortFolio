@@ -12,16 +12,16 @@
                         <ClientOnly>
                             <ColorMode />
                             <Online />
-                            <button @click="Logout" class="px-6 py-1 dark:text-neutral-800 font-semibold dark:bg-white dark:hover:bg-white dark:hover:ring-white dark:ring-white text-white rounded-lg bg-neutral-800 hover:bg-neutral-900 ring-2 ring-neutral-800 hover:ring-neutral-900">
-                                Uitloggen
-                            </button>
-                            
+                            <button @click="Logout" class="px-6 py-1 dark:text-neutral-800 font-semibold dark:bg-white dark:hover:bg-white dark:hover:ring-white dark:ring-white text-white rounded-lg bg-neutral-800 hover:bg-neutral-900 ring-2 ring-neutral-800 hover:ring-neutral-900">Uitloggen</button>
                         </ClientOnly>
                     </div>
                 </div>
             </div>
-            <div class="w-full h-fit mt-6 md:my-10 xl:mt-20 md:w-[89.2%]">
-                
+            <div class=" w-full h-fit mt-6 md:my-10 xl:mt-20  md:w-[89.2%]  ">
+                <div class="flex items-center justify-between gap-3 mb-3">
+                    <h1 class="text-[1.5em] dark:text-white text-black font-extrabold ">Berichten</h1>
+                </div>
+                <p class="opacity-75 dark:text-white ">Helaas je hebt nog geen berichten ontvangen. Kom later terug om te kijken of je berichten hebt ontvangen.</p>
             </div>
         </div>
     </div>
@@ -46,7 +46,11 @@ useHead({
     link: [{ rel: 'icon', type: 'image/png' }],
 });
 
-const { $pwa } = useNuxtApp();
+definePageMeta({
+    middleware: ["user-auth"],
+});
+
+const { $pwa, $csrfFetch } = useNuxtApp();
 const Installed = ref(false);
 const OpenModule = ref(false);
 const OpenModuleDelay = ref(false);
@@ -66,8 +70,7 @@ const PostID = useRoute().params.post;
 const { data, error, pending, refresh } = await useFetch('/api/users');
 
 const Logout = async () => {
-    await $fetch('/api/users', { method: 'DELETE' });
-    return navigateTo('/');
+    await $csrfFetch('/api/users', { method: 'DELETE' }); return navigateTo('/');
 };
 
 const HandleModule = async type => {
