@@ -119,7 +119,7 @@
 
 <script setup>
 
-const { $pwa, $StartSocket, $Socket, $csrfFetch  } = useNuxtApp()
+const { $pwa, $PusherOnStart, $PusherOnEvent, $csrfFetch  } = useNuxtApp()
 const items = ref([]);
 const currentPage = ref()
 const router = useRouter();
@@ -158,8 +158,8 @@ useHead({
 
 onMounted(async () => {
     if ($pwa.isInstalled) Installed.value = true
-    $StartSocket()
-    $Socket('eventRepositories', ReactiveEvent)
+    $PusherOnStart()
+    $PusherOnEvent('client-eventRepositories', ReactiveEvent)
 })
 
 const noTags = "Momenteel niet beschikbaar"

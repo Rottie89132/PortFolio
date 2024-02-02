@@ -132,7 +132,7 @@ useHead({
 })
 
 useLocalStorage('AdminRepoPage', 1)
-const { $pwa, $StartSocket, $csrfFetch } = useNuxtApp()
+const { $pwa, $PusherOnStart, $csrfFetch } = useNuxtApp()
 const currentPage = ref()
 const hidebuttons = ref([])
 const loading = ref(false)
@@ -160,7 +160,7 @@ const Logout = async () => {
 
 onMounted(() => {
     if ($pwa.isInstalled) Installed.value = true
-    $StartSocket()
+    $PusherOnStart()
 })
 
 const navigateToPage = async () => {

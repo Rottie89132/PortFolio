@@ -114,7 +114,7 @@ definePageMeta({
 })
 
 
-const { $pwa, $StartSocket, $Socket , $csrfFetch } = useNuxtApp()
+const { $pwa, $PusherOnStart, $PusherOnEvent , $csrfFetch } = useNuxtApp()
 const MonthlyVisted = ref(25)
 const MonthlyMessages = ref(5)
 const currentPage = useLocalStorage('AdminRepoPage', 1)
@@ -147,8 +147,8 @@ onMounted(() => {
             location.replace(`#Repo:${Repos.value.length - 1}`)
         }, 1000);
     }
-    $StartSocket()
-    $Socket('eventNotification', ReactiveEvent)
+    $PusherOnStart()
+    $PusherOnEvent('client-eventNotification', ReactiveEvent)
     
 })
 

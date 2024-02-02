@@ -71,7 +71,7 @@ useHead({
     link: [{ rel: 'icon', type: 'image/png' }]
 })
 
-const { $pwa, $csrfFetch } = useNuxtApp()
+const { $pwa, $csrfFetch, $PusherOnStart } = useNuxtApp()
 const Installed = ref(false)
 const MarkedPostId = ref(false)
 
@@ -82,7 +82,7 @@ onMounted(() => {
             location.replace(`#ToBottem`)
         }, 3500)
     }
-
+    $PusherOnStart()
 })
 
 const PostID = useRoute().params.post

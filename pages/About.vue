@@ -288,7 +288,7 @@ useHead({
     link: [{ rel: 'icon', type: 'image/png' }]
 })
 
-const { $pwa, $StartSocket, $csrfFetch } = useNuxtApp()
+const { $pwa, $PusherOnStart, $csrfFetch } = useNuxtApp()
 const OpenModule = ref(false)
 const OpenModuleDelay = ref(false)
 const AuthModule = ref(true)
@@ -314,7 +314,7 @@ const Logout = async () => {
 
 onMounted(() => {
     if ($pwa.isInstalled) Installed.value = true
-    $StartSocket()
+    $PusherOnStart()
 })
 
 const HandleModule = async (type) => {

@@ -38,7 +38,7 @@
 <script setup >
 import VOtpInput from "vue3-otp-input";
 
-const { $pwa, $csrfFetch } = useNuxtApp()
+const { $pwa, $csrfFetch, $PusherOnStart } = useNuxtApp()
 const Installed = ref(false)
 const otpInput = ref(null);
 const bindModal = ref("");
@@ -83,6 +83,7 @@ const handleOnComplete = (value) => {
 
 onMounted(() => {
     if ($pwa.isInstalled) Installed.value = true
+    $PusherOnStart()
 })
 
 

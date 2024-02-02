@@ -147,7 +147,7 @@ useHead({
     link: [{ rel: "icon", type: "image/png" }],
 });
 
-const { $pwa, $StartSocket, $csrfFetch } = useNuxtApp();
+const { $pwa, $PusherOnStart, $csrfFetch } = useNuxtApp();
 const OpenModule = ref(false);
 const OpenModuleDelay = ref(false);
 const Installed = ref(false);
@@ -175,7 +175,7 @@ email.value = data.value.user.Email;
 
 onMounted(() => {
     if ($pwa.isInstalled) Installed.value = true;
-    $StartSocket();
+    $PusherOnStart();
 
     savedLikes.value = storage.value;
     loading.value = false;

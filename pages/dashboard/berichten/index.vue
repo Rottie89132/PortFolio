@@ -99,7 +99,7 @@ useHead({
     link: [{ rel: 'icon', type: 'image/png' }]
 })
 
-const { $pwa, $StartSocket, $Socket, $csrfFetch } = useNuxtApp();
+const { $pwa, $PusherOnStart, $PusherOnEvent, $csrfFetch } = useNuxtApp();
 const Installed = ref(false);
 const Items = ref([]);
 const currentPage = ref();
@@ -114,8 +114,8 @@ const { data: Berichten, error, pending, refresh } = await useFetch(`/api/berich
 
 onMounted(() => {
     if ($pwa.isInstalled) Installed.value = true
-    $StartSocket()
-    $Socket('eventNotification', ReactiveEvent)
+    $PusherOnStart()
+    $PusherOnEvent('client-eventNotification', ReactiveEvent)
     
 })
 

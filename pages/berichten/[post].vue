@@ -54,7 +54,7 @@ definePageMeta({
     middleware: ["user-auth"],
 });
 
-const { $pwa, $csrfFetch } = useNuxtApp();
+const { $pwa, $csrfFetch, $PusherOnStart } = useNuxtApp();
 const Installed = ref(false);
 const OpenModule = ref(false);
 const OpenModuleDelay = ref(false);
@@ -65,9 +65,8 @@ const buttonLabel = ref('');
 const textLabel = ref('Inloggen');
 
 onMounted(() => {
-    if ($pwa.isInstalled) {
-        Installed.value = true;
-    }
+    if ($pwa.isInstalled) Installed.value = true;
+    $PusherOnStart();
 });
 
 const PostID = useRoute().params.post;

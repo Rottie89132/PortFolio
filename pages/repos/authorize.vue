@@ -21,7 +21,7 @@
 
 <script setup>
 
-const { $pwa } = useNuxtApp()
+const { $pwa, $PusherOnStart } = useNuxtApp()
 const message = ref('')
 const loading =  ref(false)
 const Installed = ref(false)
@@ -31,9 +31,8 @@ const { code, installation_id } = useRoute().query
 if(!code || !installation_id) navigateTo('/')
 
 onMounted(() => {
-    if ($pwa.isInstalled) {
-        Installed.value = true
-    }
+    if ($pwa.isInstalled) Installed.value = true
+    $PusherOnStart()
 })
 
 const handleInstall = () => {

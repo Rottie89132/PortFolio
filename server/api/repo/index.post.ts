@@ -1,4 +1,13 @@
-import { io } from "socket.io-client";
+import PusherServer from "pusher"
+
+const config = useRuntimeConfig()
+const PushServer = new PusherServer({
+    appId: config.PusherAppID,
+    key: config.public.PusherAppKey,
+    secret: config.PusherAppSecret,
+    cluster: config.public.cluster,
+    useTLS: true
+});
 
 export default defineEventHandler( async (event) => {
     return new Promise(async (resolve, reject) => {
@@ -25,8 +34,7 @@ export default defineEventHandler( async (event) => {
             message: "The request has not been modified since the specified time."
         })
 
-        const socket = io('ws://localhost:3500');
-        socket.emit("eventRepositories", { actionID: crypto.randomUUID() });
+        PushServer.trigger(config.public.PusherChannel, "client-eventRepositories", { actionID: crypto.randomUUID() });
 
         await Repositories.create({
             repo_id: repo.data.id,

@@ -20,6 +20,7 @@ export default defineNuxtConfig({
     '@nuxtjs/color-mode',
     'nuxt-rate-limit',
     "nuxt-csurf",
+    'nuxt-scheduler'
   ],
   csurf: {
     methodsToProtect: ['POST', 'PUT', 'PATCH', 'DELETE'],
@@ -38,9 +39,17 @@ export default defineNuxtConfig({
     SaltToken: process.env.SaltToken,
     AnalyticsID: process.env.AnalyticsID,
     appId: process.env.GitAppId,
+    PusherAppID: process.env.PusherAppID,
+    PusherAppSecret: process.env.PusherAppSecret,
     privateKey: process.env.GitPrivateKey,
     clientId: process.env.GitClientID,
     clientSecret: process.env.GitClientSecret,
+    FetchServer: process.env.FetchServer,
+    public: {
+      PusherAppKey: process.env.PusherAppKey,
+      cluster: process.env.cluster,
+      PusherChannel: process.env.PusherChannel,
+    }
   },
   nuxtRateLimit: {
     enabled: true,
