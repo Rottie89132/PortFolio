@@ -24,3 +24,5 @@ logs
 .env.*
 !.env.example
 PK.private-key.pem
+public/informatie/
+
