@@ -90,7 +90,7 @@ const handleRequest = async (values: any, actions: any) => {
     loading.value = true
 
     const formData = new FormData();
-    formData.append('pdf', values.CV);
+    formData.append('file', values.CV);
     const { data, error, pending, refresh } = await useCsrfFetch('/api/upload', { method: 'post', body: formData })
 
     if (error.value) {

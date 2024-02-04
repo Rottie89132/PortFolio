@@ -15,8 +15,7 @@
                             <button v-if="data?.statusCode == 200" @click="Logout"
                                 class="px-6 py-1 dark:text-neutral-800 font-semibold dark:bg-white dark:hover:bg-white dark:hover:ring-white dark:ring-white text-white rounded-lg bg-neutral-800 hover:bg-neutral-900 ring-2 ring-neutral-800 hover:ring-neutral-900">Uitloggen</button>
                             <button v-else @click="HandleModule('Inloggen')"
-                                class="px-6 py-1 dark:text-neutral-800 font-semibold dark:bg-white dark:hover:bg-white dark:hover:ring-white dark:ring-white text-white rounded-lg bg-neutral-800 hover:bg-neutral-900 ring-2 ring-neutral-800 hover:ring-neutral-900">{{ textLabel
-                                }}</button>
+                                class="px-6 py-1 dark:text-neutral-800 font-semibold dark:bg-white dark:hover:bg-white dark:hover:ring-white dark:ring-white text-white rounded-lg bg-neutral-800 hover:bg-neutral-900 ring-2 ring-neutral-800 hover:ring-neutral-900">{{ textLabel }}</button>
                         </ClientOnly>
                     </div>
                 </div>
@@ -36,7 +35,7 @@
                                 class="px-4 py-2 font-semibold dark:text-neutral-800 dark:hover:bg-gray-100 dark:hover:ring-gray-100 dark:bg-white dark:ring-white text-sm text-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-md">
                                 <Icon class=" -mt-1 mr-1 " name="ri:external-link-line" size="1.2em" />Linkedin
                             </a>
-                            <a href="/informatie/RM-cv.pdf" download
+                            <a :href="datalink" download
                                 class="px-2 py-2 font-semibold dark:text-neutral-800 dark:hover:bg-gray-100 dark:hover:ring-gray-100 dark:bg-white dark:ring-white text-sm text-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-md">
                                 <Icon class=" " name="ri:file-pdf-2-line" size="1.4em" />
                             </a>
@@ -49,10 +48,12 @@
                             </h3>
                         </div>
                         <div class=" flex gap-x-4">
-                            <a href="https://www.linkedin.com/in/roland-meijer-07bb97198/" target="_blank" class="px-4 py-2 font-semibold dark:text-neutral-800 dark:hover:bg-gray-100 dark:hover:ring-gray-100 dark:bg-white dark:ring-white text-sm text-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-md">
+                            <a href="https://www.linkedin.com/in/roland-meijer-07bb97198/" target="_blank"
+                                class="px-4 py-2 font-semibold dark:text-neutral-800 dark:hover:bg-gray-100 dark:hover:ring-gray-100 dark:bg-white dark:ring-white text-sm text-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-md">
                                 <Icon class=" -mt-1 mr-1 " name="ri:external-link-line" size="1.2em" />Linkedin
                             </a>
-                            <a href="/informatie/RM-cv.pdf" download class="px-2 py-2 font-semibold dark:text-neutral-800 dark:hover:bg-gray-100 dark:hover:ring-gray-100 dark:bg-white dark:ring-white text-sm text-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-md">
+                            <a :href="datalink"
+                                class="px-2 py-2 font-semibold dark:text-neutral-800 dark:hover:bg-gray-100 dark:hover:ring-gray-100 dark:bg-white dark:ring-white text-sm text-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-md">
                                 <Icon class=" " name="ri:file-pdf-2-line" size="1.4em" />
                             </a>
                         </div>
@@ -301,6 +302,7 @@ const hidecard2 = ref(false)
 const hidecard3 = ref(false)
 const Installed = ref(false)
 const datatype = ref('')
+const datalink = ref('')
 
 const repoLink = ref()
 const currentPage = useLocalStorage('RepoPage').value
@@ -315,6 +317,7 @@ const Logout = async () => {
 onMounted(() => {
     if ($pwa.isInstalled) Installed.value = true
     $PusherOnStart()
+    datalink.value = `./file/roland-cv.png`
 })
 
 const HandleModule = async (type) => {
@@ -341,6 +344,8 @@ const OpenMail = async () => {
 
 </script>
 
-<style scoped>::-webkit-scrollbar {
+<style scoped>
+::-webkit-scrollbar {
     @apply hidden
-}</style>
+}
+</style>

@@ -24,6 +24,6 @@ logs
 .env.*
 !.env.example
 PK.private-key.pem
-
+Resources/
 
 

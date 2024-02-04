@@ -39,7 +39,8 @@ export default defineEventHandler(async (event) => {
                 fs.mkdirSync(path.join(process.cwd(), 'Resources'), { recursive: true });
             }
 
-            const filePath = path.join(process.cwd(), 'Resources', "roland-cv.png")
+            const extension = path.extname(file.filename);
+            const filePath = path.join(process.cwd(), 'Resources', `roland-cv${extension}`)
             fs.writeFileSync(filePath, file.data)
             uploadedFilePaths.push(filePath)
         })
