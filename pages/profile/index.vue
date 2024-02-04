@@ -73,7 +73,7 @@
                             <NuxtLink to="/about" class="text-indigo-600 dark:text-indigo-500 text-[0.65em] text-right">Bekijken</NuxtLink>
                         </div>
                         <p class="text-[0.7em] dark:text-white opacity-75 leading-4 font-medium">Hier bevindt zich de optie om de inhoud van de 'About'-pagina te bewerken naar jouw wensen</p>
-                        <button class="mt-2 px-4 py-1 rounded-lg text-white dark:text-black bg-black dark:bg-white font-medium text-[0.8em]">Bewerken</button>
+                        <button @click="FileUpload" class="mt-2 px-4 py-1 rounded-lg text-white dark:text-black bg-black dark:bg-white font-medium text-[0.8em]">Bewerken</button>
                     </div>
                     <div class="grid md:grid-cols-3 gap-y-3 gap-x-4">
                         <div @click="PasswordChange" class="bg-[#F7F7F7] dark:bg-[#111111] p-4 rounded-xl">
@@ -118,7 +118,9 @@
             </div>
         </div>
     </div>
-    <ModalVerification v-model:username="username" v-model:email="email" v-model:type="type" v-model:status="OpenModule" v-model:DelayStatus="OpenModuleDelay" v-model:title="title">
+    <ModalUpload v-model:status="OpenUploadModule" v-model:DelayStatus="OpenUploadModuleDelay" v-model:title="title" />
+    
+    <ModalVerification  v-model:username="username" v-model:email="email" v-model:type="type" v-model:status="OpenModule" v-model:DelayStatus="OpenModuleDelay" v-model:title="title">
         <Action2fa v-if="type == '2fa'" v-model:Generated="Generated"   />
         <ActionDeletion v-model:status="OpenModule" v-model:DelayStatus="OpenModuleDelay" v-else-if="type == 'delete'" />
     </ModalVerification>
@@ -159,6 +161,8 @@ const savedLikes = ref([]);
 const loading = ref(true);
 const type = ref("");
 const title = ref("");
+const OpenUploadModule = ref(false);
+const OpenUploadModuleDelay = ref(false);
 
 const username = ref("");
 const email = ref("");
@@ -185,6 +189,14 @@ const PasswordChange = async () => {
     type.value = "password";
     title.value = "Wachtwoord";
     animate();
+};
+
+const FileUpload = async () => {
+
+    type.value = "upload";
+    title.value = "Uploaden";
+    OpenUploadModule.value = true;
+    setTimeout(() => { OpenUploadModuleDelay.value = true;}, 100);
 };
 
 const AccountDeletion = async () => {

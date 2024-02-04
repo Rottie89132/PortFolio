@@ -63,8 +63,12 @@ export default defineNuxtConfig({
         intervalSeconds: 30,
       },
       '/api/users': {
-        maxRequests: 100,
-        intervalSeconds: 20,
+        maxRequests: 150,
+        intervalSeconds: 30,
+      },
+      '/api/upload': {
+        maxRequests: 5,
+        intervalSeconds: 10,
       },
     },
   },

@@ -1,48 +1,62 @@
 <template>
     <ClientOnly>
         <Transition name="modal">
-            <div v-if="status" class="fixed top-0 z-10 flex items-end justify-center w-screen h-full bg-black md:justify-center md:items-center bg-opacity-60 backdrop-blur-sm">
+            <div v-if="status"
+                class="fixed top-0 z-10 flex items-end justify-center w-screen h-full bg-black md:justify-center md:items-center bg-opacity-60 backdrop-blur-sm">
                 <div tabindex="0" class="mx-6 mb-[8%] md:mb-0 outline-none rounded-xl" ref="modal">
                     <Transition name="modalDelay">
                         <div ref="modalDelay" v-if="DelayStatus">
-                            <div class="p-8 bg-white md:max-w-[30vw] rounded-2xl "> 
+                            <div class="p-8 bg-white md:max-w-[30vw] rounded-2xl ">
                                 <div class="flex items-center justify-between mb-2 ">
                                     <h1 class="text-3xl font-bold ">{{ title }}</h1>
-                                    <button @click="closeModal"><Icon name="pajamas:close-xs" size="2em"></Icon></button>
+                                    <button @click="closeModal">
+                                        <Icon name="pajamas:close-xs" size="2em"></Icon>
+                                    </button>
                                 </div>
                                 <slot></slot>
-                                <div v-if="type != '2fa' && type != 'delete' && type != 'details' ">
+                                <div v-if="type != '2fa' && type != 'delete' && type != 'details'">
                                     <p class=" mb-6 font-medium text-sm opacity-70">
                                         <span v-if="type == 'password'">
-                                            Een nieuw wachtwoord aanmaken voor je account. Vul hieronder het gewenste wachtwoord in.
+                                            Een nieuw wachtwoord aanmaken voor je account. Vul hieronder het gewenste
+                                            wachtwoord in.
                                         </span>
                                         <span v-else>
-                                            Een nieuwe gebruikersnaam aanmaken voor je account. Vul hieronder de gewenste gebruikersnaam in.
+                                            Een nieuwe gebruikersnaam aanmaken voor je account. Vul hieronder de gewenste
+                                            gebruikersnaam in.
                                         </span>
                                     </p>
-                                    <Form class="" @submit="handleRequest" :validation-schema="schema" v-slot="{ meta }">       
+                                    <Form class="" @submit="handleRequest" :validation-schema="schema" v-slot="{ meta }">
                                         <slot></slot>
                                         <FieldInput :name="'wachtwoord'" :type="'password'" :label="'Wachtwoord'" />
                                         <FieldInput :name="'confirmatie'" :type="'password'" :label="'Confirmatie'" />
-                                        <button :disabled="loading" id="Button" aria-label="Sumbit" class="relative flex items-center justify-center w-full mt-3 mb-3 duration-300 ease-in outline-none btn-focus btn-login">
-                                            <Icon v-if="loading" class=" animate-spin" name="ri:refresh-line" size="1.25em" />
+                                        <button :disabled="loading" id="Button" aria-label="Sumbit"
+                                            class="relative flex items-center justify-center w-full mt-3 mb-3 duration-300 ease-in outline-none btn-focus btn-login">
+                                            <Icon v-if="loading" class=" animate-spin" name="ri:refresh-line"
+                                                size="1.25em" />
                                             <p v-else>Bijwerken</p>
                                         </button>
-                                        <span role="alert" v-if="meta.touched && msgError" class="flex text-xs text-left text-[#B92538]">{{ msgError }}</span>
-                                        <span role="alert" v-if="MessageSend" class="flex text-xs text-left ">Je wachtwoord is gewijzigd</span>
+                                        <span role="alert" v-if="meta.touched && msgError"
+                                            class="flex text-xs text-left text-[#B92538]">{{ msgError }}</span>
+                                        <span role="alert" v-if="MessageSend" class="flex text-xs text-left ">Je wachtwoord
+                                            is gewijzigd</span>
                                     </Form>
                                 </div>
-                                <div v-if=" type == 'details'">
-                                    <p class=" mb-6 font-medium text-sm opacity-70">Persoonlijke gegevens van je account wijzigen.</p>
+                                <div v-if="type == 'details'">
+                                    <p class=" mb-6 font-medium text-sm opacity-70">Persoonlijke gegevens van je account
+                                        wijzigen.</p>
                                     <Form @submit="handleRequest" :validation-schema="schemaPut" v-slot="{ meta }">
                                         <FieldInput :name="'Naam'" :type="'text'" :label="'Naam'" />
                                         <FieldInput :name="'Email'" :type="'email'" :label="'Email'" />
-                                        <button :disabled="loading" id="Button" aria-label="Sumbit" class="relative flex items-center justify-center w-full mt-3 mb-3 duration-300 ease-in outline-none btn-focus btn-login">
-                                            <Icon v-if="loading" class=" animate-spin" name="ri:refresh-line" size="1.25em" />
+                                        <button :disabled="loading" id="Button" aria-label="Sumbit"
+                                            class="relative flex items-center justify-center w-full mt-3 mb-3 duration-300 ease-in outline-none btn-focus btn-login">
+                                            <Icon v-if="loading" class=" animate-spin" name="ri:refresh-line"
+                                                size="1.25em" />
                                             <p v-else>Bijwerken</p>
                                         </button>
-                                        <span role="alert" v-if="meta.touched && msgError" class="flex text-xs text-left text-[#B92538]">{{ msgError }}</span>
-                                        <span role="alert" v-if="MessageSend" class="flex text-xs text-left ">Je account gegevens zijn gewijzigd</span>
+                                        <span role="alert" v-if="meta.touched && msgError"
+                                            class="flex text-xs text-left text-[#B92538]">{{ msgError }}</span>
+                                        <span role="alert" v-if="MessageSend" class="flex text-xs text-left ">Je account
+                                            gegevens zijn gewijzigd</span>
                                     </Form>
                                 </div>
                             </div>
@@ -84,10 +98,9 @@ const closeModal = () => {
 }
 
 const schema = yup.object().shape({
-    wachtwoord: yup.string().min(8).max(32).required(),
-    confirmatie: yup.string().oneOf([yup.ref('wachtwoord')], 'Wachtwoorden do not match!').required(),
+    wachtwoord: yup.string().min(8).max(32).required("wachtwoord is verplicht"),
+    confirmatie: yup.string().oneOf([yup.ref('wachtwoord')], "ingevoerde wachtwoorden komen niet overeen!").required("wachtwoord confirmatie is verplicht"),
 })
-
 
 const schemaPut = yup.object().shape({
     Naam: yup.string().min(4).max(32).optional(),
@@ -98,10 +111,9 @@ const handleRequest = async (values: any, actions: any) => {
     MessageSend.value = false
     loading.value = true
 
-
-    const { data, error, pending, refresh }: Record<string, any> = type.value == "password" ? 
-    await useCsrfFetch('/api/users', { method: "patch", body: values }) :
-    await useCsrfFetch('/api/users', { method: "put", body: values })
+    const { data, error, pending, refresh }: Record<string, any> = type.value == "password" ?
+        await useCsrfFetch('/api/users', { method: "patch", body: values }) :
+        await useCsrfFetch('/api/users', { method: "put", body: values })
 
     if (error.value) {
         loading.value = false
@@ -117,7 +129,6 @@ const handleRequest = async (values: any, actions: any) => {
             actions.resetForm();
             msgError.value = ""
             setTimeout(() => {
-                closeModal()
                 MessageSend.value = false
             }, 2000);
         }, 5000)

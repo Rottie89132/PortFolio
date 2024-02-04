@@ -47,41 +47,41 @@ let schema: any
 
 watch(AuthModule, (Auth: Boolean) => {
     if(Auth) schema = yup.object().shape({
-        email: yup.string().email().required(),
-        wachtwoord: yup.string().min(8).max(32).required(),
+        email: yup.string().email().required("email is verplicht"),
+        wachtwoord: yup.string().min(8).max(32).required("wachtwoord is verplicht"),
     })
     
     else if(type.value == "Contact") schema = yup.object().shape({
-        email: yup.string().email().required(),
-        naam: yup.string().required(),
-        bericht: yup.string().required(),
-        telefoon: yup.string().matches(phoneRegExp, 'telefoon number is not valid').optional(),
+        email: yup.string().email().required("email is verplicht"),
+        naam: yup.string().required("naam is verplicht"),
+        bericht: yup.string().required("bericht is verplicht"),
+        telefoon: yup.string().matches(phoneRegExp, " telefoon nummer is niet geldig").optional(),
     }) 
 
     else schema = yup.object().shape({
-        email: yup.string().email().required(),
-        wachtwoord: yup.string().min(8).max(32).required(),
-        confirmatie: yup.string().oneOf([yup.ref('wachtwoord')], 'Wachtwoorden do not match!').required(),
+        email: yup.string().email().required("email is verplicht"),
+        wachtwoord: yup.string().min(8).max(32).required("wachtwoord is verplicht"),
+        confirmatie: yup.string().oneOf([yup.ref('wachtwoord')], 'ingevoerde wachtwoorden komen niet overeen!').required("wachtwoord confirmatie is verplicht"),
     }) 
 
 })
 
 if (AuthModule.value) schema = yup.object().shape({
-    email: yup.string().email().required(),
-    wachtwoord: yup.string().min(8).max(32).required(),
+    email: yup.string().email().required("email is verplicht"),
+    wachtwoord: yup.string().min(8).max(32).required("wachtwoord is verplicht"),
 });
 
 else if (type.value == "Contact") schema = yup.object().shape({
-    email: yup.string().email().required(),
-    naam: yup.string().required(),
-    bericht: yup.string().required(),
-    telefoon: yup.string().matches(phoneRegExp, 'telefoon number is not valid').optional(),
+    email: yup.string().email().required("email is verplicht"),
+    naam: yup.string().required("naam is verplicht"),
+    bericht: yup.string().required("bericht is verplicht"),
+    telefoon: yup.string().matches(phoneRegExp, " telefoon nummer is niet geldig").optional(),
 });
 
 else schema = yup.object().shape({
-    email: yup.string().email().required(),
-    wachtwoord: yup.string().min(8).max(32).required(),
-    confirmatie: yup.string().oneOf([yup.ref('wachtwoord')], 'Wachtwoorden do not match!').required(),
+    email: yup.string().email().required("email is verplicht"),
+    wachtwoord: yup.string().min(8).max(32).required("wachtwoord is verplicht"),
+    confirmatie: yup.string().oneOf([yup.ref('wachtwoord')], 'ingevoerde wachtwoorden komen niet overeen!').required("wachtwoord confirmatie is verplicht"),
 });
 
 
