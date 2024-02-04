@@ -81,7 +81,7 @@ const closeModal = () => {
 const schema = yup.object().shape({
     CV: yup.mixed()
         .test('fileSize', 'Het bestand mag niet groter zijn dan 5MB', (value: any) => value && value.size <= 5000000)
-        .test('fileType', 'Het bestandstype is niet toegestaan', (value: any) => value && ['application/pdf'].includes(value.type))
+        .test('fileType', 'Het bestandstype is niet toegestaan', (value: any) => value && ['image/png'].includes(value.type))
         .required('Curriculum Vitae is verplicht')
 })
 
