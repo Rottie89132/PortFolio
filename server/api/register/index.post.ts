@@ -1,5 +1,6 @@
 import bcrypt from "bcrypt"
 import { useCompiler } from '#vue-email'
+const { Hostadress } = useRuntimeConfig()
 
 export default defineEventHandler((event) => {
     return new Promise((resolve, reject) => {
@@ -40,7 +41,7 @@ export default defineEventHandler((event) => {
 
             const template = await useCompiler('verification.vue', {
                 props: {
-                    url: `http://192.168.2.11:3000/auth/prompt/email?token=${SessionId}`,
+                    url: `${Hostadress}/auth/prompt/email?token=${SessionId}`,
                 }
             })
 

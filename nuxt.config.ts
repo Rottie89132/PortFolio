@@ -42,6 +42,7 @@ export default defineNuxtConfig({
     autoImports: true,
   },
   runtimeConfig: {
+    Hostadress: process.env.Hostadress,
     SaltToken: process.env.SaltToken,
     AnalyticsID: process.env.AnalyticsID,
     appId: process.env.GitAppId,
