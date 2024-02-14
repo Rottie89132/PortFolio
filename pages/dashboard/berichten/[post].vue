@@ -1,5 +1,6 @@
 <template>
     <VitePwaManifest />
+    <Landscape />
     <div class="fixed w-full h-full p-4 pb-5 md:pb-0 md:p-0 ">
         <div :class="!Installed ? 'h-full' : 'h-[95%]'" class="w-full select-none md:h-full p-5 pb-4 md:rounded-none rounded-3xl md:pl-52 bg-[#f0f0f0] md:bg-white dark:bg-[#131313] dark:md:bg-neutral-900 overflow-auto">
             <div class="grid gap-24 ">
@@ -19,7 +20,7 @@
                 <div class="bg-[#F7F7F7] dark:bg-[#111111] dark:text-white md:bg-[#F7F7F7] md:dark:bg-[#111111] p-4 rounded-xl">
                     <div class=" flex -mb-1 items-center gap-2">
                         <p class=" font-black ">{{ Berichten.Response.name }}</p>
-                        <p class=" font-medium opacity-85 text-xs -mb-1  " >{{ Berichten.Response.phone }}</p>
+                        <p class=" select-text underline font-medium opacity-85 text-xs -mb-1  " >{{ Berichten.Response.phone }}</p>
                     </div>
                     <p class=" font-medium opacity-75 " >{{ Berichten.Response.email }}</p>
                     <div class=" grid grid-cols-[1fr,1fr,0.1fr] mt-1 mb-4 md:flex items-center gap-3">

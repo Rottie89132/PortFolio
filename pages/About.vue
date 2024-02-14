@@ -1,5 +1,6 @@
 <template>
     <VitePwaManifest />
+    <Landscape />
     <div class="fixed w-full h-full p-4 pb-5 md:pb-0 md:p-0 select-none dark:text-white ">
         <div :class="!Installed ? 'h-full' : 'h-[95%]'"
             class="w-full md:h-full p-5 pb-4 md:rounded-none rounded-3xl md:pl-52 bg-[#f0f0f0] md:bg-white dark:bg-[#131313] dark:md:bg-neutral-900 overflow-auto md:overflow-hidden">
@@ -15,7 +16,8 @@
                             <button v-if="data?.statusCode == 200" @click="Logout"
                                 class="px-6 py-1 dark:text-neutral-800 font-semibold dark:bg-white dark:hover:bg-white dark:hover:ring-white dark:ring-white text-white rounded-lg bg-neutral-800 hover:bg-neutral-900 ring-2 ring-neutral-800 hover:ring-neutral-900">Uitloggen</button>
                             <button v-else @click="HandleModule('Inloggen')"
-                                class="px-6 py-1 dark:text-neutral-800 font-semibold dark:bg-white dark:hover:bg-white dark:hover:ring-white dark:ring-white text-white rounded-lg bg-neutral-800 hover:bg-neutral-900 ring-2 ring-neutral-800 hover:ring-neutral-900">{{ textLabel }}</button>
+                                class="px-6 py-1 dark:text-neutral-800 font-semibold dark:bg-white dark:hover:bg-white dark:hover:ring-white dark:ring-white text-white rounded-lg bg-neutral-800 hover:bg-neutral-900 ring-2 ring-neutral-800 hover:ring-neutral-900">{{
+                                    textLabel }}</button>
                         </ClientOnly>
                     </div>
                 </div>
@@ -257,9 +259,14 @@
     </div>
     <ModalBase v-model:texthead="title" v-model:type="datatype" v-model:textbase="subtitle" v-model:status="OpenModule"
         v-model:DelayStatus="OpenModuleDelay" v-model:textLabel="buttonLabel" v-model:AuthModule="AuthModule">
-        <div v-if="AuthModule">
+        <div v-if="AuthModule && datatype != 'Vergeten'">
             <FieldInput :name="'email'" :type="'email'" :label="'Gebuikersnaam'" />
             <FieldInput :name="'wachtwoord'" :type="'password'" :label="'Wachtwoord'" />
+        </div>
+        <div v-else-if="datatype == 'Vergeten'">
+            <FieldInput :name="'email'" :type="'email'" :label="'Email adress'" />
+            <FieldInput :name="'wachtwoord'" :type="'password'" :label="'Nieuwe wachtwoord'" />
+            <FieldInput :name="'confirmatie'" :type="'password'" :label="'Confirmatie'" />
         </div>
         <div v-else>
             <FieldInput :name="'email'" :type="'email'" :label="'Email'" />
@@ -322,10 +329,7 @@ onMounted(() => {
 
 const HandleModule = async (type) => {
 
-    if (data.value?.statusCode == 200 && type == "Inloggen" && data.value?.authorized) return navigateTo("/dashboard")
-    if (data.value?.statusCode == 200 && type == "Inloggen" && !data.value?.authorized) return navigateTo("/profile")
     datatype.value = type
-
     AuthModule.value = type != 'Aanmelden'
     title.value = type
     buttonLabel.value = type == 'Aanmelden' ? 'Aanmelden' : 'Login'

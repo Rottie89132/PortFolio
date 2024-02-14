@@ -1,3 +1,14 @@
+import PusherServer from "pusher"
+
+const config = useRuntimeConfig()
+const PushServer = new PusherServer({
+    appId: config.PusherAppID,
+    key: config.public.PusherAppKey,
+    secret: config.PusherAppSecret,
+    cluster: config.public.cluster,
+    useTLS: true
+});
+
 export default defineEventHandler((event) => {
     return new Promise((resolve, reject) => {
         setTimeout(async () => {
@@ -18,6 +29,7 @@ export default defineEventHandler((event) => {
             })
 
             await Berichten.create({ name, email, message, phone }).then((bericht) => {
+                PushServer.trigger(config.public.PusherChannel, "client-eventNotification", { actionID: crypto.randomUUID() });
                 return resolve({
                     statusCode: 200,
                     statusMessage: "OK",
@@ -31,8 +43,6 @@ export default defineEventHandler((event) => {
                     message: "The server encountered an unexpected condition that prevented it from fulfilling the request."
                 })
             })
-
-    
         }, 500);
     });
 });

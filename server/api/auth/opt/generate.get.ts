@@ -38,6 +38,4 @@ export default defineEventHandler(async (event) => {
         Secret: secret,
         qrCodeDataUrl: qrCodeDataUrl
     }
-
-
 });

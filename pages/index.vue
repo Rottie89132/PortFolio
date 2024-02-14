@@ -1,4 +1,7 @@
-<template></template>
+<template>
+    <VitePwaManifest />
+    <Landscape />
+</template>
 
 
 <script setup>

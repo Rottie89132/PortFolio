@@ -20,10 +20,16 @@ export default defineNuxtConfig({
     '@nuxtjs/color-mode',
     'nuxt-rate-limit',
     "nuxt-csurf",
-    'nuxt-scheduler'
+    'nuxt-scheduler',
+    '@vue-email/nuxt',
   ],
+  vueEmail: {
+    playground: true,
+    autoImport: true,
+  },
   csurf: {
     methodsToProtect: ['POST', 'PUT', 'PATCH', 'DELETE'],
+    excludedUrls: ['/api/render/verification.vue', '/api/render/success.vue'],
     addCsrfTokenToEventCtx: true
   },
   colorMode: {
@@ -45,6 +51,10 @@ export default defineNuxtConfig({
     clientId: process.env.GitClientID,
     clientSecret: process.env.GitClientSecret,
     FetchServer: process.env.FetchServer,
+    Sender: process.env.SmtpSender,
+    Server: process.env.SmtpServer,
+    User: process.env.SmtpUser,
+    Password: process.env.SmtpPass,
     public: {
       PusherAppKey: process.env.PusherAppKey,
       cluster: process.env.cluster,

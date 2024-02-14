@@ -1,5 +1,6 @@
 <template>
     <VitePwaManifest />
+    <Landscape />
     <div class="fixed select-none  w-full h-full p-4 pb-5 md:pb-0 md:p-0">
         <div :class="!Installed ? 'h-full' : 'h-[95%]'"
             class="w-full md:h-full p-5 pb-4 md:rounded-none rounded-3xl md:pl-52 bg-[#f0f0f0] md:bg-white dark:bg-[#131313] dark:md:bg-neutral-900 overflow-auto xl:overflow-hidden md:overflow-hidden">
@@ -51,13 +52,16 @@
                     </div>
                 </div>
                 <div v-if="Repositories && Repositories.length < 1" class="mb-[5.2em] -mt-2">
-                    <p class="mb-6 opacity-75 dark:text-white">Voordat u verder gaat, moet u eerst een verbinding maken met uw GitHub-account.</p>
-                    <a href="https://github.com/apps/rottie-portfolio/installations/new" target="_blank" class="px-6 py-2 mt-4 dark:text-neutral-800 dark:bg-white dark:ring-white text-white bg-neutral-800 rounded-lg ring-2 ring-neutral-800">
+                    <p class="mb-6 opacity-75 dark:text-white">Voordat u verder gaat, moet u eerst een verbinding maken met
+                        uw GitHub-account.</p>
+                    <a href="https://github.com/apps/rottie-portfolio/installations/new" target="_blank"
+                        class="px-6 py-2 mt-4 dark:text-neutral-800 dark:bg-white dark:ring-white text-white bg-neutral-800 rounded-lg ring-2 ring-neutral-800">
                         Verbinden met GitHub
                     </a>
                 </div>
                 <div class="flex items-center gap-2 dark:text-white " v-else-if="loadingIndicater || loading">
-                    <icon name="mingcute:loading-fill" class=" animate-spin" size="1.4em"></icon>Repositories worden ingeladen
+                    <icon name="mingcute:loading-fill" class=" animate-spin" size="1.4em"></icon>Repositories worden
+                    ingeladen
                 </div>
                 <div v-else class=" p-3 bg-[#F7F7F7] dark:bg-[#111111] h-fit rounded-2xl transition-transform ">
                     <div class="w-full h-full overflow-y-auto snap-y snap-proximity rounded-xl scroll-smooth">
@@ -65,25 +69,28 @@
                             <div v-if="item.loaded"
                                 class="p-3 bg-white dark:bg-neutral-900 md:snap-end snap-center h-fit rounded-xl">
                                 <div class="flex items-center gap-2 ">
-                                    <NuxtImg draggable="false" :src="item.owner.avatar_url" class="w-5 rounded-full"></NuxtImg>
+                                    <NuxtImg draggable="false" :src="item.owner.avatar_url" class="w-5 rounded-full">
+                                    </NuxtImg>
                                     <h3 class="font-semibold dark:text-white ">{{ item.full_name }}</h3>
                                 </div>
-                                <p class="mt-3 md:mt-1 whitespace-pre-wrap text-balance dark:text-white mr-5 text-sm break-words opacity-70 line-clamp-2 ">{{ item.description || defaultDescription }}</p>
+                                <p
+                                    class="mt-3 md:mt-1 whitespace-pre-wrap text-balance dark:text-white mr-5 text-sm break-words opacity-70 line-clamp-2 ">
+                                    {{ item.description || defaultDescription }}</p>
                                 <div class="flex items-center gap-3 font-semibold">
-                                    <button v-if="item.saved" @click="DeleteRepo(item)" class="flex items-center justify-center font-semibold px-3 py-1 mt-3 mb-1 text-xs dark:text-black dark:bg-white dark:ring-white text-white bg-black rounded ring-2 ring-black">Verwijderen</button>
-                                    <button v-else @click="SaveRepo(item)" class="flex items-center justify-center px-3 py-1 mt-3 mb-1 font-semibold text-xs dark:text-black dark:bg-white dark:ring-white text-white bg-black rounded ring-2 ring-black">Toevoegen</button>
+                                    <button v-if="item.saved" @click="DeleteRepo(item)"
+                                        class="flex items-center justify-center font-semibold px-3 py-1 mt-3 mb-1 text-xs dark:text-black dark:bg-white dark:ring-white text-white bg-black rounded ring-2 ring-black">Verwijderen</button>
+                                    <button v-else @click="SaveRepo(item)"
+                                        class="flex items-center justify-center px-3 py-1 mt-3 mb-1 font-semibold text-xs dark:text-black dark:bg-white dark:ring-white text-white bg-black rounded ring-2 ring-black">Toevoegen</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class=" absolute md:right-[9%] md:top-[89%] right-[8%] top-[85.8%] p-2 dark:bg-indigo-500 bg-indigo-600  rounded-xl flex items-center justify-center text-white">
-                    <icon name="ic:outline-plus" size="1.5em"></icon>
-                </div>
             </div>
         </div>
     </div>
-    <ModalConfirmation v-model:texthead="title" v-model:textbase="subtitle" v-model:status="OpenModule" v-model:DelayStatus="OpenModuleDelay">
+    <ModalConfirmation v-model:texthead="title" v-model:textbase="subtitle" v-model:status="OpenModule"
+        v-model:DelayStatus="OpenModuleDelay">
         <div v-if="!loadingRepos" class=" flex mb-2 items-center gap-4 ">
             <button @click="DeleteRepoConfirm"
                 class="flex font-semibold items-center gap-2 px-8 py-2 text-sm text-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-md">Verwijderen</button>
@@ -168,7 +175,7 @@ const navigateToPage = async () => {
 
     if (currentPage.value > hidebuttons.value.total) currentPage.value = hidebuttons.value.total
     else if (currentPage.value < 1) currentPage.value = 1
-    
+
     useLocalStorage('AdminRepoPage').value = currentPage.value
     router.push({ path: '/dashboard/Repos', query: { Page: currentPage.value } })
 
@@ -242,8 +249,8 @@ const loadedRepos = async (data, saved) => {
                 const saved = SavedRepositories.value.find((repo) => repo.repo_id == item.id)
                 items.value.push({ ...item, saved: saved ? true : false, loaded: false })
             })
-        } 
-    
+        }
+
         else {
             currentPage.value = 1
             useLocalStorage('AdminRepoPage').value = 1
@@ -268,7 +275,7 @@ const loadedRepos = async (data, saved) => {
 
 const SaveRepo = async (item) => {
     await useCsrfFetch(`/api/repo/`, { method: 'POST', body: { data: item } })
-    
+
     const { data: Repositories } = await useFetch(`/api/repo/auth?page=${currentPage.value}`)
     const { data: SavedRepo } = await useFetch(`/api/repo`)
     loadedRepos(Repositories, SavedRepo)
@@ -279,7 +286,7 @@ const DeleteRepo = async (item) => {
     ItemData.value = item
     title.value = item.full_name
     subtitle.value = "Weet je zeker dat je deze repository wilt verwijderen van je portfolio?"
-    
+
     OpenModule.value = true
     setTimeout(() => { OpenModuleDelay.value = true }, 100)
 }

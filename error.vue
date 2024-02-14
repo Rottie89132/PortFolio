@@ -1,4 +1,5 @@
 <template>
+    <Landscape />
     <div class="fixed w-full h-full p-4 pb-5 select-none md:pb-0 md:p-0 ">
         <div :class="!Installed ? 'h-full' : 'h-[95%]'" class="flex items-center justify-center w-full md:h-full p-5 md:rounded-none rounded-3xl bg-gradient-to-r from-teal-50 to-yellow-50 dark:from-[#131313] dark:to-[#22221E]">
             <div class="">

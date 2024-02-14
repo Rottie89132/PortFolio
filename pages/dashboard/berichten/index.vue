@@ -1,5 +1,6 @@
 <template>
     <VitePwaManifest />
+    <Landscape />
     <div class="fixed select-none  w-full h-full p-4 pb-5 md:pb-0 md:p-0 ">
         <div :class="!Installed ? 'h-full' : 'h-[95%]'"
             class="w-full md:h-full p-5 pb-4 md:rounded-none rounded-3xl md:pl-52 bg-[#f0f0f0] md:bg-white dark:bg-[#131313] dark:md:bg-neutral-900 overflow-auto xl:overflow-hidden">
@@ -132,7 +133,7 @@ const navigateToPage = async () => {
     router.push({ path: '/dashboard/berichten', query: { Page: currentPage.value } })
     const { data: Berichten, error, pending, refresh } = await useFetch(`/api/berichten/${currentPage.value}`)
 
-    loadedRepos(Berichten)
+    loadedBerichten(Berichten)
 }
 
 const PreviousPage = async () => {
@@ -145,7 +146,7 @@ const PreviousPage = async () => {
     currentPage.value = page.value
     const { data: Berichten, error, pending, refresh } = await useFetch(`/api/berichten/${currentPage.value}`)
 
-    loadedRepos(Berichten)
+    loadedBerichten(Berichten)
 
 }
 
@@ -159,9 +160,7 @@ const NextPage = async () => {
     currentPage.value = page.value
     const { data: Berichten, error, pending, refresh } = await useFetch(`/api/berichten/${currentPage.value}`)
 
-
-    loadedRepos(Berichten)
-
+    loadedBerichten(Berichten)
 }
 
 const animateIn = () => {
@@ -180,7 +179,7 @@ const animateIn = () => {
 }
 
 
-const loadedRepos = async (Repositories) => {
+const loadedBerichten = async (Repositories) => {
     Items.value = []
     berichten.value = Repositories.value?.Response
     hidebuttons.value = Repositories.value
@@ -217,7 +216,13 @@ const loadedRepos = async (Repositories) => {
     animateIn()
 }
 
-loadedRepos(Berichten)
+loadedBerichten(Berichten)
+
+watch(ReactiveEvent, async () => {
+    const { data: Berichten, error, pending, refresh } = await useFetch(`/api/berichten/${useRoute().query.Page}`)
+    loadedBerichten(Berichten)
+})
+
 
 
 </script>

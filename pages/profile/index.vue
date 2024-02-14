@@ -1,5 +1,6 @@
 <template>
     <VitePwaManifest />
+    <Landscape />
     <div class="fixed select-none w-full h-full p-4 pb-5 md:pb-0 md:p-0">
         <div :class="!Installed ? 'h-full' : 'h-[95%]'" class="w-full md:h-full p-5 md:rounded-none rounded-3xl md:pl-52 bg-[#f0f0f0] md:bg-white dark:bg-[#131313] dark:md:bg-neutral-900 md:overflow-hidden overflow-auto">
             <div class="grid gap-24">

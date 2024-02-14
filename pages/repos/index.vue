@@ -1,5 +1,6 @@
 <template>
     <VitePwaManifest />
+    <Landscape />
     <div class="fixed w-full select-none  h-full p-4 pb-5 md:pb-0 md:p-0 ">
         <div :class="!Installed ? 'h-full' : 'h-[95%]'"
             class="w-full md:h-full p-5 md:rounded-none pb-4 rounded-3xl md:pl-52 bg-[#f0f0f0] md:bg-white dark:bg-[#131313] dark:md:bg-neutral-900 overflow-auto">
@@ -12,8 +13,11 @@
                         <ClientOnly>
                             <ColorMode />
                             <Online />
-                            <button v-if="data?.statusCode == 200" @click="Logout" class="px-6 py-1 dark:text-neutral-800 font-semibold dark:bg-white dark:hover:bg-white dark:hover:ring-white dark:ring-white text-white rounded-lg bg-neutral-800 hover:bg-neutral-900 ring-2 ring-neutral-800 hover:ring-neutral-900">Uitloggen</button>
-                            <button v-else @click="HandleModule('Inloggen')" class="px-6 py-1 dark:text-neutral-800 font-semibold dark:bg-white dark:hover:bg-white dark:hover:ring-white dark:ring-white text-white rounded-lg bg-neutral-800 hover:bg-neutral-900 ring-2 ring-neutral-800 hover:ring-neutral-900">{{ textLabel }}</button>
+                            <button v-if="data?.statusCode == 200" @click="Logout"
+                                class="px-6 py-1 dark:text-neutral-800 font-semibold dark:bg-white dark:hover:bg-white dark:hover:ring-white dark:ring-white text-white rounded-lg bg-neutral-800 hover:bg-neutral-900 ring-2 ring-neutral-800 hover:ring-neutral-900">Uitloggen</button>
+                            <button v-else @click="HandleModule('Inloggen')"
+                                class="px-6 py-1 dark:text-neutral-800 font-semibold dark:bg-white dark:hover:bg-white dark:hover:ring-white dark:ring-white text-white rounded-lg bg-neutral-800 hover:bg-neutral-900 ring-2 ring-neutral-800 hover:ring-neutral-900">{{
+                                    textLabel }}</button>
                         </ClientOnly>
                     </div>
                 </div>
@@ -48,11 +52,12 @@
                         </button>
 
                         <form @submit.prevent="navigateToPage">
-                            <input v-model="currentPage" name="page" type="number" aria-label="Search" class="p-[0.34rem] ring-2 ring-[#e8e8e8] dark:ring-[#1a1a1a] dark:bg-[#111111] dark:text-white appearance-none w-9 text-center font-medium bg-[#F7F7F7] flex items-center justify-center rounded-xl">
+                            <input v-model="currentPage" name="page" type="number" aria-label="Search"
+                                class="p-[0.34rem] ring-2 ring-[#e8e8e8] dark:ring-[#1a1a1a] dark:bg-[#111111] dark:text-white appearance-none w-9 text-center font-medium bg-[#F7F7F7] flex items-center justify-center rounded-xl">
                         </form>
                     </div>
                 </div>
-                <div class="flex items-center gap-2 dark:text-white " v-if=" loadingIndicater">
+                <div class="flex items-center gap-2 dark:text-white " v-if="loadingIndicater">
                     <icon name="mingcute:loading-fill" class=" animate-spin" size="1.4em"></icon>Repositories worden
                     ingeladen
                 </div>
@@ -62,15 +67,19 @@
                 </div>
                 <div v-else class=" p-3 bg-[#F7F7F7] dark:bg-[#111111] h-fit rounded-2xl transition-transform ">
                     <div class="w-full h-full overflow-y-auto snap-y snap-proximity rounded-xl scroll-smooth">
-                        <div v-for="(item, index) in items" :key="item.full_name" class="mb-3 delay-100 last:mb-0 animate-fade-in">
+                        <div v-for="(item, index) in items" :key="item.full_name"
+                            class="mb-3 delay-100 last:mb-0 animate-fade-in">
                             <div v-if="item.loaded"
                                 class="p-3 bg-white dark:bg-neutral-900 md:snap-end snap-center h-fit rounded-xl">
                                 <div class="flex items-center gap-2 ">
-                                    <NuxtImg draggable="false" :alt="item.owner.avatar_url" :src="item.owner.avatar_url" class="w-5 rounded-full">
+                                    <NuxtImg draggable="false" :alt="item.owner.avatar_url" :src="item.owner.avatar_url"
+                                        class="w-5 rounded-full">
                                     </NuxtImg>
                                     <h2 class="font-semibold dark:text-white ">{{ item.full_name }}</h2>
                                 </div>
-                                <p class="mt-2 mr-5 text-balance text-sm whitespace-pre-wrap break-words opacity-70 md:line-clamp-2 line-clamp-3 dark:text-white ">{{ item.description || defaultDescription }}</p>
+                                <p
+                                    class="mt-2 mr-5 text-balance text-sm whitespace-pre-wrap break-words opacity-70 md:line-clamp-2 line-clamp-3 dark:text-white ">
+                                    {{ item.description || defaultDescription }}</p>
                                 <div class="flex  items-center gap-3 mt-2 overflow-scroll font-bold ">
                                     <div v-if="item.topics.length >= 1" v-for="topics in item.topics">
                                         <p class="dark:text-white text-sm text-[0.83em]">{{ topics }}</p>
@@ -88,18 +97,23 @@
                                             <Icon name="tabler:brand-github-filled" size="1.2em"></Icon>GitHub
                                         </a>
                                         <div v-else class="relative group">
-                                            <a class="flex items-center justify-center gap-1 px-[0.6rem] dark:bg-neutral-800 dark:ring-neutral-800 py-1 mt-3 mb-1 text-xs rounded dark:text-neutral-300 text-neutral-600 bg-neutral-200 ring-2 ring-neutral-200 cursor-not-allowed">
-                                            <Icon name="tabler:brand-github-filled" size="1.2em"></Icon>GitHub
+                                            <a
+                                                class="flex items-center justify-center gap-1 px-[0.6rem] dark:bg-neutral-800 dark:ring-neutral-800 py-1 mt-3 mb-1 text-xs rounded dark:text-neutral-300 text-neutral-600 bg-neutral-200 ring-2 ring-neutral-200 cursor-not-allowed">
+                                                <Icon name="tabler:brand-github-filled" size="1.2em"></Icon>GitHub
                                             </a>
-                                            <div class=" absolute -ml-[0.15em] text-center w-36 -top-[0.12em]  transform -translate-y-full dark:bg-indigo-500 bg-indigo-600 text-white text-xs rounded-md py-1 px-2 hidden group-hover:block transition duration-200 ease-in-out">
+                                            <div
+                                                class=" absolute -ml-[0.15em] text-center w-36 -top-[0.12em]  transform -translate-y-full dark:bg-indigo-500 bg-indigo-600 text-white text-xs rounded-md py-1 px-2 hidden group-hover:block transition duration-200 ease-in-out">
                                                 <p class="text-center p-[0.45em] z-20 dark:bg-indigo-500 bg-indigo-600">
                                                     <span class="font-semibold">Dit project is privé!</span>
                                                 </p>
-                                                <div class=" absolute w-3 h-3 dark:bg-indigo-500 bg-indigo-600 transform rotate-45 -bottom-[0.44em] left-5 -translate-x-1/2"></div>
+                                                <div
+                                                    class=" absolute w-3 h-3 dark:bg-indigo-500 bg-indigo-600 transform rotate-45 -bottom-[0.44em] left-5 -translate-x-1/2">
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <liked :url="item.html_url" :visibility="item.visibility" :name="item.name" :id="item.repo_id" />
+                                    <liked :url="item.html_url" :visibility="item.visibility" :name="item.name"
+                                        :id="item.repo_id" />
                                 </div>
                             </div>
                         </div>
@@ -109,17 +123,23 @@
         </div>
     </div>
     <ModalBase v-model:texthead="title" v-model:textbase="subtitle" v-model:status="OpenModule"
-        v-model:DelayStatus="OpenModuleDelay" v-model:textLabel="buttonLabel" v-model:AuthModule="AuthModule" v-model:type="datatype">
-        <div v-if="AuthModule">
+        v-model:DelayStatus="OpenModuleDelay" v-model:textLabel="buttonLabel" v-model:AuthModule="AuthModule"
+        v-model:type="datatype">
+        <div v-if="AuthModule && datatype != 'Vergeten'">
             <FieldInput :name="'email'" :type="'email'" :label="'Gebuikersnaam'" />
             <FieldInput :name="'wachtwoord'" :type="'password'" :label="'Wachtwoord'" />
+        </div>
+        <div v-else>
+            <FieldInput :name="'email'" :type="'email'" :label="'Email adress'" />
+            <FieldInput :name="'wachtwoord'" :type="'password'" :label="'Nieuwe wachtwoord'" />
+            <FieldInput :name="'confirmatie'" :type="'password'" :label="'Confirmatie'" />
         </div>
     </ModalBase>
 </template>
 
 <script setup>
 
-const { $pwa, $PusherOnStart, $PusherOnEvent, $csrfFetch  } = useNuxtApp()
+const { $pwa, $PusherOnStart, $PusherOnEvent, $csrfFetch } = useNuxtApp()
 const items = ref([]);
 const currentPage = ref()
 const router = useRouter();
@@ -220,10 +240,7 @@ const NextPage = async () => {
 
 const HandleModule = (type) => {
 
-    if (data.value?.statusCode == 200 && type == "Inloggen" && data.value?.authorized) return navigateTo("/dashboard")
-    if (data.value?.statusCode == 200 && type == "Inloggen" && !data.value?.authorized) return navigateTo("/profile")
     datatype.value = type
-    
     AuthModule.value = type != 'Contact'
     title.value = type
     buttonLabel.value = 'Login'
@@ -298,11 +315,10 @@ watch(ReactiveEvent, async () => {
     })
 
     loadedRepos(Repositories)
-
 })
 
 
-if(process.client){
+if (process.client) {
     setTimeout(async () => {
         const { data: Repositories } = await useCsrfFetch(`/api/repo/${currentPage.value}`, {
             method: "POST", body: useLocalStorage('SavedLikes', []).value.filter(e => e.liked == true)
@@ -312,10 +328,10 @@ if(process.client){
         loadedRepos(Repositories)
         loadingIndicater.value = false
     }, 100);
-} 
+}
 
 
-    
+
 
 
 </script>
@@ -349,7 +365,4 @@ if(process.client){
     border-style: solid;
     border-color: #3182ce transparent transparent transparent;
 }
-
-
-
 </style>
