@@ -22,12 +22,14 @@ export default defineNuxtConfig({
     "nuxt-csurf",
     'nuxt-scheduler',
     '@vue-email/nuxt',
+    "nuxt-build-cache"
   ],
   vueEmail: {
     playground: true,
     autoImport: true,
   },
   csurf: {
+    https: process.env.production === 'true',
     methodsToProtect: ['POST', 'PUT', 'PATCH', 'DELETE'],
     excludedUrls: ['/api/render/verification.vue', '/api/render/success.vue'],
     addCsrfTokenToEventCtx: true

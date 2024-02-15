@@ -14,7 +14,7 @@ export default defineEventHandler( (event) => {
                 await useStorage("OptRequired").setItem(SessionId, response.user)
 
                 setCookie(event, "OptRequired", SessionId, {
-                    httpOnly: true, secure: false, sameSite: true, maxAge: 600
+                    httpOnly: true, secure: process.env.production === 'true', sameSite: true, maxAge: 600
                 });
             }
 

@@ -8,7 +8,7 @@ export default async (event: any, data: any) => {
     }, 24 * 60 * 60 * 1000 ); 
     
     setCookie(event, "token", SessionId, {
-        httpOnly: true, secure: false, sameSite: true, maxAge: 24 * 60 * 60 * 1000
+        httpOnly: true, secure: process.env.production === 'true', sameSite: true, maxAge: 24 * 60 * 60 * 1000
     });
 
     return {
