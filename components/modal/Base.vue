@@ -86,7 +86,12 @@ watch(AuthModule, (Auth: Boolean) => {
     else if (type.value == "Contact") schema = yup.object().shape({
         email: yup.string().email().required("email is verplicht"),
         naam: yup.string().required("naam is verplicht"),
-        bericht: yup.string().required("bericht is verplicht").min(50, "bericht moet minimaal 50 tekens bevatten").max(2500, "bericht mag maximaal 2500 tekens bevatten"),
+        bericht: yup.string().required("bericht is verplicht").min(50, "bericht moet minimaal 50 tekens bevatten").max(2500, "bericht mag maximaal 2500 tekens bevatten")
+            .test('word-count', 'bericht moet meer dan 6 woorden bevatten', (value) => {
+                if (!value) return false;
+                const wordCount = value.trim().split(/\s+/).length;
+                return wordCount > 6;
+            }),
         telefoon: yup.string().matches(phoneRegExp, " telefoon nummer is niet geldig").optional(),
     })
 
@@ -105,7 +110,12 @@ if (AuthModule.value) schema = yup.object().shape({
 else if (type.value == "Contact") schema = yup.object().shape({
     email: yup.string().email().required("email is verplicht"),
     naam: yup.string().required("naam is verplicht"),
-    bericht: yup.string().required("bericht is verplicht").min(50, "bericht moet minimaal 50 tekens bevatten").max(2500, "bericht mag maximaal 2500 tekens bevatten"),
+    bericht: yup.string().required("bericht is verplicht").min(50, "bericht moet minimaal 50 tekens bevatten").max(2500, "bericht mag maximaal 2500 tekens bevatten")
+        .test('word-count', 'bericht moet meer dan 6 woorden bevatten', (value) => {
+            if (!value) return false;
+            const wordCount = value.trim().split(/\s+/).length;
+            return wordCount > 6;
+        }),
     telefoon: yup.string().matches(phoneRegExp, " telefoon nummer is niet geldig").optional(),
 });
 

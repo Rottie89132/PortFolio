@@ -64,7 +64,7 @@
             <FieldInput :name="'naam'" :type="'name'" :label="'Contact persoon'" />
             <FieldInput :name="'email'" :type="'email'" :label="'Email adress'" />
             <FieldTextarea :name="'bericht'" :type="'bericht'" :label="'bericht'" />
-            <FieldInput :name="'telefoon'" :value="'+31 06 12 34 34 24'" :type="'phone'" :label="'Telefoon'" />
+            <FieldInput :name="'telefoon'" :value="'+31 06 12 34 56 78'" :type="'phone'" :label="'Telefoon'" />
         </div>
     </ModalBase>
 </template>
@@ -102,7 +102,6 @@ const datatype = ref("")
 const repoLink = ref("")
 const currentPage = useLocalStorage('RepoPage').value
 repoLink.value = `/Repos?Page=${currentPage || 1}`
-
 
 const { data, error, pending, refresh } = await useFetch('/api/users')
 

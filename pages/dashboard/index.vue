@@ -42,7 +42,7 @@
                     </ClientOnly>
                 </div>
                 <div class="mb-[4.85em] -mt-2" v-if="Repos.length < 1">
-                    <p class="opacity-75 mb-4 dark:text-white ">Je hebt nog geen repositories toegevoegd!</p>
+                    <p class="opacity-75 mb-4 dark:text-white text-sm ">Je hebt nog geen repositories toegevoegd!</p>
                     <ClientOnly>
                         <NuxtLink :to="`/dashboard/Repos?Page=${currentPage}`"
                             class="px-4 py-2 text-sm font-medium text-white dark:bg-indigo-500 dark:ring-indigo-500 bg-indigo-600 rounded-lg ring-2 ring-indigo-600">
@@ -90,7 +90,7 @@
 
                 </div>
                 <div class="mb-6 -mt-2" v-if="Messages.length < 1">
-                    <p class="opacity-75 dark:text-white">Je hebt nog geen berichten ontvangen</p>
+                    <p class="opacity-75 dark:text-white text-sm">Je hebt nog geen berichten ontvangen</p>
                 </div>
                 <div v-else :class="Messages.length < 3 ? 'h-fit' : 'h-[35vh] md:h-[25.5vh] xl:h-[24.7vh]'"
                     class=" p-3 bg-[#F7F7F7] dark:bg-[#111111] rounded-2xl ">

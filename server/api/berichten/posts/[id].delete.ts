@@ -4,7 +4,6 @@ export default defineEventHandler(async (event) => {
         const SessionId: any = getCookie(event, "token")
         const user: any = await useStorage("Sessions").getItem(SessionId)
         const PostId = getRouterParams(event).id
-        let bericht: any = null
 
         if (PostId.length != 24) return reject({
             statusCode: 400,
@@ -18,9 +17,13 @@ export default defineEventHandler(async (event) => {
             message: "The request has not been authorized because it lacks valid authentication credentials."
         })
 
-        if (!user.Admin) bericht = await Berichten.findOne({ _id: PostId, $and: [{ email: user.Email }]  })
-        else bericht = await Berichten.findById(PostId)
+        if(!user.Admin) return reject({
+            statusCode: 403,
+            statusMessage: "Forbidden",
+            message: "The server understood the request, but is refusing to authorize it."
+        })
 
+        const bericht = await Berichten.findByIdAndDelete(PostId)
         if (!bericht) return reject({
             statusCode: 404,
             statusMessage: "Not Found",

@@ -6,26 +6,38 @@
             class="w-full select-none md:h-full p-5 pb-4 md:rounded-none rounded-3xl md:pl-52 bg-[#f0f0f0] md:bg-white dark:bg-[#131313] dark:md:bg-neutral-900 overflow-auto">
             <div class="grid gap-24">
                 <div class="flex items-center justify-between md:mt-[0.15em]">
-                    <NavLinksAdmin v-if="data?.statusCode == 200 && data.authorized" />
-                    <NavLinksUser v-else-if="data?.statusCode == 200 && !data.authorized" />
-                    <NavLinks v-else />
+                    <button aria-label="GaTerug"
+                        class=" dark:bg-white text-white dark:text-black bg-neutral-800 p-2 flex items-center justify-center rounded-lg"
+                        @click="$router.back()">
+                        <Icon class="text-white dark:text-black" name="ri:arrow-left-fill" size="1.2em" />
+                    </button>
                     <div class="flex gap-4 items-center">
                         <ClientOnly>
                             <ColorMode />
                             <Online />
-                            <button @click="Logout" class="px-6 py-1 dark:text-neutral-800 font-semibold dark:bg-white dark:hover:bg-white dark:hover:ring-white dark:ring-white text-white rounded-lg bg-neutral-800 hover:bg-neutral-900 ring-2 ring-neutral-800 hover:ring-neutral-900">
+                            <button @click="Logout"
+                                class="px-6 py-1 dark:text-neutral-800 font-semibold dark:bg-white dark:hover:bg-white dark:hover:ring-white dark:ring-white text-white rounded-lg bg-neutral-800 hover:bg-neutral-900 ring-2 ring-neutral-800 hover:ring-neutral-900">
                                 Uitloggen
                             </button>
-                            
+
                         </ClientOnly>
                     </div>
                 </div>
             </div>
             <div class="w-full h-fit mt-6 md:my-10 xl:mt-20 md:w-[89.2%]">
-                <div
-                    class="bg-[#F7F7F7] dark:bg-[#111111] dark:text-white md:bg-[#F7F7F7] md:dark:bg-[#111111] p-4 rounded-xl">
-                    <h1 class="text-2xl font-bold">Bericht</h1>
-                    <h2 class="text-base -mt-1 font-bold opacity-70">{{ PostID }}</h2>
+                <h1 class="text-2xl dark:text-white font-bold">Bericht</h1>
+                <div class=" whitespace-pre-wrap scroll-smooth leading-[1.30em] break-words text-balance max-h-[75vh] w-full bg-white dark:bg-neutral-900 p-4 rounded-lg mt-2 dark:text-white ">
+                    <div class=" max-h-[71vh] scroll-smooth overflow-auto ">
+                        <span id="ToTop" class=" md:hidden -ml-1"></span>
+                        {{ Berichten.Response.message }}
+                        <div v-if="Berichten.Response.message.length > 600"
+                            class=" md:hidden p-2 -mt-2 flex items-center justify-end" id="ToBottem">
+                            <a class="dark:bg-white text-white dark:text-black bg-neutral-800 p-1 flex items-center justify-center rounded-lg"
+                                href="#ToTop">
+                                <Icon class="" name="ri:arrow-up-s-line" size="1.8em" />
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -57,38 +69,31 @@ definePageMeta({
 
 const { $pwa, $csrfFetch, $PusherOnStart } = useNuxtApp();
 const Installed = ref(false);
-const OpenModule = ref(false);
-const OpenModuleDelay = ref(false);
-const AuthModule = ref(true);
-const title = ref('');
-const subtitle = ref('');
-const buttonLabel = ref('');
-const textLabel = ref('Inloggen');
+
 
 onMounted(() => {
     if ($pwa.isInstalled) Installed.value = true;
     $PusherOnStart();
+    setTimeout(() => {
+        location.replace(`#ToBottem`)
+    }, 3500)
 });
 
 const PostID = useRoute().params.post;
-const { data, error, pending, refresh } = await useFetch('/api/users');
+const { data: Berichten, error } = await useFetch(`/api/berichten/posts/${PostID}`)
+
+if (error.value) {
+    throw createError({
+        statusCode: 404,
+        message: error.value.data.message,
+        statusMessage: "De aangevraagde pagina is niet gevonden!",
+        fatal: true,
+    })
+}
 
 const Logout = async () => {
     await $csrfFetch('/api/users', { method: 'DELETE' }); return navigateTo('/');
 };
 
-const HandleModule = async type => {
-    if (data.value?.statusCode == 200 && type == 'Inloggen' && data.value?.authorized) return navigateTo('/dashboard');
-    if (data.value?.statusCode == 200 && type == 'Inloggen' && !data.value?.authorized) return navigateTo('/profile');
 
-    AuthModule.value = type != 'Contact';
-    title.value = type;
-    buttonLabel.value = type == 'Contact' ? 'Maak contact' : 'Login';
-    subtitle.value = type == 'Contact' ? 'Vul hieronder je contact gegevens in en laat een bericht achter.' : 'Vul hieronder je gebruikersnaam en wachtwoord in om toegang te krijgen tot je account.';
-
-    OpenModule.value = true;
-    setTimeout(() => {
-        OpenModuleDelay.value = true;
-    }, 100);
-};
 </script>

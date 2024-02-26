@@ -4,6 +4,8 @@ export default defineEventHandler(async (event) => {
         const SessionId: any = getCookie(event, "token")
         const user: any = await useStorage("Sessions").getItem(SessionId)
         const currentPage = Number(getRouterParams(event).page) - 1 || 0
+        const result = [];
+        let berichten: any = null
 
         if (!user) return reject({
             statusCode: 401,
@@ -11,18 +13,11 @@ export default defineEventHandler(async (event) => {
             message: "The request has not been authorized because it lacks valid authentication credentials."
         })
 
-        if (!user.Admin) return reject({
-            statusCode: 403,
-            statusMessage: "Forbidden",
-            message: "The server understood the request but refuses to authorize it."
-        })
-
-        const berichten = await Berichten.find().sort({ created_at: -1 })
-        const result = [];
-
+        if(!user.Admin) berichten = await Berichten.find({ email: user.Email }).sort({ read: -1, created_at: -1 })
+        else berichten = await Berichten.find().sort({ read: 1, created_at: -1 })
+        
         for (let i = 0; i < berichten.length; i += 5) { result.push(berichten.slice(i, i + 5)) }
         const data = result[currentPage]
-
 
         if (!data) {
             return reject({

@@ -6,11 +6,8 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
 
     if (!visted.value && process.client && !$pwa.isInstalled) {
         if (data.value.statusCode !== 200) {
-            await $csrfFetch('/api/analytics', { method: 'POST', }); 
+            await $csrfFetch('/api/analytics', { method: 'POST', });
             visted.value = true
         }
     }
 })
-
-
-

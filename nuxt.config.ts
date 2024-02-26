@@ -146,6 +146,7 @@ export default defineNuxtConfig({
       suppressWarnings: true,
     },
   },
+  
   app: {
     head: {
       meta: [
@@ -162,6 +163,10 @@ export default defineNuxtConfig({
   nitro: {
     imports: {
       dirs: ["./server/serverUtils"],
+      presets: [{
+        from: "bcrypt",
+        imports: [{name: "default", as: "bcrypt"}],
+      }],
     },
   }
 })

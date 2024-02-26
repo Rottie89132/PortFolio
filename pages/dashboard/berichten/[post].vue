@@ -24,8 +24,8 @@
                     </div>
                     <p class=" font-medium opacity-75 " >{{ Berichten.Response.email }}</p>
                     <div class=" grid grid-cols-[1fr,1fr,0.1fr] mt-1 mb-4 md:flex items-center gap-3">
-                        <button class="dark:bg-white bg-neutral-800 hover:bg-neutral-900 hover:ring-neutral-900 dark:hover:bg-gray-50 dark:hover:ring-gray-50 ring-2 dark:ring-white ring-neutral-800 text-white dark:text-neutral-900 text-sm md:text-base font-bold p-1 md:px-8 rounded-md mt-2" @click="OpenMail">Beantwoorden</button>
-                        <button class="dark:text-neutral-300 text-sm md:text-base dark:bg-neutral-800 dark:ring-neutral-800 text-neutral-600 bg-gray-200 ring-2 ring-gray-200 font-bold p-1 md:px-8 rounded-md mt-2">Afwijzen</button>
+                        <button class="dark:bg-white bg-neutral-800 hover:bg-neutral-900 hover:ring-neutral-900 dark:hover:bg-gray-50 dark:hover:ring-gray-50 ring-2 dark:ring-white ring-neutral-800 text-white dark:text-neutral-900 text-sm md:text-base font-bold p-1 md:px-8 rounded-md mt-2" @click="OpenMail(true)">Beantwoorden</button>
+                        <button class="dark:text-neutral-300 text-sm md:text-base dark:bg-neutral-800 dark:ring-neutral-800 text-neutral-600 bg-gray-200 ring-2 ring-gray-200 font-bold p-1 md:px-8 rounded-md mt-2" @click="OpenMail(false)">Afwijzen</button>
                         <div class="dark:text-neutral-300 text-sm md:text-base justify-center dark:bg-neutral-800 dark:ring-neutral-800 text-neutral-600 bg-gray-200 ring-2 ring-gray-200 font-bold p-1 md:p-[0.40em] md:px-[0.40em] rounded mt-2 flex items-center" @click="markMessage">
                             <Icon :class="MarkedPostId ? ' dark:text-white text-black' : 'text-neutral-600 dark:text-neutral-300'" class=" " :name=" MarkedPostId ? 'material-symbols:bookmark-added' : 'material-symbols:bookmark-add'" size="1.2em"/>
                         </div>
@@ -102,9 +102,9 @@ const Logout = async () => {
     await $csrfFetch('/api/users', { method: 'DELETE' }); return navigateTo("/")
 }
 
-const OpenMail = async () => {
+const OpenMail = async (interested) => {
 
-    const mailtoLink = createEmailTemplate(Berichten);
+    const mailtoLink = createEmailTemplate(interested, Berichten);
     location.replace(mailtoLink);
 
 }

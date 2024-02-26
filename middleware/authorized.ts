@@ -1,7 +1,6 @@
 export default defineNuxtRouteMiddleware(async (to, from) => {
-    
-    const { data }: Record<string, any> = await useFetch('/api/users')
 
+    const { data }: Record<string, any> = await useFetch('/api/users')
 
     if (data.value.statusCode != 200) {
         throw createError({
@@ -12,8 +11,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
         })
     }
 
-
-    if (!data.value.authorized)  {
+    if (!data.value.authorized) {
         throw createError({
             statusCode: 403,
             message: "The server understood the request but refuses to authorize it.",
@@ -21,11 +19,5 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
             fatal: true,
         })
     }
-    
-    
-    
 })
 
-
-//if(to.path == from.path) return navigateTo('/')
-//return navigateTo(from.path)

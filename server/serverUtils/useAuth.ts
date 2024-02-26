@@ -1,4 +1,3 @@
-import bcrypt from "bcrypt"
 export default async (event: any,) => {
     const request = await readBody(event)
     if (!request) return {
@@ -27,8 +26,6 @@ export default async (event: any,) => {
         statusMessage: "Unauthorized",
         message: "The request has not been authorized because it lacks valid authentication credentials."
     }
-
-
     return {
         statusCode: 200,
         statusMessage: "OK",

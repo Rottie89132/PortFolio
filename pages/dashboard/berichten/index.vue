@@ -66,6 +66,9 @@
                                 <div class=" flex mt-2.5 md:mt-2 items-center gap-3 ">
                                     <NuxtLink :to="`/dashboard/berichten/${item._id}`" class="px-4 py-1 text-xs font-semibold text-white dark:text-black dark:bg-white dark:ring-white bg-black rounded-md ring-2 ring-black">Bekijken</NuxtLink>
                                     <marked :PostRead="item.read" />
+                                    <button @click="DeleteMail(item)" class="px-[0.45em] rounded-md py-1 text-xs flex justify-center items-center font-semibold dark:text-neutral-300 dark:bg-neutral-800 dark:ring-neutral-800 text-neutral-600 bg-neutral-200 ring-2 ring-neutral-200">
+                                        <Icon name="material-symbols:delete-outline" size="1.3em"></Icon>
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -74,6 +77,22 @@
             </div>
         </div>
     </div>
+    <ModalConfirmation v-model:texthead="title" v-model:textbase="subtitle" v-model:status="OpenModule"
+            v-model:DelayStatus="OpenModuleDelay">
+            <div v-if="!loadingMail" class=" flex mb-2 items-center gap-4 ">
+                <button @click="DeleteMailConfirm"
+                    class="flex font-semibold items-center gap-2 px-8 py-2 text-sm text-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-md">Verwijderen</button>
+                <button @click="closeModal"
+                    class="flex font-semibold  items-center gap-2 px-6 py-2 text-sm bg-gray-100 ring-2 ring-gray-100 text-neutral-800 rounded-md">
+                    Annuleren</button>
+            </div>
+            <div v-else-if="loadingMail" class="flex mb-2 items-center gap-4  ">
+                <button disabled
+                    class="flex font-semibold items-center gap-2 px-6 py-2 text-sm text-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-md">
+                    <Icon class=" animate-spin" name="ri:refresh-line" size="1.25em" />Verwerken
+                </button>
+            </div>
+        </ModalConfirmation>
 </template>
 
 <script setup>
@@ -110,6 +129,13 @@ const router = useRouter();
 const berichten = ref([]);
 const ReactiveEvent = ref();
 
+const title = ref()
+const subtitle = ref()
+const OpenModule = ref(false)
+const OpenModuleDelay = ref(false)
+const loadingMail = ref(false)
+const itemData = ref()
+
 currentPage.value = useRoute().query.Page
 const { data: Berichten, error, pending, refresh } = await useFetch(`/api/berichten/${currentPage.value}`)
 
@@ -122,6 +148,11 @@ onMounted(() => {
 
 const Logout = async () => {
     await $csrfFetch('/api/users', { method: 'DELETE' }); return navigateTo("/")
+}
+
+const closeModal = () => {
+    OpenModuleDelay.value = false;
+    setTimeout(() => { OpenModule.value = false }, 100)
 }
 
 const navigateToPage = async () => {
@@ -175,6 +206,28 @@ const animateIn = () => {
 
     setTimeout(() => {
         loading.value = false
+    }, 500);
+}
+
+const DeleteMail = async (item) => {
+    
+    itemData.value = item
+    title.value = item.email
+    subtitle.value = "Weet je zeker dat je dit bericht wilt verwijderen?"
+
+    OpenModule.value = true
+    setTimeout(() => { OpenModuleDelay.value = true }, 100)
+}
+
+const DeleteMailConfirm = async () => {
+    loadingMail.value = true
+    await useCsrfFetch(`/api/berichten/posts/${itemData.value._id}`, { method: 'DELETE'})
+    const { data: Berichten, error, pending, refresh } = await useFetch(`/api/berichten/${currentPage.value}`)
+
+    setTimeout(() => {
+        closeModal()
+        loadedBerichten(Berichten)
+        loadingMail.value = false
     }, 500);
 }
 

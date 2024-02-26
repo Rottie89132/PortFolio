@@ -200,7 +200,7 @@ const navigateToPage = async () => {
 
     router.push({ path: '/Repos', query: { Page: currentPage.value } })
 
-    const { data: Repositories } = await useCsrfFetch(`/api/repo/${currentPage.value}`, {
+    const Repositories = await $csrfFetch(`/api/repo/${currentPage.value}`, {
         method: "POST", body: useLocalStorage('SavedLikes', []).value.filter(e => e.liked == true)
     })
     loadedRepos(Repositories)
@@ -215,7 +215,7 @@ const PreviousPage = async () => {
     router.push({ path: '/Repos', query: { Page: page.value } })
     currentPage.value = page.value
 
-    const { data: Repositories } = await useCsrfFetch(`/api/repo/${page.value}`, {
+    const Repositories = await $csrfFetch(`/api/repo/${page.value}`, {
         method: "POST", body: useLocalStorage('SavedLikes', []).value.filter(e => e.liked == true)
     })
     loadedRepos(Repositories)
@@ -231,7 +231,7 @@ const NextPage = async () => {
     router.push({ path: '/Repos', query: { Page: page.value } })
     currentPage.value = page.value
 
-    const { data: Repositories } = await useCsrfFetch(`/api/repo/${page.value}`, {
+    const Repositories = await $csrfFetch(`/api/repo/${page.value}`, {
         method: "POST", body: useLocalStorage('SavedLikes', []).value.filter(e => e.liked == true)
     })
     loadedRepos(Repositories)
@@ -267,15 +267,15 @@ const animateIn = () => {
 
 const loadedRepos = async (Repositories) => {
     items.value = []
-    Repos.value = Repositories.value?.Response
-    hidebuttons.value = Repositories.value
+    Repos.value = Repositories?.Response
+    hidebuttons.value = Repositories
 
     const savedRepos = useLocalStorage('SavedLikes', [])
     savedRepos.value.filter(e => e.liked == true)
 
     if (Repos.value) {
-        currentPage.value = Repositories.value.page
-        useLocalStorage('RepoPage').value = Repositories.value.page
+        currentPage.value = Repositories.page
+        useLocalStorage('RepoPage').value = Repositories.page
 
         Repos.value.forEach(item => {
             const saved = savedRepos.value.find(e => e.id == item.repo_id) || { liked: false }
@@ -287,15 +287,15 @@ const loadedRepos = async (Repositories) => {
     else {
         currentPage.value = 1
         useLocalStorage('RepoPage').value = 1
-        const { data: Repositories } = await useCsrfFetch(`/api/repo/${currentPage.value}`)
+        const Repositories = await $csrfFetch(`/api/repo/${currentPage.value}`)
         router.push({ path: '/Repos', query: { Page: currentPage.value } })
 
-        Repos.value = Repositories.value?.Response
-        hidebuttons.value = Repositories.value
+        Repos.value = Repositories?.Response
+        hidebuttons.value = Repositories
 
         if (Repos.value) {
-            currentPage.value = Repositories.value.page
-            useLocalStorage('RepoPage').value = Repositories.value.page
+            currentPage.value = Repositories.page
+            useLocalStorage('RepoPage').value = Repositories.page
             Repos.value.forEach(item => {
                 const saved = savedRepos.value.find(e => e.id == item.repo_id) || { liked: false }
                 if (!saved.liked) items.value.push({ ...item, loaded: false })
@@ -310,7 +310,7 @@ const loadedRepos = async (Repositories) => {
 
 
 watch(ReactiveEvent, async () => {
-    const { data: Repositories } = await useCsrfFetch(`/api/repo/${useRoute().query.Page}`, {
+    const Repositories = await $csrfFetch(`/api/repo/${useRoute().query.Page}`, {
         method: "POST", body: useLocalStorage('SavedLikes', []).value.filter(e => e.liked == true)
     })
 
@@ -320,11 +320,11 @@ watch(ReactiveEvent, async () => {
 
 if (process.client) {
     setTimeout(async () => {
-        const { data: Repositories } = await useCsrfFetch(`/api/repo/${currentPage.value}`, {
+        const Repositories = await $csrfFetch(`/api/repo/${currentPage.value}`, {
             method: "POST", body: useLocalStorage('SavedLikes', []).value.filter(e => e.liked == true)
         })
 
-        hidebuttons.value = Repositories.value
+        hidebuttons.value = Repositories
         loadedRepos(Repositories)
         loadingIndicater.value = false
     }, 100);
