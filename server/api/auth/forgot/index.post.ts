@@ -23,9 +23,9 @@ export default defineEventHandler((event) => {
                 message: "The requested resource is no longer available at the server and no forwarding address is known."
             })
 
-            const newUser: Record<string, any> | null = await User.findOneAndUpdate({ Email: user.Email }, 
+            const newUser: Record<string, any> | null = await User.findOneAndUpdate({ Email: user.Email },
                 { $set: { Password: user.Password } }, { new: true }) as Record<string, any>;
-                        
+
             const response = {
                 user: {
                     Id: newUser?._id,
@@ -43,7 +43,6 @@ export default defineEventHandler((event) => {
                 statusMessage: "OK",
                 message: "The request has succeeded."
             })
-
-        }, 500);
+        }, 7700);
     });
 });
