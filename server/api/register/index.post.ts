@@ -53,7 +53,7 @@ export default defineEventHandler((event) => {
 
             setTimeout(async () => {
                 await useStorage("VerifyRequired").removeItem(SessionId)
-            }, 24 * 60 * 60 * 1000); 
+            }, 24 * 60 * 60 * 1000);
 
             return resolve({
                 statusCode: 200,

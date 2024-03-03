@@ -1,4 +1,4 @@
-export default defineEventHandler(async (event) => {
+export default defineEventHandler((event) => {
     return new Promise(async (resolve, reject) => {
 
         const SessionId: any = getCookie(event, "token")
@@ -17,7 +17,7 @@ export default defineEventHandler(async (event) => {
             message: "The request has not been authorized because it lacks valid authentication credentials."
         })
 
-        if(!user.Admin) return reject({
+        if (!user.Admin) return reject({
             statusCode: 403,
             statusMessage: "Forbidden",
             message: "The server understood the request, but is refusing to authorize it."

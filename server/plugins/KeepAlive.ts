@@ -1,6 +1,6 @@
 import { useScheduler } from "#scheduler"
 
-const { FetchServer }:any = useRuntimeConfig()
+const { FetchServer }: any = useRuntimeConfig()
 export default defineNitroPlugin(() => {
     const scheduler = useScheduler();
     scheduler.run(() => {

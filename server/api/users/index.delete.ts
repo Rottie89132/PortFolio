@@ -1,6 +1,6 @@
 export default defineEventHandler((event) => {
     return new Promise(async (resolve, reject) => {
-        
+
         const SessionId: any = getCookie(event, "token")
         const user = await useStorage("Sessions").getItem(SessionId)
 
@@ -20,5 +20,5 @@ export default defineEventHandler((event) => {
         })
 
     });
-    
+
 })

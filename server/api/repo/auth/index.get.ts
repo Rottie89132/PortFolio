@@ -1,5 +1,5 @@
 
-export default defineEventHandler(async (event) => {
+export default defineEventHandler((event) => {
     return new Promise(async (resolve, reject) => {
         const currentPage = Number(getQuery(event).page) - 1 || 0
 

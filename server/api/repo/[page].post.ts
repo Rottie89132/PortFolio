@@ -1,4 +1,4 @@
-export default defineEventHandler(async(event) => {
+export default defineEventHandler((event) => {
     return new Promise(async (resolve, reject) => {
         const SavedRepo = await readBody(event)
         const currentPage = Number(getRouterParams(event).page) - 1 || 0
@@ -11,7 +11,6 @@ export default defineEventHandler(async(event) => {
             else FilteredItem.unshift(item)
         });
 
-
         for (let i = 0; i < FilteredItem.length; i += 3) { result.push(FilteredItem.slice(i, i + 3)) }
         const data = result[currentPage]
 
@@ -22,8 +21,6 @@ export default defineEventHandler(async(event) => {
                 message: "The requested resource could not be found."
             })
         }
-
-        
 
         return resolve({
             statusCode: 200,

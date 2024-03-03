@@ -1,7 +1,7 @@
 import { useCompiler } from '#vue-email'
 
 export default defineEventHandler((event) => {
-    return new Promise(async (resolve, reject) => {
+    return new Promise((resolve, reject) => {
         setTimeout(async () => {
             const request = await readBody(event)
             if (!request) return reject({

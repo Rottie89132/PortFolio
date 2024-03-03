@@ -5,7 +5,7 @@ export default defineEventHandler(async (event) => {
 
     const OptId: any = getCookie(event, "OptRequired")
     const OptEnabled: any = await useStorage("OptRequired").getItem(OptId)
-    
+
     if (OptEnabled?.is2FAEnabled) return {
         statusCode: 428,
         statusMessage: "Precondition Required",

@@ -1,7 +1,7 @@
 import path from 'path'
 import fs from "fs";
 
-export default defineEventHandler(async (event) => {
+export default defineEventHandler((event) => {
     return new Promise(async (resolve, reject) => {
         const SessionId: any = getCookie(event, "token")
         const user: Record<string, any> | null = await useStorage("Sessions").getItem(SessionId)

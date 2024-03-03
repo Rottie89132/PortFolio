@@ -1,5 +1,5 @@
-export default defineEventHandler( (event) => {
-    return new Promise(async  (resolve, reject) => {
+export default defineEventHandler((event) => {
+    return new Promise(async (resolve, reject) => {
 
         const { code, installation } = getRouterParams(event);
         if (!code || !installation) return reject({

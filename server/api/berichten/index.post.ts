@@ -15,7 +15,7 @@ export default defineEventHandler((event) => {
 
             const request = await readBody(event)
 
-            if(!request) return reject({
+            if (!request) return reject({
                 statusCode: 400,
                 statusMessage: "Bad Request",
                 message: "The request could not be understood by the server due to malformed syntax."

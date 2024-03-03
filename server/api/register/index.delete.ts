@@ -1,5 +1,5 @@
 export default defineEventHandler((event) => {
-    return new Promise(async (resolve, reject) => {
+    return new Promise((resolve, reject) => {
         setTimeout(async () => {
             const SessionId: any = getCookie(event, "token")
             const user: any = await useStorage("Sessions").getItem(SessionId)

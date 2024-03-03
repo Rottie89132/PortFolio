@@ -1,4 +1,4 @@
-export default defineEventHandler(async (event) => {
+export default defineEventHandler((event) => {
     return new Promise(async (resolve, reject) => {
 
         const SessionId: any = getCookie(event, "token")
@@ -13,9 +13,9 @@ export default defineEventHandler(async (event) => {
             message: "The request has not been authorized because it lacks valid authentication credentials."
         })
 
-        if(!user.Admin) berichten = await Berichten.find({ email: user.Email }).sort({ read: -1, created_at: -1 })
+        if (!user.Admin) berichten = await Berichten.find({ email: user.Email }).sort({ read: -1, created_at: -1 })
         else berichten = await Berichten.find().sort({ read: 1, created_at: -1 })
-        
+
         for (let i = 0; i < berichten.length; i += 5) { result.push(berichten.slice(i, i + 5)) }
         const data = result[currentPage]
 

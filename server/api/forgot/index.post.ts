@@ -2,8 +2,8 @@ import bcrypt from "bcrypt"
 import { useCompiler } from '#vue-email'
 const { Hostadress } = useRuntimeConfig()
 
-export default defineEventHandler(async (event) => {
-    return new Promise( async(resolve, reject) => {
+export default defineEventHandler((event) => {
+    return new Promise(async (resolve, reject) => {
 
         const request = await readBody(event)
         if (!request) return reject({
