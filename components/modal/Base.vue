@@ -174,13 +174,10 @@
 			loading.value = false;
 			actions.resetForm();
 
-			if (AuthModule.value && !data.value.user.is2FAEnabled) {
-				closeModal();
-			}
-
+			if (AuthModule.value) closeModal();
+			
 			setTimeout(() => {
-				if (type.value != "Aanmelden" && type.value != "Vergeten") closeModal();
-
+				
 				if (AuthModule.value && data.value.user.is2FAEnabled) navigateTo(`/auth/prompt/2fa?token=${data.value.user.Id}`);
 				else if (AuthModule.value && data.value.user.Admin) navigateTo("/dashboard");
 				else if (AuthModule.value) navigateTo("/profile");

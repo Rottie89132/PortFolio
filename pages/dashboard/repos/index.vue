@@ -36,11 +36,12 @@
 						</form>
 					</div>
 				</div>
-				<div v-if="Repositories && Repositories.length < 1" class="mb-[5.2em] -mt-2">
+				<div class="flex items-center gap-2 dark:text-white" v-if="loadingIndicater || loading"><icon name="mingcute:loading-fill" class="animate-spin" size="1.4em"></icon>Repositories worden ingeladen</div>
+				<div v-else-if="Repositories && Repositories.length < 1" class="mb-[5.2em] -mt-2">
 					<p class="opacity-75 mb-6 dark:text-white text-sm">Voordat u verder gaat, moet u eerst een verbinding maken met uw GitHub-account.</p>
 					<a href="https://github.com/apps/rottie-portfolio/installations/new" target="_blank" class="px-4 py-2 text-sm font-medium text-white dark:bg-indigo-500 dark:ring-indigo-500 bg-indigo-600 rounded-lg ring-2 ring-indigo-600"> Maak verbinding </a>
 				</div>
-				<div class="flex items-center gap-2 dark:text-white" v-else-if="loadingIndicater || loading"><icon name="mingcute:loading-fill" class="animate-spin" size="1.4em"></icon>Repositories worden ingeladen</div>
+
 				<div v-else class="p-3 bg-[#F7F7F7] dark:bg-[#111111] h-fit rounded-2xl transition-transform">
 					<div class="w-full h-full overflow-y-auto snap-y snap-proximity rounded-xl scroll-smooth">
 						<div v-for="(item, index) in items" :key="index" class="mb-3 delay-100 last:mb-0 animate-fade-in">
@@ -75,13 +76,6 @@
 </template>
 
 <script setup>
-	const Repositories = ref([]);
-	const SavedRepositories = ref([]);
-	const title = ref();
-	const subtitle = ref();
-	const OpenModule = ref(false);
-	const OpenModuleDelay = ref(false);
-
 	definePageMeta({
 		middleware: ["authorized"],
 	});
@@ -108,7 +102,7 @@
 	const { $pwa, $PusherOnStart, $csrfFetch } = useNuxtApp();
 	const currentPage = ref();
 	const hidebuttons = ref([]);
-	const loading = ref(false);
+	const loading = ref(true);
 	const loadingIndicater = ref(false);
 	const loadingRepos = ref(false);
 	const router = useRouter();
@@ -116,16 +110,17 @@
 	const Installed = ref(false);
 	const ItemData = ref([]);
 	const Saved = ref(false);
+	const SavedRepo = ref();
+
+	const Repositories = ref([]);
+	const SavedRepositories = ref([]);
+	const title = ref();
+	const subtitle = ref();
+	const OpenModule = ref(false);
+	const OpenModuleDelay = ref(false);
 
 	currentPage.value = useRoute().query.Page;
 	const defaultDescription = "Op dit moment is er helaas geen specifieke beschrijving beschikbaar voor dit project.";
-
-	const { data } = await useFetch(`/api/repo/auth?page=${currentPage.value}`);
-	const { data: SavedRepo } = await useFetch(`/api/repo`);
-
-	if (SavedRepo.value.statusCode == 200) {
-		SavedRepositories.value = SavedRepo.value.Response;
-	}
 
 	const Logout = async () => {
 		await $csrfFetch("/api/users", { method: "DELETE" });
@@ -277,5 +272,18 @@
 		}, 100);
 	};
 
-	loadedRepos(data, SavedRepo);
+	if (process.client) {
+		setTimeout(async () => {
+			const { data, error } = await useFetch(`/api/repo/auth?page=${currentPage.value}`);
+			const { data: SaveRepo } = await useFetch(`/api/repo`);
+
+			if (!error.value) {
+				SavedRepositories.value = SaveRepo.value.Response;
+				SavedRepo.value = SaveRepo.value;
+				loadedRepos(data, SaveRepo);
+			} else {
+				loading.value = false;
+			}
+		}, 100);
+	}
 </script>

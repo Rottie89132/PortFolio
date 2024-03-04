@@ -184,9 +184,6 @@
 		readObjects.value = Berichten.value.Response.filter((obj) => obj.read === true);
 	}
 
-	// const { data: Berichten } = await useFetch(`/api/berichten/`);
-	// const readObjects = Berichten.value.Response.filter((obj) => obj.read === true);
-
 	TwoFAEnabled.value = data.value.user.is2FAEnabled;
 	userAuthorized.value = data.value.authorized;
 	username.value = data.value.user.Username;
@@ -247,7 +244,8 @@
 	};
 
 	const RemoveTwoFactor = async () => {
-		TwoFAEnabled.value = false;
+		const data = await $csrfFetch("/api/auth/opt", { method: "DELETE" });
+		if (data.statusCode == 200) TwoFAEnabled.value = false;
 	};
 
 	const Logout = async () => {
