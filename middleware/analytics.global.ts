@@ -5,8 +5,13 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
 
     if (process.client) {
         if (!visted.value) {
-            await $csrfFetch('/api/analytics', { method: 'POST', });
-            visted.value = true
+
+            const data: Record<string, any> = await useFetch("/api/users")
+            if (!data.data.value?.authorized){
+                await $csrfFetch('/api/analytics', { method: 'POST', });
+                visted.value = true
+            }
+
         }
     }
 
