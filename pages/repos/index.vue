@@ -28,8 +28,9 @@
 			<div class="w-full h-fit mt-6 md:my-10 xl:mt-20 md:w-[89.2%]">
 				<div class="flex items-center justify-between gap-3 mb-3">
 					<h1 class="text-[1.5em] text-black dark:text-white font-extrabold">Repositories</h1>
-					<NavButtons :items="items" :hidebuttons="hidebuttons" :loading="loading" :currentPage="currentPage"
-						:PreviousPage="PreviousPage" :NextPage="NextPage" :navigateToPage="navigateToPage">
+					<NavButtons :items="items" :hidebuttons="hidebuttons" :loading="loading"
+						v-model:currentPage="currentPage" :PreviousPage="PreviousPage" :NextPage="NextPage"
+						:navigateToPage="navigateToPage">
 					</NavButtons>
 				</div>
 				<Status :items="items" :loadingIndicater="loadingIndicater" />
@@ -106,8 +107,8 @@ const Logout = async () => {
 const navigateToPage = async () => {
 	if (currentPage.value > hidebuttons.value.total) currentPage.value = hidebuttons.value.total;
 	else if (currentPage.value < 1) currentPage.value = 1;
+	
 	useLocalStorage("RepoPage").value = currentPage.value;
-
 	router.push({ path: "/Repos", query: { Page: currentPage.value } });
 
 	const Repositories = await $csrfFetch(`/api/repo/${currentPage.value}`, {
