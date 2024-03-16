@@ -10,14 +10,14 @@
 
 	<div v-else-if="Repositories && Repositories.length >= 1" class="p-3 bg-[#F7F7F7] dark:bg-[#111111] h-fit rounded-2xl transition-transform">
 		<div class="w-full h-full overflow-y-auto snap-y snap-proximity rounded-xl scroll-smooth">
-			<div v-for="(item, index) in items" :key="index" class="mb-3">
+			<div v-for="(item, index) in items" :key="index" class="last:mb-0 mb-3">
 				<CardGithub :item="item" :DeleteRepo="(item: any) => DeleteRepo?.(item)" :SaveRepo="(item: any) => SaveRepo?.(item)" />
 			</div>
 		</div>
 	</div>
 	<div v-else class="p-3 bg-[#F7F7F7] dark:bg-[#111111] h-fit rounded-2xl transition-transform">
 		<div class="w-full h-full overflow-y-auto snap-y snap-proximity rounded-xl scroll-smooth">
-			<div v-for="(item, index) in items" :key="item.repo_id" class="mb-3">
+			<div v-for="(item, index) in items" :key="item.repo_id" class="last:mb-0 mb-3">
 				<CardProjecten :item="item" />
 			</div>
 		</div>
@@ -31,6 +31,6 @@
 		loading?: boolean;
 		Repositories?: any;
 		DeleteRepo?: (item: any) => void;
-        SaveRepo?: (item: any) => void;
+		SaveRepo?: (item: any) => void;
 	}>();
 </script>

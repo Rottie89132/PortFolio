@@ -8,14 +8,15 @@ export default defineEventHandler((event) => {
             message: "The server cannot or will not process the request due to an apparent client error."
         })
 
-        const SessionId: any = getCookie(event, "token")
-        const user: any = await useStorage("Sessions").getItem(SessionId)
+        const SessionId: any = getCookie(event, "access-token")
+        const user: Record<string, any> | null = await useStorage("Sessions").getItem(SessionId)
+        
         if (!user) return reject({
             statusCode: 401,
             statusMessage: "Unauthorized",
-            message: "The request has not been authorized because it lacks valid authentication credentials."
+            message: "The request has not been applied because it lacks valid authentication credentials for the target resource."
         })
-
+        
         if (!user.Admin) return {
             statusCode: 403,
             statusMessage: "Forbidden",

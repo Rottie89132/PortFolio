@@ -29,6 +29,7 @@ export default defineNuxtConfig({
     autoImport: true,
   },
   csurf: {
+    cookieKey: 'csrf-token',
     https: process.env.production === 'true',
     methodsToProtect: ['POST', 'PUT', 'PATCH', 'DELETE'],
     excludedUrls: ['/api/render/verification.vue', '/api/render/success.vue'],
@@ -146,7 +147,7 @@ export default defineNuxtConfig({
       suppressWarnings: true,
     },
   },
-  
+
   app: {
     head: {
       meta: [
@@ -165,7 +166,7 @@ export default defineNuxtConfig({
       dirs: ["./server/serverUtils"],
       presets: [{
         from: "bcrypt",
-        imports: [{name: "default", as: "bcrypt"}],
+        imports: [{ name: "default", as: "bcrypt" }],
       }],
     },
   }

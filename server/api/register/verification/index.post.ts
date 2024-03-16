@@ -40,9 +40,7 @@ export default defineEventHandler((event) => {
             }
 
             const template = await useCompiler('success.vue', {
-                props: {
-                    Username: newUser.Username,
-                }
+                props: { Username: newUser.Username }
             })
 
             await useMail({
