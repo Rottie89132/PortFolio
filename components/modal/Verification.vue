@@ -59,7 +59,7 @@
 	configure({
 		validateOnBlur: true,
 		validateOnChange: true,
-		validateOnInput: false,
+		validateOnInput: true,
 		validateOnModelUpdate: true,
 	});
 

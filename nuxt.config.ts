@@ -169,5 +169,8 @@ export default defineNuxtConfig({
         imports: [{ name: "default", as: "bcrypt" }],
       }],
     },
+  },
+  features: {
+    devLogs: false
   }
 })

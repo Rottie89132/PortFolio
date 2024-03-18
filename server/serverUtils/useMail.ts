@@ -1,6 +1,5 @@
 import { createTransport } from 'nodemailer'
 import { consola } from 'consola';
-import chalk from 'chalk';
 
 const { Server, Password, User, Sender } = useRuntimeConfig()
 
@@ -18,8 +17,8 @@ const transporter = createTransport({
 });
 
 transporter.verify((error) => {
-    if (error) consola.error(chalk.red('✖') + ' Server is not ready to send mail');
-    else consola.success(chalk.green('✔') + ' Server is ready to send mail');
+    if (error) consola.error('Server is not ready to send mail');
+    else consola.success('Server is ready to send mail');
 });
 
 export default async (options: any) => {
@@ -33,8 +32,8 @@ export default async (options: any) => {
     }
 
     transporter.sendMail(mailOptions, (error, info) => {
-        if (error) consola.error(chalk.red('✖') + ' Email not sent: ' + error);
-        else consola.success(chalk.green('✔') + ' Email sent: ' + info.response);
+        if (error) consola.error('Email not sent: ' + error);
+        else consola.success('Email sent: ' + info.response);
     });
 
 };
