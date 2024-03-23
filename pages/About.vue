@@ -217,7 +217,7 @@
 					</div>
 				</div>
 				<div v-else>
-					<p class="mt-3 mb-4 leading-4 dark:text-white text-sm">Om toegang te krijgen tot mijn informatie moet je een account hebben en ingeloged zijn.</p>
+					<p class="mt-3 mb-4 leading-4 dark:text-white text-sm">Om toegang te krijgen tot mijn informatie moet je een account hebben en ingelogd zijn.</p>
 					<button @click="HandleModule('Aanmelden')" class="px-4 py-1 text-sm font-semibold dark:ring-white text-white dark:hover:bg-gray-100 dark:hover:ring-gray-100 dark:text-neutral-800 dark:bg-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-lg">Aanmelden</button>
 				</div>
 			</div>
