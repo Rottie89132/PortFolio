@@ -1,7 +1,6 @@
 <template>
 	<VitePwaManifest />
 	<Landscape />
-	<VTour ref="tour" :skipButton="skip" :prevButton="Vorige" :nextButton="volgende" :finishButton="finish" :steps="steps" />
 	<div class="fixed w-full select-none h-full p-4 pb-5 md:pb-0 md:p-0">
 		<div :class="!Installed ? 'h-full' : 'h-[95%]'" class="w-full md:h-full p-5 md:rounded-none pb-4 rounded-3xl md:pl-52 bg-[#f0f0f0] md:bg-white dark:bg-[#131313] dark:md:bg-neutral-900 overflow-auto">
 			<div class="grid gap-24">
@@ -46,7 +45,6 @@
 <script setup>
 	const { $pwa, $PusherOnStart, $PusherOnEvent, $csrfFetch } = useNuxtApp();
 	const items = ref([]);
-	const tour = ref(null);
 	const currentPage = ref();
 	const router = useRouter();
 	const OpenModule = ref(false);
@@ -63,13 +61,6 @@
 	const ReactiveEvent = ref(false);
 	const loadingIndicater = ref(true);
 	const datatype = ref("");
-
-	const volgende = { label: "Volgende" };
-	const Vorige = { label: "Vorige" };
-	const skip = { label: "Overslaan" };
-	const finish = { label: "Voltooien" };
-
-	const steps = useTour();
 
 	useSeoMeta({
 		title: `PortFolio - Repositories`,
@@ -93,10 +84,6 @@
 		if ($pwa.isInstalled) Installed.value = true;
 		$PusherOnStart();
 		$PusherOnEvent("client-eventRepositories", ReactiveEvent);
-
-		setTimeout(() => {
-			tour.value?.startTour();
-		}, 500);
 	});
 
 	currentPage.value = useRoute().query.Page;
