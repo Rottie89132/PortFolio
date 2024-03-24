@@ -1,5 +1,5 @@
 <template>
-	<div @click="like" class="flex items-center justify-center gap-1 px-[0.6rem] py-1 mt-3 mb-1 text-xs rounded dark:text-neutral-300 text-neutral-600">
+	<div @click="like" class="flex liked items-center justify-center gap-1 px-[0.6rem] py-1 mt-3 mb-1 text-xs rounded dark:text-neutral-300 text-neutral-600">
 		<Icon :class="liked ? ' dark:text-indigo-500 text-indigo-600 like-animation' : ' dark:text-gray-500 text-gray-300'" class="transition-all delay-200" name="prime:thumbs-up-fill" size="1.9em"></Icon>
 	</div>
 </template>

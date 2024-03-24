@@ -18,20 +18,21 @@
 			</div>
 			<div class="flex items-center gap-3 justify-between font-semibold select-none">
 				<div class="flex items-center gap-3">
-					<a v-if="item.homepage && !disableLink" :href="item.homepage" target="_blank" class="flex items-center justify-center px-3 py-1 mt-3 mb-1 text-xs dark:text-black dark:bg-white font-semibold dark:ring-white text-white bg-black rounded ring-2 ring-black">Bezoeken</a>
-					<div v-else-if="item.homepage" class="relative group">
-						<a class="flex items-center justify-center px-3 py-1 mt-3 mb-1 text-xs dark:text-black dark:bg-white font-semibold dark:ring-white text-white bg-black rounded ring-2 ring-black"> Bezoeken </a>
+					<a v-if="item.homepage && !disableLink" :href="item.homepage" target="_blank" class="flex items-center justify-center px-3 py-1 mt-3 mb-1 text-xs dark:text-black dark:bg-white font-semibold dark:ring-white text-white bg-black rounded ring-2 ring-black websitelink">Bezoeken</a>
+					<div v-else class="relative group">
+						<a class="flex websitelink items-center justify-center px-3 py-1 mt-3 mb-1 text-xs dark:text-black dark:bg-white font-semibold dark:ring-white text-white bg-black rounded ring-2 ring-black cursor-not-allowed"> Bezoeken </a>
 						<div class="absolute -ml-[0.15em] text-center w-48 -top-[0.12em] transform -translate-y-full dark:bg-indigo-500 bg-indigo-600 text-white text-xs rounded-md py-1 px-2 hidden group-hover:block transition duration-200 ease-in-out">
 							<p class="text-center p-[0.45em] z-20 dark:bg-indigo-500 bg-indigo-600">
-								<span class="font-semibold"> Je bent al op deze website! </span>
+								<span v-if="!item.homepage" class="font-semibold">Geen website beschikbaar!</span>
+								<span v-else class="font-semibold"> Je bent al op deze website! </span>
 							</p>
 							<div class="absolute w-3 h-3 dark:bg-indigo-500 bg-indigo-600 transform rotate-45 -bottom-[0.44em] left-5 -translate-x-1/2"></div>
 						</div>
 					</div>
 
-					<a v-if="item.visibility == 'public'" :href="item.html_url" target="_blank" class="flex items-center justify-center gap-1 px-[0.6rem] py-1 mt-3 mb-1 text-xs rounded dark:text-neutral-300 dark:bg-neutral-800 dark:ring-neutral-800 text-neutral-600 bg-neutral-200 ring-2 ring-neutral-200"> <Icon name="tabler:brand-github-filled" size="1.2em"></Icon>GitHub </a>
+					<a v-if="item.visibility == 'public'" :href="item.html_url" target="_blank" class="flex githubLink items-center justify-center gap-1 px-[0.6rem] py-1 mt-3 mb-1 text-xs rounded dark:text-neutral-300 dark:bg-neutral-800 dark:ring-neutral-800 text-neutral-600 bg-neutral-200 ring-2 ring-neutral-200"> <Icon name="tabler:brand-github-filled" size="1.2em"></Icon>GitHub </a>
 					<div v-else class="relative group">
-						<a class="flex items-center justify-center gap-1 px-[0.6rem] dark:bg-neutral-800 dark:ring-neutral-800 py-1 mt-3 mb-1 text-xs rounded dark:text-neutral-300 text-neutral-600 bg-neutral-200 ring-2 ring-neutral-200 cursor-not-allowed"> <Icon name="tabler:brand-github-filled" size="1.2em"></Icon>GitHub </a>
+						<a class="flex items-center githubLink justify-center gap-1 px-[0.6rem] dark:bg-neutral-800 dark:ring-neutral-800 py-1 mt-3 mb-1 text-xs rounded dark:text-neutral-300 text-neutral-600 bg-neutral-200 ring-2 ring-neutral-200 cursor-not-allowed"> <Icon name="tabler:brand-github-filled" size="1.2em"></Icon>GitHub </a>
 						<div class="absolute -ml-[0.15em] text-center w-36 -top-[0.12em] transform -translate-y-full dark:bg-indigo-500 bg-indigo-600 text-white text-xs rounded-md py-1 px-2 hidden group-hover:block transition duration-200 ease-in-out">
 							<p class="text-center p-[0.45em] z-20 dark:bg-indigo-500 bg-indigo-600">
 								<span class="font-semibold">Dit project is privé!</span>

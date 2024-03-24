@@ -22,8 +22,12 @@ export default defineNuxtConfig({
     "nuxt-csurf",
     'nuxt-scheduler',
     '@vue-email/nuxt',
-    "nuxt-build-cache"
+    "nuxt-build-cache",
+    "nuxt-tour"
   ],
+  tour: { 
+    injectSass: false
+  },
   vueEmail: {
     playground: true,
     autoImport: true,

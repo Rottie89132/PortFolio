@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@media (orientation: landscape) and (max-width: 1024px) and (min-height: 300px) and (max-height: 800px) and (min-width: 500px){
+@media (orientation: landscape) and (max-width: 1024px) and (min-height: 300px) and (max-height: 800px) and (min-width: 500px) {
     #landscape {
         @apply z-50 fixed inset-0 top-0 flex items-center justify-center bg-white dark:bg-neutral-900;
     }
@@ -88,4 +88,94 @@ input:-webkit-autofill:focus {
         box-shadow: 0 0 0 30px #171717 inset !important;
         background-clip: content-box !important;
     }
+}
+
+[data-hidden] {
+    display: none !important;
+}
+
+
+#nt-tooltip {
+    @apply dark:bg-indigo-500 bg-indigo-600 relative text-white p-2.5 rounded-lg z-50 max-w-[370px] flex flex-col;
+}
+
+.nt-center {
+    @apply absolute top-[50%] left-[50%] transform -translate-x-[50%] -translate-y-[50%] !important;
+}
+
+#nt-tooltip-header {
+    @apply flex flex-col space-y-1.5;
+}
+
+#nt-tooltip-header #nt-tooltip-title {
+    @apply text-base leading-normal font-semibold;
+}
+
+#nt-tooltip-header #nt-tooltip-sub-text {
+    @apply text-sm text-indigo-200
+}
+
+#nt-tooltip-body {
+    @apply text-sm text-indigo-50
+}
+
+#nt-tooltip[data-popper-placement^="top"] #nt-arrow {
+    bottom: -6px;
+}
+
+#nt-tooltip[data-popper-placement^="top"] #nt-arrow::before {
+    content: "";
+}
+
+#nt-tooltip[data-popper-placement^="bottom"] #nt-arrow {
+    top: -6px;
+}
+
+#nt-tooltip[data-popper-placement^="bottom"] #nt-arrow::before {
+    content: "";
+}
+
+#nt-tooltip[data-popper-placement^="left"] #nt-arrow {
+    right: -6px;
+}
+
+#nt-tooltip[data-popper-placement^="left"] #nt-arrow::before {
+    content: "";
+}
+
+#nt-tooltip[data-popper-placement^="right"] #nt-arrow {
+    left: -6px;
+}
+
+#nt-tooltip[data-popper-placement^="right"] #nt-arrow::before {
+    content: "";
+}
+
+#nt-arrow {
+    @apply w-3 h-3 absolute z-[-99];
+}
+
+#nt-arrow::before {
+    @apply dark:bg-indigo-500 bg-indigo-600 absolute rotate-[45deg] w-[12px] h-[12px];
+    content: "";
+}
+
+.nt-highlight {
+    @apply appearance-none outline outline-gray-300 outline-1
+}
+
+.nt-actions {
+    @apply flex gap-[8px] items-center mt-[14px];
+}
+
+.nt-actions button {
+    @apply inline-flex items-center justify-center leading-none space-x-2.5 h-8 px-3.5 py-1 rounded-md bg-white text-black text-sm font-medium transition-all duration-200 ease-in-out cursor-pointer;
+}
+
+.nt-actions button#nt-action-skip {
+    @apply appearance-none outline focus:outline-gray-300 outline-1 bg-transparent text-white;
+}
+
+.nt-actions button:hover {
+    @apply opacity-85
 }
