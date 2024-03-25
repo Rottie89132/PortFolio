@@ -1,28 +1,24 @@
 <template>
-    <div>
-        <VTour ref="tour" :skipButton="skip" :prevButton="Vorige" :nextButton="volgende" :finishButton="finish" :steps="steps" />
-
-    </div>
+	<div>
+		<VTour highlight ref="tour" :skipButton="skip" :prevButton="Vorige" :nextButton="volgende" :finishButton="finish" :steps="steps" />
+	</div>
 </template>
 
 <script setup>
-    const tour = ref(null);
+	const tour = ref(null);
 
-    const volgende = { label: "Volgende" };
+	const volgende = { label: "Volgende" };
 	const Vorige = { label: "Vorige" };
 	const skip = { label: "Overslaan" };
 	const finish = { label: "Voltooien" };
 
 	const steps = useTour();
 
-    onMounted(() => {
-        setTimeout(() => {
+	onMounted(() => {
+		setTimeout(() => {
 			tour.value?.startTour();
 		}, 500);
-    });
-
+	});
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

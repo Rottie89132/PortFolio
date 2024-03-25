@@ -41,7 +41,7 @@
 						</div>
 					</div>
 				</div>
-				<liked :url="item.html_url" :visibility="item.visibility" :name="item.name" :id="item.repo_id" />
+				<liked :id="item.repo_id" v-model:liked="item.liked" />
 			</div>
 		</div>
 	</div>

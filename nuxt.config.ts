@@ -36,7 +36,6 @@ export default defineNuxtConfig({
     cookieKey: 'csrf-token',
     https: process.env.production === 'true',
     methodsToProtect: ['POST', 'PUT', 'PATCH', 'DELETE'],
-    excludedUrls: ['/api/render/verification.vue', '/api/render/success.vue'],
     addCsrfTokenToEventCtx: true
   },
   colorMode: {

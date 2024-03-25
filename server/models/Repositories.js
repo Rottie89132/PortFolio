@@ -19,6 +19,7 @@ export const Repositories = defineMongooseModel({
         },
         updated_at: { type: Date, required: false, unique: false },
         created_at: { type: Date, required: true, unique: false },
+        liked_byId: { type: Array, required: false, unique: false },
     }
 })
 

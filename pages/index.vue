@@ -25,4 +25,5 @@
 		htmlAttrs: { lang: "nl" },
 		link: [{ rel: "icon", type: "image/png" }],
 	});
+
 </script>

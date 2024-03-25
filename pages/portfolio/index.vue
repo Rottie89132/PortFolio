@@ -22,13 +22,13 @@
 						<HeaderTitel Title="Hallo leer mij kennen!" SubTitle="Hoi, ik ben Roland Meijer, een Software Developer in de maak! Momenteel zit ik in mijn tweede leerjaar en ontdek ik de kunst van het programmeren." />
 						<div class="flex items-center gap-5">
 							<ClientOnly>
-								<NuxtLink :to="repoLink" class="flex dark:text-neutral-800 font-semibold dark:bg-white dark:hover:bg-white dark:hover:ring-white dark:ring-white items-center gap-2 px-5 py-3 text-sm text-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-xl"> Bekijk Repositories </NuxtLink>
+								<NuxtLink :to="repoLink" class="flex dark:text-neutral-800 font-semibold dark:bg-white dark:hover:bg-white dark:hover:ring-white dark:ring-white items-center gap-2 px-5 py-3 text-sm text-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-xl"> Bekijk projecten </NuxtLink>
 								<template #fallback>
-									<NuxtLink to="/Repos" class="flex dark:text-neutral-800 font-semibold dark:bg-white dark:hover:bg-white dark:hover:ring-white dark:ring-white items-center gap-2 px-5 py-3 text-sm text-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-xl"> Bekijk Repositories </NuxtLink>
+									<NuxtLink to="/Repos" class="flex dark:text-neutral-800 font-semibold dark:bg-white dark:hover:bg-white dark:hover:ring-white dark:ring-white items-center gap-2 px-5 py-3 text-sm text-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-xl"> Bekijk projecten </NuxtLink>
 								</template>
 							</ClientOnly>
 
-							<button @click="HandleModule('Contact')" class="px-6 py-3 dark:hover:text-white dark:ring-white dark:hover:ring-white text-sm font-semibold dark:text-white text-neutral-800 hover:text-neutral-900 ring-2 ring-neutral-800 hover:ring-neutral-900 rounded-xl">Contact</button>
+							<button @click="HandleModule('Contact')" class="px-6 py-3 dark:hover:text-white dark:ring-white dark:hover:ring-white text-sm font-semibold dark:text-white text-neutral-800 hover:text-neutral-900 ring-2 ring-neutral-800 hover:ring-neutral-900 rounded-xl">Maak contact</button>
 						</div>
 					</div>
 				</div>

@@ -1,18 +1,21 @@
 export default defineEventHandler((event) => {
     return new Promise(async (resolve, reject) => {
-        const currentPage = Number(getRouterParams(event).page) - 1 || 0
-        const Item = (await Repositories.find()).reverse()
-        const result = [];
+        const itemsPerPage = 3;
+        const currentPage = Number(getRouterParams(event).page) - 1 || 0;
+        const skip = currentPage * itemsPerPage;
 
-        for (let i = 0; i < Item.length; i += 3) { result.push(Item.slice(i, i + 3)) }
-        const data = result[currentPage]
+        const SessionId: any = getCookie(event, "access-token")
+        const user: Record<string, any> | null = await useStorage("Sessions").getItem(SessionId)
 
-        if (!data) {
+        const totalItems = await Repositories.countDocuments();
+        const Item = await Repositories.find().sort({ liked_byId: -1, created_at: -1, }).skip(skip).limit(itemsPerPage);
+
+        if (!Item || Item.length === 0) {
             return reject({
                 statusCode: 404,
                 statusMessage: "Not Found",
                 message: "The requested resource could not be found."
-            })
+            });
         }
 
         return resolve({
@@ -20,8 +23,8 @@ export default defineEventHandler((event) => {
             statusMessage: "OK",
             message: "The request has succeeded.",
             page: currentPage + 1,
-            total: result.length,
-            Response: data
-        })
-    })
-})
+            total: Math.ceil(totalItems / itemsPerPage),
+            Response: Item.map((item: any) => ({ ...item._doc, liked_byId: undefined, liked: item._doc.liked_byId.includes(user?.Id) }))
+        });
+    });
+});
