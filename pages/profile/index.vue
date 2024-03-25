@@ -64,7 +64,7 @@
 							<!-- <p class="text-[0.7em] dark:text-white opacity-75 leading-4 font-medium" v-if="loading">Even wachten we zijn jouw gemarkeerde projecten aan het ophalen.</p> -->
 							<div :class="savedLikes.length < 4 ? ' gap-[0.45rem]' : ' gap-[0.6rem]'" class="snap-x snap-proximity scroll-smooth w-full rounded-lg overflow-auto flex items-center mt-1" v-if="savedLikes.length > 0">
 								<div class="snap-start bg-black dark:bg-white p-[0.41rem] px-3 rounded-lg font-semibold text-[0.65em] dark:text-black text-white" v-for="item in savedLikes">
-									<a class="flex items-center gap-[0.28rem]" v-if="item.visibility == 'public'" :href="item.url" target="_blank"> <Icon class=" " name="ri:external-link-line" size="1.2em" />{{ item.name }} </a>
+									<a class="flex items-center gap-[0.28rem]" v-if="item.visibility == 'public'" :href="item.html_url" target="_blank"> <Icon class=" " name="ri:external-link-line" size="1.2em" />{{ item.name }} </a>
 									<span class="cursor-not-allowed flex items-center gap-[0.28rem]" v-else> <icon name="ri:lock-2-line" size="1.2em" />{{ item.name }} </span>
 								</div>
 							</div>
