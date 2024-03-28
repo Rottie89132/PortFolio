@@ -8,15 +8,14 @@ export default defineEventHandler((event) => {
         const user: Record<string, any> | null = await useStorage("Sessions").getItem(SessionId)
 
         const totalItems = await Repositories.countDocuments();
-        const Item = await Repositories.find().sort({ liked_byId: -1, created_at: -1, }).skip(skip).limit(itemsPerPage);
+        const Item = await Repositories.find().sort({ created_at: -1 }).skip(skip).limit(itemsPerPage);
 
-        if (!Item || Item.length === 0) {
-            return reject({
-                statusCode: 404,
-                statusMessage: "Not Found",
-                message: "The requested resource could not be found."
-            });
-        }
+        if (!Item || Item.length === 0) return reject({
+            statusCode: 404,
+            statusMessage: "Not Found",
+            message: "The requested resource could not be found."
+        });
+        
 
         return resolve({
             statusCode: 200,
