@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+#landscape {
+    @apply hidden;
+}
+
 @media (orientation: landscape) and (max-width: 1024px) and (min-height: 300px) and (max-height: 800px) and (min-width: 500px) {
     #landscape {
         @apply z-50 fixed inset-0 top-0 flex items-center justify-center bg-white dark:bg-neutral-900;
@@ -41,6 +45,16 @@ input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus {
     @apply lighty ring-1 ring-black outline-none appearance-none;
+}
+
+.menu-enter-active,
+.menu-leave-active {
+    transition: all 0.6s;
+}
+
+.menu-enter-from,
+.menu-leave-to {
+    @apply opacity-0;
 }
 
 @layer components {

@@ -1,6 +1,8 @@
 <template>
-	<VitePwaManifest />
-	<Landscape />
+	<div>
+		<VitePwaManifest />
+		<Landscape />
+	</div>
 </template>
 
 <script setup>

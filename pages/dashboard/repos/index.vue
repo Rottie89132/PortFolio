@@ -1,4 +1,5 @@
 <template>
+	<div>
 	<VitePwaManifest />
 	<Landscape />
 	<div class="fixed select-none w-full h-full p-4 pb-5 md:pb-0 md:p-0">
@@ -44,6 +45,7 @@
 			</button>
 		</div>
 	</ModalConfirmation>
+	</div>
 </template>
 
 <script setup>

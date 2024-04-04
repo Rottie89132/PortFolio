@@ -13,27 +13,29 @@
 		</ClientOnly>
 		<NuxtLink class="opacity-50 hover:opacity-80" to="/about">About</NuxtLink>
 	</div>
-	<div v-if="openMenu" class="absolute top-0 left-0 z-10 w-full h-full p-4 pb-5 bg-black bg-opacity-20">
-		<div :class="!Installed ? 'h-full' : 'h-[95%]'" class="w-full md:h-full p-5 bg-white dark:bg-[#0e0e0e] rounded-3xl">
-			<button @click="openMenu = false">
-				<Icon class="dark:text-white" name="pajamas:close-xs" size="2.2em"></Icon>
-			</button>
-			<div class="grid text-[3.2em] dark:text-white font-black mt-6 leading-[1.2em] select-none">
-				<NuxtLink class="opacity-20 dark:opacity-60 hover:opacity-80" to="/portfolio">Home</NuxtLink>
-				<NuxtLink class="opacity-20 dark:opacity-60 hover:opacity-80" to="/profile">Profiel</NuxtLink>
-				<ClientOnly>
-					<NuxtLink class="dark:opacity-60 opacity-20 hover:opacity-80" :to="repoLink">Projecten</NuxtLink>
-					<NuxtLink class="opacity-20 dark:opacity-60 hover:opacity-80" :to="berichtenLink">Berichten</NuxtLink>
-					<template #fallback>
-						<NuxtLink to="/Repos" class="dark:opacity-60 opacity-20 hover:opacity-80">Projecten</NuxtLink>
-						<NuxtLink class="opacity-20 dark:opacity-60 hover:opacity-80" to="/berichten">Berichten</NuxtLink>
-					</template>
-				</ClientOnly>
+	<Transition name="menu">
+		<div v-if="openMenu" class="absolute top-0 left-0 z-10 w-full h-full p-4 pb-5 bg-black bg-opacity-20">
+			<div :class="!Installed ? 'h-full' : 'h-[95%]'" class="w-full md:h-full p-5 bg-white dark:bg-[#0e0e0e] rounded-3xl">
+				<button @click="openMenu = false">
+					<Icon class="dark:text-white" name="pajamas:close-xs" size="2.2em"></Icon>
+				</button>
+				<div class="grid text-[3.2em] dark:text-white font-black mt-6 leading-[1.2em] select-none">
+					<NuxtLink class="opacity-20 dark:opacity-60 hover:opacity-80" to="/portfolio">Home</NuxtLink>
+					<NuxtLink class="opacity-20 dark:opacity-60 hover:opacity-80" to="/profile">Profiel</NuxtLink>
+					<ClientOnly>
+						<NuxtLink class="dark:opacity-60 opacity-20 hover:opacity-80" :to="repoLink">Projecten</NuxtLink>
+						<NuxtLink class="opacity-20 dark:opacity-60 hover:opacity-80" :to="berichtenLink">Berichten</NuxtLink>
+						<template #fallback>
+							<NuxtLink to="/Repos" class="dark:opacity-60 opacity-20 hover:opacity-80">Projecten</NuxtLink>
+							<NuxtLink class="opacity-20 dark:opacity-60 hover:opacity-80" to="/berichten">Berichten</NuxtLink>
+						</template>
+					</ClientOnly>
 
-				<NuxtLink class="opacity-20 dark:opacity-60 hover:opacity-80" to="/about">About</NuxtLink>
+					<NuxtLink class="opacity-20 dark:opacity-60 hover:opacity-80" to="/about">About</NuxtLink>
+				</div>
 			</div>
 		</div>
-	</div>
+	</Transition>
 </template>
 
 <script setup>

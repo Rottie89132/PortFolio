@@ -1,45 +1,47 @@
 <template>
-	<VitePwaManifest />
-	<Landscape />
-	<div class="fixed w-full select-none h-full p-4 pb-5 md:pb-0 md:p-0">
-		<div :class="!Installed ? 'h-full' : 'h-[95%]'" class="w-full md:h-full p-5 md:rounded-none pb-4 rounded-3xl md:pl-52 bg-[#f0f0f0] md:bg-white dark:bg-[#131313] dark:md:bg-neutral-900 overflow-auto">
-			<div class="grid gap-24">
-				<div class="flex items-center justify-between">
-					<NavLinksAdmin v-if="data?.statusCode == 200 && data.authorized" />
-					<NavLinksUser v-else-if="data?.statusCode == 200 && !data.authorized" />
-					<NavLinks v-else />
-					<div class="flex gap-4 items-center">
-						<ClientOnly>
-							<ColorMode />
-							<Online />
-							<button v-if="data?.statusCode == 200" @click="Logout" class="px-6 py-1 dark:text-neutral-800 font-semibold dark:bg-white dark:hover:bg-white dark:hover:ring-white dark:ring-white text-white rounded-lg bg-neutral-800 hover:bg-neutral-900 ring-2 ring-neutral-800 hover:ring-neutral-900">Uitloggen</button>
-							<button v-else @click="HandleModule('Inloggen')" class="px-6 py-1 dark:text-neutral-800 font-semibold dark:bg-white dark:hover:bg-white dark:hover:ring-white dark:ring-white text-white rounded-lg bg-neutral-800 hover:bg-neutral-900 ring-2 ring-neutral-800 hover:ring-neutral-900">
-								{{ textLabel }}
-							</button>
-						</ClientOnly>
+	<div>
+		<VitePwaManifest />
+		<Landscape />
+		<div class="fixed w-full select-none h-full p-4 pb-5 md:pb-0 md:p-0">
+			<div :class="!Installed ? 'h-full' : 'h-[95%]'" class="w-full md:h-full p-5 md:rounded-none pb-4 rounded-3xl md:pl-52 bg-[#f0f0f0] md:bg-white dark:bg-[#131313] dark:md:bg-neutral-900 overflow-auto">
+				<div class="grid gap-24">
+					<div class="flex items-center justify-between">
+						<NavLinksAdmin v-if="data?.statusCode == 200 && data.authorized" />
+						<NavLinksUser v-else-if="data?.statusCode == 200 && !data.authorized" />
+						<NavLinks v-else />
+						<div class="flex gap-4 items-center">
+							<ClientOnly>
+								<ColorMode />
+								<Online />
+								<button v-if="data?.statusCode == 200" @click="Logout" class="px-6 py-1 dark:text-neutral-800 font-semibold dark:bg-white dark:hover:bg-white dark:hover:ring-white dark:ring-white text-white rounded-lg bg-neutral-800 hover:bg-neutral-900 ring-2 ring-neutral-800 hover:ring-neutral-900">Uitloggen</button>
+								<button v-else @click="HandleModule('Inloggen')" class="px-6 py-1 dark:text-neutral-800 font-semibold dark:bg-white dark:hover:bg-white dark:hover:ring-white dark:ring-white text-white rounded-lg bg-neutral-800 hover:bg-neutral-900 ring-2 ring-neutral-800 hover:ring-neutral-900">
+									{{ textLabel }}
+								</button>
+							</ClientOnly>
+						</div>
 					</div>
 				</div>
-			</div>
-			<div class="w-full h-fit mt-6 md:my-10 xl:mt-20 md:w-[89.2%]">
-				<div class="flex items-center justify-between gap-3 mb-3">
-					<h1 class="text-[1.5em] text-black dark:text-white font-extrabold">Repositories</h1>
-					<NavButtons :items="items" :hidebuttons="hidebuttons" :loading="loading" v-model:currentPage="currentPage" :PreviousPage="PreviousPage" :NextPage="NextPage" :navigateToPage="navigateToPage"> </NavButtons>
+				<div class="w-full h-fit mt-6 md:my-10 xl:mt-20 md:w-[89.2%]">
+					<div class="flex items-center justify-between gap-3 mb-3">
+						<h1 class="text-[1.5em] text-black dark:text-white font-extrabold">Repositories</h1>
+						<NavButtons :items="items" :hidebuttons="hidebuttons" :loading="loading" v-model:currentPage="currentPage" :PreviousPage="PreviousPage" :NextPage="NextPage" :navigateToPage="navigateToPage"> </NavButtons>
+					</div>
+					<Status :items="items" :loadingIndicater="loadingIndicater" />
 				</div>
-				<Status :items="items" :loadingIndicater="loadingIndicater" />
 			</div>
 		</div>
+		<ModalBase v-model:texthead="title" v-model:textbase="subtitle" v-model:status="OpenModule" v-model:DelayStatus="OpenModuleDelay" v-model:textLabel="buttonLabel" v-model:AuthModule="AuthModule" v-model:type="datatype">
+			<div v-if="AuthModule && datatype != 'Vergeten'">
+				<FieldInput :name="'email'" :type="'email'" :label="'Gebuikersnaam'" />
+				<FieldInput :name="'wachtwoord'" :type="'password'" :label="'Wachtwoord'" />
+			</div>
+			<div v-else>
+				<FieldInput :name="'email'" :type="'email'" :label="'Email adress'" />
+				<FieldInput :name="'wachtwoord'" :type="'password'" :label="'Nieuwe wachtwoord'" />
+				<FieldInput :name="'confirmatie'" :type="'password'" :label="'Confirmatie'" />
+			</div>
+		</ModalBase>
 	</div>
-	<ModalBase v-model:texthead="title" v-model:textbase="subtitle" v-model:status="OpenModule" v-model:DelayStatus="OpenModuleDelay" v-model:textLabel="buttonLabel" v-model:AuthModule="AuthModule" v-model:type="datatype">
-		<div v-if="AuthModule && datatype != 'Vergeten'">
-			<FieldInput :name="'email'" :type="'email'" :label="'Gebuikersnaam'" />
-			<FieldInput :name="'wachtwoord'" :type="'password'" :label="'Wachtwoord'" />
-		</div>
-		<div v-else>
-			<FieldInput :name="'email'" :type="'email'" :label="'Email adress'" />
-			<FieldInput :name="'wachtwoord'" :type="'password'" :label="'Nieuwe wachtwoord'" />
-			<FieldInput :name="'confirmatie'" :type="'password'" :label="'Confirmatie'" />
-		</div>
-	</ModalBase>
 </template>
 
 <script setup>

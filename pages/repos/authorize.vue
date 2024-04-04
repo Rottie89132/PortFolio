@@ -1,12 +1,14 @@
 <template>
-	<VitePwaManifest />
-	<Landscape />
-	<div class="fixed w-full h-full p-4 pb-5 select-none md:pb-0 md:p-0">
-		<div :class="!Installed ? 'h-full' : 'h-[95%]'" class="flex items-center justify-center w-full md:h-full p-5 md:rounded-none rounded-3xl bg-gradient-to-r from-teal-50 to-yellow-50 dark:from-[#131313] dark:to-[#22221E] overflow-auto">
-			<div class="md:w-[60%]">
-				<h1 class="text-[4.8em] md:text-[6em] font-black leading-[0.9em] mb-2 dark:text-white">Even wachten</h1>
-				<p v-if="!message.statusCode" class="mt-4 dark:text-white text-base md:text-lg md:w-[65%]">{{ message }}</p>
-				<p v-else class="mt-4 text-base font-semibold text-[#B92538] md:text-lg md:w-[65%]">{{ message.message }}</p>
+	<div>
+		<VitePwaManifest />
+		<Landscape />
+		<div class="fixed w-full h-full p-4 pb-5 select-none md:pb-0 md:p-0">
+			<div :class="!Installed ? 'h-full' : 'h-[95%]'" class="flex items-center justify-center w-full md:h-full p-5 md:rounded-none rounded-3xl bg-gradient-to-r from-teal-50 to-yellow-50 dark:from-[#131313] dark:to-[#22221E] overflow-auto">
+				<div class="md:w-[60%]">
+					<h1 class="text-[4.8em] md:text-[6em] font-black leading-[0.9em] mb-2 dark:text-white">Even wachten</h1>
+					<p v-if="!message.statusCode" class="mt-4 dark:text-white text-base md:text-lg md:w-[65%]">{{ message }}</p>
+					<p v-else class="mt-4 text-base font-semibold text-[#B92538] md:text-lg md:w-[65%]">{{ message.message }}</p>
+				</div>
 			</div>
 		</div>
 	</div>

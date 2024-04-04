@@ -1,4 +1,5 @@
 <template>
+	<div>
 	<VitePwaManifest />
 	<div class="fixed left-0 w-full h-full landscape">
 		<div class="flex items-center justify-center h-full w-full">
@@ -10,6 +11,7 @@
 				</div>
 			</div>
 		</div>
+	</div>
 	</div>
 </template>
 

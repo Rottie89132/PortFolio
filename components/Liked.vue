@@ -23,7 +23,8 @@
 	import confetti from "canvas-confetti";
 
 	const { id, liked } = defineModels<{
-		id: Number; liked: Boolean;
+		id: Number;
+		liked: Boolean;
 	}>();
 
 	const failed = ref(false);
