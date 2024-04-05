@@ -5,7 +5,7 @@
 <style>
 	.page-enter-active,
 	.page-leave-active {
-		@apply transition-opacity delay-200 md:delay-0 duration-500 md:duration-0 ease-in-out;
+		@apply transition-opacity duration-500 md:duration-0;
 	}
 	.page-enter-from,
 	.page-leave-to {
