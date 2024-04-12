@@ -127,30 +127,12 @@ export default defineNuxtConfig({
         client_mode: ["navigate-existing", "auto"]
       }
     },
-    workbox: {
-      navigateFallback: '/',
-      // runtimeCaching: [{
-      //   urlPattern: ({ url }) => {
-      //     const pathSegments = url.pathname.split('/');
-      //     return pathSegments.length === 4 && pathSegments[1] === 'api' && pathSegments[2] === 'repo' && /^\d+$/.test(pathSegments[3]) && url.search === '';
-      //   },
-      //   handler: 'NetworkFirst',
-      //   options: {
-
-      //     cacheName: 'api-cache',
-      //     cacheableResponse: {
-      //       statuses: [0, 200],
-      //     },
-      //   }
-      // }]
-    },
     devOptions: {
       enabled: true,
       type: "module",
       suppressWarnings: true,
     },
   },
-
   app: {
     pageTransition: { name: 'page', mode: 'out-in' },
     head: {

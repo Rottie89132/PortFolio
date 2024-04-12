@@ -38,7 +38,7 @@
 
 			if (!error.value) liked.value = true;
 			else {
-				status.value = error.value.data.statusCode;
+				status.value = error.value.data?.statusCode;
 				failed.value = true;
 			}
 
