@@ -11,7 +11,7 @@ cleanupOutdatedCaches();
 registerRoute(
     ({ url }) => {
         const pathSegments = url.pathname.split('/');
-        return pathSegments.length === 4 && pathSegments[1] === 'api' && pathSegments[2] === 'repo' && /^\d+$/.test(pathSegments[3]) && url.search === '';
+        return pathSegments.length >= 3 && pathSegments[1] === 'api' && pathSegments[2] !== 'users';
     },
     new NetworkFirst({
         cacheName: 'api-cache',
