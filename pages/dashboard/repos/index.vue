@@ -68,7 +68,10 @@ useSeoMeta({
 
 useHead({
 	htmlAttrs: { lang: "nl" },
-	link: [{ rel: "icon", type: "image/png" }],
+	link: [
+		{ rel: "icon", type: "image/png" },
+		{ rel: "preload", as: "image", href: "/Trash.svg"}
+	],
 });
 
 useLocalStorage("AdminRepoPage", 1);
