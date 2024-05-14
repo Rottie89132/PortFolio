@@ -172,8 +172,6 @@
 
 			Repos.value.forEach((item) => {
 				items.value.push({ ...item, loaded: false });
-				//if (!item.liked) items.value.push({ ...item, loaded: false });
-				//else items.value.unshift({ ...item, loaded: false });
 			});
 		} else if (currentPage.value != 1) {
 			currentPage.value = 1;
@@ -189,18 +187,14 @@
 				useLocalStorage("RepoPage").value = Repositories.page;
 				Repos.value.forEach((item) => {
 					items.value.push({ ...item, loaded: false });
-					//if (!item.liked) items.value.push({ ...item, loaded: false });
-					//else items.value.unshift({ ...item, loaded: false });
 				});
 			}
 		}
-
 		animateIn();
 	};
 
 	watch(ReactiveEvent, async () => {
 		const Repositories = await $fetch(`/api/repo/${useRoute().query.Page}`);
-
 		loadedRepos(Repositories);
 	});
 

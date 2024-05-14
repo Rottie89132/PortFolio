@@ -24,16 +24,16 @@
 	}
 
 	const toggleLight = () => {
-		colormode.value = colormode.preference == "light" ? "dark" : "light";
-		colormode.preference = colormode.preference == "light" ? "dark" : "light";
+		colormode.value = colormode.preference == "light" ? "system" : "light";
+		colormode.preference = colormode.preference == "light" ? "system" : "light";
 
 		const Thema = document.querySelector('meta[name="theme-color"]');
 		Thema.media = colormode.value != "dark" ? "(prefers-color-scheme: dark)" : "(prefers-color-scheme: light)";
 	};
 
 	const toggleDark = () => {
-		colormode.value = colormode.preference == "dark" ? "light" : "dark";
-		colormode.preference = colormode.preference == "dark" ? "light" : "dark";
+		colormode.value = colormode.preference == "dark" ? "system" : "dark";
+		colormode.preference = colormode.preference == "dark" ? "system" : "dark";
 
 		const Thema = document.querySelector('meta[name="theme-color"]');
 		Thema.media = colormode.value == "dark" ? "(prefers-color-scheme: dark)" : "(prefers-color-scheme: light)";
