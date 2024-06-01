@@ -12,7 +12,7 @@ export default defineEventHandler((event) => {
         })
         
         if (!user.Admin) berichten = await Berichten.find({ email: user.Email }).sort({ created_at: -1 })
-        else berichten = await Berichten.find().sort({ created_at: -1 }).limit(3)
+        else berichten = await Berichten.find().sort({ created_at: -1 }).limit(2)
         
         return resolve({
             statusCode: 200,

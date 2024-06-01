@@ -25,5 +25,6 @@ logs
 !.env.example
 PK.private-key.pem
 Resources/
+pages/test.vue
 
 
