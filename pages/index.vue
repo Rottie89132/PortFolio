@@ -7,9 +7,6 @@
 
 <script setup>
 
-	await useFetch('/api/users')
-
-
 	definePageMeta({
 		middleware: ["redirect"],
 	});

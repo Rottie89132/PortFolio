@@ -19,7 +19,6 @@ export default defineEventHandler((event) => {
         })
 
         const GitConnection: Record<string, any> | null = await GitUser.findOne({ UserID: user.Id })
-        console.log(GitConnection)
         if (!GitConnection) return reject({
             statusCode: 404,
             statusMessage: "Not Found",
