@@ -4,7 +4,7 @@
 		<Landscape />
 		<div class="fixed w-full h-full p-4 pb-5 md:pb-0 md:p-0 select-none">
 			<div :class="!Installed ? 'h-full' : 'h-[95%]'"
-				class="w-full md:h-full p-5 md:rounded-none rounded-3xl md:pl-52 bg-gradient-to-r from-teal-50 to-yellow-50 dark:from-[#131313] dark:to-[#22221E]">
+				class="w-full md:h-full p-5 md:rounded-none rounded-3xl md:pl-8 lg:pl-36 xl:pl-52 bg-gradient-to-r from-teal-50 to-yellow-50 dark:from-[#131313] dark:to-[#22221E]">
 				<div class="grid gap-24">
 					<div class="flex items-center justify-between">
 						<NavLinksAdmin v-if="data?.statusCode == 200 && data.authorized" />

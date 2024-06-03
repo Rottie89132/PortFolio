@@ -3,7 +3,7 @@
 		<VitePwaManifest />
 		<Landscape />
 		<div class="fixed select-none w-full h-full p-4 pb-5 md:pb-0 md:p-0">
-			<div :class="!Installed ? 'h-full' : 'h-[95%]'" class="w-full md:h-full p-5 md:rounded-none rounded-3xl md:pl-52 bg-[#f0f0f0] md:bg-white dark:bg-[#131313] dark:md:bg-neutral-900 md:overflow-hidden overflow-auto">
+			<div :class="!Installed ? 'h-full' : 'h-[95%]'" class="w-full md:h-full p-5 md:rounded-none rounded-3xl md:pl-8 lg:pl-36 xl:pl-52 bg-[#f0f0f0] md:bg-white dark:bg-[#131313] dark:md:bg-neutral-900 md:overflow-hidden overflow-auto">
 				<div class="grid gap-24">
 					<div class="flex items-center justify-between">
 						<NavLinksAdmin v-if="data?.statusCode == 200 && data.authorized" />
@@ -17,7 +17,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="w-full h-fit mt-6 md:my-10 xl:mt-20 md:w-[89.2%]">
+				<div class="w-full h-fit mt-6 md:my-10 xl:mt-20 md:w-[98%] lg:w-[88%] xl:w-[89.2%]">
 					<h1 class="text-[1.5em] dark:text-white text-black font-extrabold mb-3">Profiel</h1>
 					<div class="grid grid-cols-1 gap-3">
 						<div class="bg-indigo-600 dark:bg-indigo-500 p-4 rounded-xl">

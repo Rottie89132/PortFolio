@@ -22,14 +22,14 @@ export default async (event: any, { Session, Refresh }: { Session: string, Refre
 
     setTimeout(async () => {
         await useStorage("Sessions").removeItem(newSessionId)
-    }, 2 * 60 * 60 * 1000);
+    }, 4 * 60 * 60 * 1000);
 
     setTimeout(async () => {
         await useStorage("Refresh").removeItem(newRefreshId)
     }, 7 * 24 * 60 * 60 * 1000);
 
     setCookie(event, "access-token", newSessionId, {
-        httpOnly: true, secure: process.env.production === 'true', sameSite: true, maxAge: 2 * 60 * 60 * 1000
+        httpOnly: true, secure: process.env.production === 'true', sameSite: true, maxAge: 24 * 60 * 60 * 1000
     });
 
     setCookie(event, "refresh-token", newRefreshId, {

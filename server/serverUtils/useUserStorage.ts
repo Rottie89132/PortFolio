@@ -8,14 +8,14 @@ export default async (event: any, data: any) => {
 
     setTimeout(async () => {
         await useStorage("Sessions").removeItem(SessionId)
-    }, 2 * 60 * 60 * 1000);
+    }, 4 * 60 * 60 * 1000);
 
     setTimeout(async () => {
         await useStorage("Refresh").removeItem(refreshId)
     }, 7 * 24 * 60 * 60 * 1000);
 
     setCookie(event, "access-token", SessionId, {
-        httpOnly: true, secure: process.env.production === 'true', sameSite: true, maxAge: 2 * 60 * 60 * 1000
+        httpOnly: true, secure: process.env.production === 'true', sameSite: true, maxAge: 24 * 60 * 60 * 1000
     });
 
     setCookie(event, "refresh-token", refreshId, {

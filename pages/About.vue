@@ -3,7 +3,8 @@
 		<VitePwaManifest />
 		<Landscape />
 		<div class="fixed w-full h-full p-4 pb-5 md:pb-0 md:p-0 select-none dark:text-white">
-			<div :class="!Installed ? 'h-full' : 'h-[95%]'" class="w-full md:h-full p-5 pb-4 md:rounded-none rounded-3xl md:pl-52 bg-[#f0f0f0] md:bg-white dark:bg-[#131313] dark:md:bg-neutral-900 overflow-auto md:overflow-hidden">
+			<div :class="!Installed ? 'h-full' : 'h-[95%]'"
+				class="w-full md:h-full p-5 pb-4 md:rounded-none rounded-3xl md:pl-8 lg:pl-36 xl:pl-52 bg-[#f0f0f0] md:bg-white dark:bg-[#131313] dark:md:bg-neutral-900 overflow-auto md:overflow-hidden">
 				<div class="grid gap-24">
 					<div class="flex select-none items-center justify-between">
 						<NavLinksAdmin v-if="data?.statusCode == 200 && data.authorized" />
@@ -13,23 +14,33 @@
 							<ClientOnly>
 								<ColorMode />
 								<Online />
-								<button v-if="data?.statusCode == 200" @click="Logout" class="px-6 py-1 dark:text-neutral-800 font-semibold dark:bg-white dark:hover:bg-white dark:hover:ring-white dark:ring-white text-white rounded-lg bg-neutral-800 hover:bg-neutral-900 ring-2 ring-neutral-800 hover:ring-neutral-900">Uitloggen</button>
-								<button v-else @click="HandleModule('Inloggen')" class="px-6 py-1 dark:text-neutral-800 font-semibold dark:bg-white dark:hover:bg-white dark:hover:ring-white dark:ring-white text-white rounded-lg bg-neutral-800 hover:bg-neutral-900 ring-2 ring-neutral-800 hover:ring-neutral-900">{{ textLabel }}</button>
+								<button v-if="data?.statusCode == 200" @click="Logout"
+									class="px-6 py-1 dark:text-neutral-800 font-semibold dark:bg-white dark:hover:bg-white dark:hover:ring-white dark:ring-white text-white rounded-lg bg-neutral-800 hover:bg-neutral-900 ring-2 ring-neutral-800 hover:ring-neutral-900">Uitloggen</button>
+								<button v-else @click="HandleModule('Inloggen')"
+									class="px-6 py-1 dark:text-neutral-800 font-semibold dark:bg-white dark:hover:bg-white dark:hover:ring-white dark:ring-white text-white rounded-lg bg-neutral-800 hover:bg-neutral-900 ring-2 ring-neutral-800 hover:ring-neutral-900">{{
+									textLabel }}</button>
 							</ClientOnly>
 						</div>
 					</div>
 				</div>
-				<div class="w-full h-fit mt-6 md:my-10 xl:mt-20 md:w-[89.2%]">
-					<h1 v-if="data?.statusCode != 200 || error" class="text-[1.5em] select-none text-black dark:text-white font-extrabold -mb-1">Curriculum Vitae</h1>
+				<div class="w-full h-fit mt-6 md:my-10 xl:mt-20 md:w-[98%] lg:w-[88%] xl:w-[89.2%]">
+					<h1 v-if="data?.statusCode != 200 || error"
+						class="text-[1.5em] select-none text-black dark:text-white font-extrabold -mb-1">Curriculum
+						Vitae</h1>
 					<div v-if="data?.statusCode != 401 && data?.statusCode != 428 && !error">
 						<div class="-mb-3 select-none xl:-mb-2 hidden md:flex items-center justify-between">
 							<div>
 								<h1 class="text-[1.5em] text-black dark:text-white font-extrabold">Curriculum Vitae</h1>
-								<h3 class="text-[1.25em] dark:text-white text-black font-semibold mb-6 md:mb-3">Roland Meijer</h3>
+								<h3 class="text-[1.25em] dark:text-white text-black font-semibold mb-6 md:mb-3">Roland
+									Meijer</h3>
 							</div>
 							<div class="flex gap-x-4">
-								<a href="https://www.linkedin.com/in/roland-meijer-07bb97198/" target="_blank" class="px-4 py-2 font-semibold dark:text-neutral-800 dark:hover:bg-gray-100 dark:hover:ring-gray-100 dark:bg-white dark:ring-white text-sm text-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-md"> <Icon class="-mt-1 mr-1" name="ri:external-link-line" size="1.2em" />Linkedin </a>
-								<a :href="datalink" download class="px-2 py-2 font-semibold dark:text-neutral-800 dark:hover:bg-gray-100 dark:hover:ring-gray-100 dark:bg-white dark:ring-white text-sm text-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-md">
+								<a href="https://www.linkedin.com/in/roland-meijer-07bb97198/" target="_blank"
+									class="px-4 py-2 font-semibold dark:text-neutral-800 dark:hover:bg-gray-100 dark:hover:ring-gray-100 dark:bg-white dark:ring-white text-sm text-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-md">
+									<Icon class="-mt-1 mr-1" name="ri:external-link-line" size="1.2em" />Linkedin
+								</a>
+								<a :href="datalink" download
+									class="px-2 py-2 font-semibold dark:text-neutral-800 dark:hover:bg-gray-100 dark:hover:ring-gray-100 dark:bg-white dark:ring-white text-sm text-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-md">
 									<Icon class=" " name="ri:file-pdf-2-line" size="1.4em" />
 								</a>
 							</div>
@@ -37,16 +48,23 @@
 						<div class="select-none -mb-1 md:hidden">
 							<div>
 								<h1 class="text-[1.5em] text-black dark:text-white font-extrabold">Curriculum Vitae</h1>
-								<h3 class="text-[1.25em] dark:text-white text-black font-semibold mb-6 md:mb-3">Roland Meijer</h3>
+								<h3 class="text-[1.25em] dark:text-white text-black font-semibold mb-6 md:mb-3">Roland
+									Meijer</h3>
 							</div>
 							<div class="flex gap-x-4">
-								<a href="https://www.linkedin.com/in/roland-meijer-07bb97198/" target="_blank" class="px-4 py-2 font-semibold dark:text-neutral-800 dark:hover:bg-gray-100 dark:hover:ring-gray-100 dark:bg-white dark:ring-white text-sm text-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-md"> <Icon class="-mt-1 mr-1" name="ri:external-link-line" size="1.2em" />Linkedin </a>
-								<a :href="datalink" class="px-2 py-2 font-semibold dark:text-neutral-800 dark:hover:bg-gray-100 dark:hover:ring-gray-100 dark:bg-white dark:ring-white text-sm text-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-md">
+								<a href="https://www.linkedin.com/in/roland-meijer-07bb97198/" target="_blank"
+									class="px-4 py-2 font-semibold dark:text-neutral-800 dark:hover:bg-gray-100 dark:hover:ring-gray-100 dark:bg-white dark:ring-white text-sm text-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-md">
+									<Icon class="-mt-1 mr-1" name="ri:external-link-line" size="1.2em" />Linkedin
+								</a>
+								<a :href="datalink"
+									class="px-2 py-2 font-semibold dark:text-neutral-800 dark:hover:bg-gray-100 dark:hover:ring-gray-100 dark:bg-white dark:ring-white text-sm text-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-md">
 									<Icon class=" " name="ri:file-pdf-2-line" size="1.4em" />
 								</a>
 							</div>
 						</div>
-						<div v-auto-animate :class="isCardOpen('card1') ? 'h-[27.7vh] md:h-[31vh] xl:h-[29.5vh]' : 'h-fit'" class="p-2 bg-[#F7F7F7] dark:bg-[#111111] rounded-lg md:mt-5 mt-7 overflow-auto">
+						<div v-auto-animate
+							:class="isCardOpen('card1') ? 'h-[27.7vh] md:h-[31vh] xl:h-[29.5vh]' : 'h-fit'"
+							class="p-2 bg-[#F7F7F7] dark:bg-[#111111] rounded-lg md:mt-5 mt-7 overflow-auto">
 							<div class="flex select-none items-center justify-between">
 								<h3 class="text-[1.1em] font-bold">Opleiding</h3>
 								<div class="flex items-center gap-5">
@@ -63,15 +81,18 @@
 									</button>
 								</div>
 							</div>
-							<div v-if="isCardOpen('card1')" class="grid gap-2 mt-2 h-[84%] overflow-auto snap-y snap-proximity scroll-smooth">
+							<div v-if="isCardOpen('card1')"
+								class="grid gap-2 mt-2 h-[84%] overflow-auto snap-y snap-proximity scroll-smooth">
 								<div class="flex p-2 bg-white dark:bg-neutral-900 rounded-lg snap-start">
 									<div class="w-full">
 										<div class="flex items-center gap-2">
-											<Icon class="text-[#7D82AD] select-none" name="mdi:clock-time-seven" size="1.4em"> </Icon>
+											<Icon class="text-[#7D82AD] select-none" name="mdi:clock-time-seven"
+												size="1.4em"> </Icon>
 											<h1 class="text-sm font-black">Grafisch Lyceum Rotterdam</h1>
 										</div>
 										<div class="flex items-center justify-between">
-											<h3 class="text-xs font-normal">Student, Software dev, <span class="text-[0.7em]">4 BOL</span></h3>
+											<h3 class="text-xs font-normal">Student, Software dev, <span
+													class="text-[0.7em]">4 BOL</span></h3>
 											<h3 class="text-xs font-normal">aug. 2022 - nu</h3>
 										</div>
 									</div>
@@ -79,7 +100,8 @@
 								<div class="flex p-2 bg-white dark:bg-neutral-900 rounded-lg snap-start">
 									<div class="w-full">
 										<div class="flex items-center gap-2">
-											<Icon class="text-[#7DADAC] select-none" name="material-symbols-light:check-circle" size="1.4em"></Icon>
+											<Icon class="text-[#7DADAC] select-none"
+												name="material-symbols-light:check-circle" size="1.4em"></Icon>
 											<h1 class="text-sm font-black">Woonstad Rotterdam</h1>
 										</div>
 										<div class="flex items-center justify-between">
@@ -91,11 +113,13 @@
 								<div class="flex p-2 bg-white dark:bg-neutral-900 rounded-lg snap-start">
 									<div class="w-full">
 										<div class="flex items-center gap-2">
-											<Icon class="text-[#7DADAC] select-none" name="material-symbols-light:check-circle" size="1.4em"></Icon>
+											<Icon class="text-[#7DADAC] select-none"
+												name="material-symbols-light:check-circle" size="1.4em"></Icon>
 											<h1 class="text-sm font-black">Da Vinci College Dordrecht</h1>
 										</div>
 										<div class="flex items-center justify-between">
-											<h3 class="text-xs font-normal">Student, Frontend dev, <span class="text-[0.7em]">3 BOL</span></h3>
+											<h3 class="text-xs font-normal">Student, Frontend dev, <span
+													class="text-[0.7em]">3 BOL</span></h3>
 											<h3 class="text-xs font-normal">aug. 2020 - jul. 2022</h3>
 										</div>
 									</div>
@@ -103,14 +127,16 @@
 							</div>
 						</div>
 						<div class="md:grid grid-cols-2 gap-4 md:mt-2 select-text">
-							<div v-auto-animate class="p-2 bg-[#F7F7F7] dark:bg-[#111111] rounded-lg mt-2 overflow-auto">
+							<div v-auto-animate
+								class="p-2 bg-[#F7F7F7] dark:bg-[#111111] rounded-lg mt-2 overflow-auto">
 								<div class="flex items-center justify-between">
 									<h3 class="text-[1.1em] select-none font-bold">Persoonlijk</h3>
 									<button class="md:hidden" @click="toggleCard('card2')">
 										<Icon name="ic:baseline-keyboard-arrow-down" size="1.4em"></Icon>
 									</button>
 								</div>
-								<div v-if="isCardOpen('card2')" class="grid md:hidden grid-cols-3 grid-rows-2 gap-2 p-2 mt-2 bg-white dark:bg-neutral-900 rounded-lg">
+								<div v-if="isCardOpen('card2')"
+									class="grid md:hidden grid-cols-3 grid-rows-2 gap-2 p-2 mt-2 bg-white dark:bg-neutral-900 rounded-lg">
 									<div>
 										<h2 class="text-xs font-bold">Geb datum</h2>
 										<h3 class="text-xs">03-12-2001</h3>
@@ -132,7 +158,8 @@
 										<h3 class="text-xs">06 38305453</h3>
 									</div>
 								</div>
-								<div class="hidden md:grid grid-cols-3 grid-rows-2 gap-2 p-2 mt-2 bg-white dark:bg-neutral-900 rounded-lg">
+								<div
+									class="hidden md:grid grid-cols-3 grid-rows-2 gap-2 p-2 mt-2 bg-white dark:bg-neutral-900 rounded-lg">
 									<div>
 										<h2 class="text-xs font-bold">Geb datum</h2>
 										<h3 class="text-xs">03-12-2001</h3>
@@ -155,14 +182,16 @@
 									</div>
 								</div>
 							</div>
-							<div v-auto-animate class="p-2 bg-[#F7F7F7] dark:bg-[#111111] rounded-lg mt-2 overflow-auto">
+							<div v-auto-animate
+								class="p-2 bg-[#F7F7F7] dark:bg-[#111111] rounded-lg mt-2 overflow-auto">
 								<div class="flex items-center justify-between">
 									<h3 class="text-[1.1em] select-none font-bold">Vaardigheden</h3>
 									<button class="md:hidden" @click="toggleCard('card3')">
 										<Icon name="ic:baseline-keyboard-arrow-down" size="1.4em"></Icon>
 									</button>
 								</div>
-								<div v-if="isCardOpen('card3')" class="flex md:hidden justify-between gap-3 p-2 md:pb-4 mt-2 text-xs bg-white dark:bg-neutral-900 rounded-lg">
+								<div v-if="isCardOpen('card3')"
+									class="flex md:hidden justify-between gap-3 p-2 md:pb-4 mt-2 text-xs bg-white dark:bg-neutral-900 rounded-lg">
 									<div>
 										<p>Vue.js</p>
 										<p>Nuxt.js</p>
@@ -188,7 +217,8 @@
 										<p>Virtual machines</p>
 									</div>
 								</div>
-								<div class="hidden md:flex justify-between gap-3 p-2 md:pb-4 mt-2 text-xs bg-white dark:bg-neutral-900 rounded-lg">
+								<div
+									class="hidden md:flex justify-between gap-3 p-2 md:pb-4 mt-2 text-xs bg-white dark:bg-neutral-900 rounded-lg">
 									<div>
 										<p>Vue.js</p>
 										<p>Nuxt.js</p>
@@ -218,9 +248,12 @@
 						</div>
 					</div>
 					<div v-else>
-						<p class="mt-3 mb-4 leading-4 dark:text-white text-sm">Om toegang te krijgen tot mijn informatie moet je een account hebben en ingelogd zijn.</p>
-						<button @click="HandleModule('Aanmelden')" class="px-4 py-1 text-sm font-semibold dark:ring-white text-white dark:hover:bg-gray-100 dark:hover:ring-gray-100 dark:text-neutral-800 dark:bg-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-lg">Aanmelden</button>
-						<div :class="Installed ? ' max-h-[63.5vh]' : 'max-h-[68.5vh]'" class="mt-3 md:mt-6 dark:text-black rounded-md overflow-auto text-white grid grid-cols-2 md:grid-cols-3 gap-3">
+						<p class="mt-3 mb-4 leading-4 dark:text-white text-sm">Om toegang te krijgen tot mijn informatie
+							moet je een account hebben en ingelogd zijn.</p>
+						<button @click="HandleModule('Aanmelden')"
+							class="px-4 py-1 text-sm font-semibold dark:ring-white text-white dark:hover:bg-gray-100 dark:hover:ring-gray-100 dark:text-neutral-800 dark:bg-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-lg">Aanmelden</button>
+						<div :class="Installed ? ' max-h-[63.5vh]' : 'max-h-[68.5vh]'"
+							class="mt-3 md:mt-6 dark:text-black rounded-md overflow-auto text-white grid grid-cols-2 md:grid-cols-3 gap-3">
 							<div class="dark:bg-white bg-neutral-800 p-2 flex items-center justify-center rounded-md">
 								<icon name="devicon-plain:vuejs" size="8em"></icon>
 							</div>
@@ -245,13 +278,17 @@
 							<div class="dark:bg-white bg-neutral-800 p-2 flex items-center justify-center rounded-md">
 								<icon name="devicon-plain:mongodb-wordmark" size="8em"></icon>
 							</div>
-							<div class="dark:bg-white hidden md:flex bg-neutral-800 p-2 items-center justify-center rounded-md"></div>
+							<div
+								class="dark:bg-white hidden md:flex bg-neutral-800 p-2 items-center justify-center rounded-md">
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<ModalBase v-model:texthead="title" v-model:type="datatype" v-model:textbase="subtitle" v-model:status="OpenModule" v-model:DelayStatus="OpenModuleDelay" v-model:textLabel="buttonLabel" v-model:AuthModule="AuthModule">
+		<ModalBase v-model:texthead="title" v-model:type="datatype" v-model:textbase="subtitle"
+			v-model:status="OpenModule" v-model:DelayStatus="OpenModuleDelay" v-model:textLabel="buttonLabel"
+			v-model:AuthModule="AuthModule">
 			<div v-if="AuthModule && datatype != 'Vergeten'">
 				<FieldInput :name="'email'" :type="'email'" :label="'Gebuikersnaam'" />
 				<FieldInput :name="'wachtwoord'" :type="'password'" :label="'Wachtwoord'" />

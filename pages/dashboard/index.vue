@@ -4,7 +4,7 @@
 		<Landscape />
 		<div class="fixed select-none w-full h-full p-4 pb-5 md:pb-0 md:p-0">
 			<div :class="!Installed ? 'h-full' : 'h-[95%]'"
-				class="w-full md:h-full p-5 pb-4 md:rounded-none rounded-3xl md:pl-52 bg-[#f0f0f0] md:bg-white dark:bg-[#131313] dark:md:bg-neutral-900 overflow-auto md:overflow-hidden xl:overflow-hidden">
+				class="w-full md:h-full p-5 pb-4 md:rounded-none rounded-3xl md:pl-8 lg:pl-36 xl:pl-52 bg-[#f0f0f0] md:bg-white dark:bg-[#131313] dark:md:bg-neutral-900 overflow-auto md:overflow-hidden xl:overflow-hidden">
 				<div class="grid gap-24">
 					<div class="flex items-center justify-between">
 						<NavLinksAdmin />
@@ -18,7 +18,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="w-full h-fit mt-6 md:my-10 xl:mt-20 md:w-[89.2%]">
+				<div class="w-full h-fit mt-6 md:my-10 xl:mt-20 md:w-[98%] lg:w-[88%] xl:w-[89.2%]">
 					<h1 class="text-[1.5em] text-black dark:text-white font-extrabold mb-3">Analytics</h1>
 					<div class=" xl:grid grid-cols-2 gap-4">
 						<div
@@ -135,15 +135,19 @@
 	const MonthlyVisted = ref(0);
 	const currentPage = useLocalStorage("AdminRepoPage", 1);
 	const currentPageBerichten = useLocalStorage("BerichtenPage", 1);
+	const showLoading = ref(true);
 
 	const Messages = ref([]);
 	const Installed = ref(false);
 	const ReactiveEvent = ref();
+	const ReactiveVisitEvent = ref();
+	const Analytics = ref();
 
-	const { data: Analytics } = await useFetch("/api/analytics");
+	const { data: AnalyticsData } = await useFetch("/api/analytics");
 	const { data: messages } = await useFetch("/api/berichten");
 
 	Messages.value = messages.value.Response;
+	Analytics.value = AnalyticsData.value;
 	MonthlyVisted.value = Analytics.value.result[Analytics.value.result.length - 1].MonthlyVisted || 0;
 
 	const Logout = async () => {
@@ -155,10 +159,22 @@
 		if ($pwa.isInstalled) Installed.value = true;
 		$PusherOnStart();
 		$PusherOnEvent("client-eventNotification", ReactiveEvent);
+		$PusherOnEvent("client-eventVisitNotification", ReactiveVisitEvent);
 	});
 
 	watch(ReactiveEvent, async () => {
 		const { data: messages } = await useFetch("/api/berichten");
 		Messages.value = messages.value.Response;
 	});
+
+	watch(ReactiveVisitEvent, async () => {
+		const { data: AnalyticsData } = await useFetch("/api/analytics");
+		Analytics.value = AnalyticsData.value;
+		MonthlyVisted.value = Analytics.value.result[Analytics.value.result.length - 1].MonthlyVisted || 0;
+	});
+
+
+
+
+
 </script>
