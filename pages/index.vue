@@ -9,12 +9,9 @@
 
 <script setup>
 
-	const { data } = await useFetch("/api/users");
-	if(data.value.statusCode !== 200) await $fetch("/api/auth/refresh");
-
-	definePageMeta({
-		middleware: ["redirect"],
-	});
+	// definePageMeta({
+	// 	middleware: ["redirect"],
+	// });
 
 	useSeoMeta({
 		title: "PortFolio - Home",
@@ -33,5 +30,23 @@
 		htmlAttrs: { lang: "nl" },
 		link: [{ rel: "icon", type: "image/png" }],
 	});
+
+
+	const result = ref()
+
+	const { data } = await useFetch('/api/users')
+	result.value = data.value
+
+	if (process.client) {
+
+		if (result.value.statusCode !== 200) {
+			const refresh = await $fetch("/api/auth/refresh");
+			result.value = refresh;
+		}
+
+		if (result.value.statusCode !== 200) { navigateTo('/portfolio') }
+		if (result.value.statusCode == 200 && result.value.authorized) { navigateTo('/dashboard') }
+		if (result.value.statusCode == 200 && !result.value.authorized) { navigateTo('/profile') }
+	}
 
 </script>
