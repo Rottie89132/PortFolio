@@ -2,16 +2,10 @@
 	<div>
 		<VitePwaManifest />
 		<Landscape />
-		<NuxtLink class="opacity-50 hover:opacity-80" to="/portfolio">Home</NuxtLink>
-		<NuxtLink class="opacity-50 hover:opacity-80" to="/about">About</NuxtLink>
 	</div>
 </template>
 
 <script setup>
-
-	// definePageMeta({
-	// 	middleware: ["redirect"],
-	// });
 
 	useSeoMeta({
 		title: "PortFolio - Home",
