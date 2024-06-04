@@ -18,20 +18,40 @@
 						</div>
 					</div>
 				</div>
-				<div class="w-full h-fit mt-6 md:my-10 xl:mt-20 md:w-[98%] lg:w-[88%] xl:w-[89.2%]">
-					<h1 class="text-[1.5em] text-black dark:text-white font-extrabold mb-3">Analytics</h1>
-					<div class=" xl:grid grid-cols-2 gap-4">
-						<div
-							class="mb-3 bg-[#F7F7F7] flex flex-col justify-center dark:bg-[#111111] rounded-lg p-3 py-5">
-							<p class="font-black mb-1 dark:text-white">Bezoekers</p>
-							<p class="leading-[1.1em] dark:text-gray-300 text-gray-600 text-sm">
-								Er {{ MonthlyVisted > 1 ? 'zijn' : 'is' }} <span
-									class="font-black text-black dark:text-white">{{
-									MonthlyVisted }}</span>
-								bezoeker{{ MonthlyVisted > 1 ? 's' : '' }} geweest deze maand
-							</p>
+					<div class="w-full h-fit mt-6 md:my-10 xl:mt-20 md:w-[98%] lg:w-[88%] xl:w-[89.2%]">
+						<h1 class="text-[1.5em] text-black dark:text-white font-extrabold mb-3">Analytics</h1>
+						<div class=" xl:grid grid-cols-2 gap-4">
+							<div
+								class="mb-3 bg-[#F7F7F7] flex flex-col justify-center dark:bg-[#111111] rounded-lg p-3 py-5">
+								<p class="font-black mb-1 dark:text-white">Bezoekers</p>
+								<p class="leading-[1.1em] dark:text-gray-300 text-gray-600 text-sm">
+									Er {{ MonthlyVisted > 1 ? 'zijn' : 'is' }} <span
+										class="font-black text-black dark:text-white">{{
+										MonthlyVisted }}</span>
+									bezoeker{{ MonthlyVisted > 1 ? 's' : '' }} geweest deze maand
+								</p>
+							</div>
+							<div class="p-3 hidden xl:block bg-[#F7F7F7] dark:bg-[#111111] rounded-2xl mb-3">
+								<div class="flex items-center justify-between">
+									<p class="font-black dark:text-white">Projecten</p>
+									<ClientOnly>
+										<NuxtLink :to="`/dashboard/Repos?Page=${currentPage}`"
+											class="px-5 py-1 text-sm font-medium text-white dark:bg-indigo-500 dark:ring-indigo-500 bg-indigo-600 rounded-lg ring-2 ring-indigo-600">
+											Toevoegen</NuxtLink>
+										<template #fallback>
+											<NuxtLink to="/dashboard/Repos"
+												class="px-5 py-1 text-sm font-medium text-white dark:bg-indigo-500 dark:ring-indigo-500 bg-indigo-600 rounded-lg ring-2 ring-indigo-600">
+												Toevoegen</NuxtLink>
+										</template>
+									</ClientOnly>
+								</div>
+							</div>
 						</div>
-						<div class="p-3 hidden xl:block bg-[#F7F7F7] dark:bg-[#111111] rounded-2xl mb-3">
+						<div
+							class=" mb-3 bg-[#F7F7F7] md:max-h-64 flex flex-col justify-center dark:bg-[#111111] rounded-lg p-3 py-5">
+							<Chart :Analytics />
+						</div>
+						<div class="p-3 xl:hidden bg-[#F7F7F7] dark:bg-[#111111] rounded-2xl mb-3">
 							<div class="flex items-center justify-between">
 								<p class="font-black dark:text-white">Projecten</p>
 								<ClientOnly>
@@ -46,63 +66,46 @@
 								</ClientOnly>
 							</div>
 						</div>
-					</div>
-					<div
-						class=" mb-3 bg-[#F7F7F7] md:max-h-64 flex flex-col justify-center dark:bg-[#111111] rounded-lg p-3 py-5">
-						<Chart :Analytics />
-					</div>
-					<div class="p-3 xl:hidden bg-[#F7F7F7] dark:bg-[#111111] rounded-2xl mb-3">
-						<div class="flex items-center justify-between">
-							<p class="font-black dark:text-white">Projecten</p>
-							<ClientOnly>
-								<NuxtLink :to="`/dashboard/Repos?Page=${currentPage}`"
-									class="px-5 py-1 text-sm font-medium text-white dark:bg-indigo-500 dark:ring-indigo-500 bg-indigo-600 rounded-lg ring-2 ring-indigo-600">
-									Toevoegen</NuxtLink>
-								<template #fallback>
-									<NuxtLink to="/dashboard/Repos"
-										class="px-5 py-1 text-sm font-medium text-white dark:bg-indigo-500 dark:ring-indigo-500 bg-indigo-600 rounded-lg ring-2 ring-indigo-600">
-										Toevoegen</NuxtLink>
-								</template>
-							</ClientOnly>
-						</div>
-					</div>
-					<div class="p-3 bg-[#F7F7F7] dark:bg-[#111111] rounded-2xl mb-3">
-						<div class="flex mb-3 items-center justify-between">
-							<p class="font-black dark:text-white">Berichten</p>
-							<ClientOnly>
-								<NuxtLink :to="`/dashboard/Berichten?Page=${currentPageBerichten}`"
-									class="text-xs font-medium dark:text-indigo-500 text-indigo-600"> Bekijken alle
-									berichten </NuxtLink>
-								<template #fallback>
-									<NuxtLink to="/dashboard/Berichten"
+						<div class="p-3 bg-[#F7F7F7] dark:bg-[#111111] rounded-2xl mb-3">
+							<div class="flex mb-3 items-center justify-between">
+								<p class="font-black dark:text-white">Berichten</p>
+								<ClientOnly>
+									<NuxtLink :to="`/dashboard/Berichten?Page=${currentPageBerichten}`"
 										class="text-xs font-medium dark:text-indigo-500 text-indigo-600"> Bekijken alle
 										berichten </NuxtLink>
-								</template>
-							</ClientOnly>
-						</div>
-						<div class=" mb-3 mt-1" v-if="Messages.length < 1">
-							<p class="opacity-75 dark:text-white text-sm">Je hebt nog geen berichten ontvangen</p>
-						</div>
-						<div v-else class=" h-fit bg-[#F7F7F7] dark:bg-[#111111] rounded-2xl">
-							<div class="w-full h-full overflow-y-auto rounded-xl snap-y snap-proximity scroll-smooth">
-								<div v-for="(item, index) in Messages"
-									class="w-full p-3 mb-3 bg-white dark:bg-neutral-900 last:mb-0 rounded-xl md:snap-end snap-center h-fit"
-									@click="navigateTo(`/dashboard/berichten/${item._id}`)">
-									<div class="flex items-center justify-between gap-2">
-										<h2 class="text-xs dark:text-white font-bold truncate md:text-sm">{{ item.email
-											}}</h2>
-										<p class="text-[0.65em] dark:text-white md:text-sm opacity-70">{{
-											useTimeAgo(item.created_at).value }}</p>
+									<template #fallback>
+										<NuxtLink to="/dashboard/Berichten"
+											class="text-xs font-medium dark:text-indigo-500 text-indigo-600"> Bekijken
+											alle
+											berichten </NuxtLink>
+									</template>
+								</ClientOnly>
+							</div>
+							<div class=" mb-3 mt-1" v-if="Messages.length < 1">
+								<p class="opacity-75 dark:text-white text-sm">Je hebt nog geen berichten ontvangen</p>
+							</div>
+							<div v-else class=" h-fit bg-[#F7F7F7] dark:bg-[#111111] rounded-2xl">
+								<div
+									class="w-full h-full overflow-y-auto rounded-xl snap-y snap-proximity scroll-smooth">
+									<div v-for="(item, index) in Messages"
+										class="w-full p-3 mb-3 bg-white dark:bg-neutral-900 last:mb-0 rounded-xl md:snap-end snap-center h-fit"
+										@click="navigateTo(`/dashboard/berichten/${item._id}`)">
+										<div class="flex items-center justify-between gap-2">
+											<h2 class="text-xs dark:text-white font-bold truncate md:text-sm">{{
+												item.email
+												}}</h2>
+											<p class="text-[0.65em] dark:text-white md:text-sm opacity-70">{{
+												useTimeAgo(item.created_at).value }}</p>
+										</div>
+										<p
+											class="mt-2 md:mt-0 xl:mt-1 dark:text-white mr-11 xl:mr-32 text-xs line-clamp-2 opacity-80">
+											{{ item.message }}
+										</p>
 									</div>
-									<p
-										class="mt-2 md:mt-0 xl:mt-1 dark:text-white mr-11 xl:mr-32 text-xs line-clamp-2 opacity-80">
-										{{ item.message }}
-									</p>
 								</div>
 							</div>
 						</div>
 					</div>
-				</div>
 			</div>
 		</div>
 	</div>
@@ -135,7 +138,6 @@
 	const MonthlyVisted = ref(0);
 	const currentPage = useLocalStorage("AdminRepoPage", 1);
 	const currentPageBerichten = useLocalStorage("BerichtenPage", 1);
-	const showLoading = ref(true);
 
 	const Messages = ref([]);
 	const Installed = ref(false);

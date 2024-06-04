@@ -2,10 +2,15 @@
 	<div>
 		<VitePwaManifest />
 		<Landscape />
+		<NuxtLink class="opacity-50 hover:opacity-80" to="/portfolio">Home</NuxtLink>
+		<NuxtLink class="opacity-50 hover:opacity-80" to="/about">About</NuxtLink>
 	</div>
 </template>
 
 <script setup>
+
+	const { data } = await useFetch("/api/users");
+	if(data.value.statusCode !== 200) await $fetch("/api/auth/refresh");
 
 	definePageMeta({
 		middleware: ["redirect"],

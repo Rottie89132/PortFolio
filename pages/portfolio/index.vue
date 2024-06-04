@@ -10,17 +10,17 @@
 						<NavLinksAdmin v-if="data?.statusCode == 200 && data.authorized" />
 						<NavLinksUser v-else-if="data?.statusCode == 200 && !data.authorized" />
 						<NavLinks v-else />
-						<div class="flex gap-4 items-center">
-							<ClientOnly>
-								<ColorMode />
-								<Online />
-								<button v-if="data?.statusCode == 200" @click="Logout"
-									class="px-6 py-1 dark:text-neutral-800 font-semibold dark:bg-white dark:hover:bg-white dark:hover:ring-white dark:ring-white text-white rounded-lg bg-neutral-800 hover:bg-neutral-900 ring-2 ring-neutral-800 hover:ring-neutral-900">Uitloggen</button>
-								<button v-else @click="HandleModule('Inloggen')"
-									class="px-6 py-1 dark:text-neutral-800 font-semibold dark:bg-white dark:hover:bg-white dark:hover:ring-white dark:ring-white text-white rounded-lg bg-neutral-800 hover:bg-neutral-900 ring-2 ring-neutral-800 hover:ring-neutral-900">{{
-									textLabel }}</button>
-							</ClientOnly>
-						</div>
+							<div class="flex gap-4 items-center">
+								<ClientOnly>
+									<ColorMode />
+									<Online />
+									<button v-if="data?.statusCode == 200" @click="Logout"
+										class="px-6 py-1 dark:text-neutral-800 font-semibold dark:bg-white dark:hover:bg-white dark:hover:ring-white dark:ring-white text-white rounded-lg bg-neutral-800 hover:bg-neutral-900 ring-2 ring-neutral-800 hover:ring-neutral-900">Uitloggen</button>
+									<button v-else @click="HandleModule('Inloggen')"
+										class="px-6 py-1 dark:text-neutral-800 font-semibold dark:bg-white dark:hover:bg-white dark:hover:ring-white dark:ring-white text-white rounded-lg bg-neutral-800 hover:bg-neutral-900 ring-2 ring-neutral-800 hover:ring-neutral-900">{{
+										textLabel }}</button>
+								</ClientOnly>
+							</div>
 					</div>
 					<div class="items-center w-full h-[60vh] md:flex">
 						<div class="grid gap-8 md:gap-4">
@@ -99,11 +99,15 @@
 	const Installed = ref(false);
 	const datatype = ref("");
 	const repoLink = ref("");
-	const user = ref("");
 	const currentPage = useLocalStorage("RepoPage").value;
 	repoLink.value = `/Repos?Page=${currentPage || 1}`;
 
 	const { data, error, pending, refresh } = await useFetch("/api/users");
+
+	if (data.value.statusCode !== 200)  {
+		const refresh = await $fetch("/api/auth/refresh");
+		data.value = refresh;
+	}
 
 	if (useRoute().query.Page) navigateTo("/portfolio");
 

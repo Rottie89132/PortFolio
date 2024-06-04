@@ -98,6 +98,11 @@
 	currentPage.value = useRoute().query.Page;
 	const { data } = await useFetch("/api/users");
 
+	if (data.value.statusCode !== 200) {
+		const refresh = await $fetch("/api/auth/refresh");
+		data.value = refresh;
+	}
+
 	const Logout = async () => {
 		await $csrfFetch("/api/users", { method: "DELETE" });
 		return navigateTo("/");

@@ -1,8 +1,7 @@
 export default defineEventHandler(async (event) => {
 
     const SessionId: any = getCookie(event, "access-token")
-    const RefreshId: any = getCookie(event, "refresh-token")
-    let user: Record<string, any> | null = await useStorage("Sessions").getItem(SessionId)
+    const user: Record<string, any> | null = await useStorage("Sessions").getItem(SessionId)
 
     const OptId: any = getCookie(event, "OptRequired")
     const OptEnabled: any = await useStorage("OptRequired").getItem(OptId)
@@ -11,20 +10,6 @@ export default defineEventHandler(async (event) => {
         statusCode: 428,
         statusMessage: "Precondition Required",
         message: "the request requires an authentication with an OTP token."
-    }
-
-    if (!user) {
-        const { data, error } = await useRefreshSession(event, {
-            Session: SessionId, Refresh: RefreshId
-        })
-
-        if (error) return {
-            statusCode: error.statusCode,
-            statusMessage: error.statusMessage,
-            message: error.message
-        }
-
-        user = data
     }
 
     if (!user) return {
