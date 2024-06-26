@@ -5,7 +5,7 @@
 <style>
 	.page-enter-active,
 	.page-leave-active {
-		@apply transition-opacity duration-500 md:duration-0;
+		@apply transition-opacity;
 	}
 	.page-enter-from,
 	.page-leave-to {
