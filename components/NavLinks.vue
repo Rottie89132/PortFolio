@@ -55,6 +55,6 @@
 
 <style scoped>
 	.router-link-active {
-		@apply opacity-100 dark:bg-white dark:text-neutral-900 bg-neutral-800 text-white rounded-lg p-2 md:pr-16;
+		@apply opacity-100 dark:bg-white dark:text-neutral-900 bg-neutral-800 text-white rounded-lg p-2;
 	}
 </style>
