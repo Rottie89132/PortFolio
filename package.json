@@ -22,7 +22,7 @@
     "@vue-email/nuxt": "^0.8.13",
     "@vue-macros/nuxt": "^1.9.6",
     "@vueuse/nuxt": "^10.6.1",
-    "nuxt": "^3.11.1",
+    "nuxt": "^3.12.2",
     "nuxt-build-cache": "^0.1.1",
     "nuxt-icon": "^0.6.6",
     "nuxt-mongoose": "^1.0.5",

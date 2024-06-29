@@ -9,11 +9,9 @@
 						<NavLinksAdmin v-if="data?.statusCode == 200 && data.authorized" />
 						<NavLinksUser v-else />
 						<div class="flex gap-4 items-center">
-							<ClientOnly>
-								<ColorMode />
-								<Online />
-								<button @click="Logout" class="px-6 py-1 dark:text-neutral-800 font-semibold dark:bg-white dark:hover:bg-white dark:hover:ring-white dark:ring-white text-white rounded-lg bg-neutral-800 hover:bg-neutral-900 ring-2 ring-neutral-800 hover:ring-neutral-900">Uitloggen</button>
-							</ClientOnly>
+							<ColorMode />
+							<Online />
+							<button @click="Logout" class="px-6 py-1 dark:text-neutral-800 font-semibold dark:bg-white dark:hover:bg-white dark:hover:ring-white dark:ring-white text-white rounded-lg bg-neutral-800 hover:bg-neutral-900 ring-2 ring-neutral-800 hover:ring-neutral-900">Uitloggen</button>
 						</div>
 					</div>
 				</div>
@@ -40,12 +38,7 @@
 							<div v-if="!userAuthorized" class="bg-[#F7F7F7] dark:bg-[#111111] p-4 rounded-xl">
 								<div class="flex items-center justify-between">
 									<h1 class="text-xl dark:text-white font-extrabold mb-1">Berichten</h1>
-									<ClientOnly>
-										<NuxtLink :to="berichtenLink" class="text-indigo-600 dark:text-indigo-500 text-[0.65em] text-right">Bekijk alle berichten</NuxtLink>
-										<template #fallback>
-											<NuxtLink to="/berichten" class="text-indigo-600 dark:text-indigo-500 text-[0.65em] text-right">Bekijk alle berichten</NuxtLink>
-										</template>
-									</ClientOnly>
+									<NuxtLink :to="berichtenLink" class="text-indigo-600 dark:text-indigo-500 text-[0.65em] text-right">Bekijk alle berichten</NuxtLink>
 								</div>
 								<p class="text-[0.7em] dark:text-white opacity-75 font-medium leading-4">
 									{{ readObjects.length > 0 ? "Je hebt " : "Je hebt nog geen" }}
@@ -56,12 +49,7 @@
 							<div v-if="!userAuthorized" class="overflow-auto bg-[#F7F7F7] dark:bg-[#111111] p-4 rounded-xl">
 								<div class="flex items-center justify-between">
 									<h1 class="text-xl dark:text-white font-extrabold mb-1">Projecten</h1>
-									<ClientOnly>
-										<NuxtLink :to="repoLink" class="text-indigo-600 dark:text-indigo-500 text-[0.65em] text-right">Bekijk alle projecten</NuxtLink>
-										<template #fallback>
-											<NuxtLink to="/Repos" class="text-indigo-600 dark:text-indigo-500 text-[0.65em] text-right">Bekijk alle projecten</NuxtLink>
-										</template>
-									</ClientOnly>
+									<NuxtLink :to="repoLink" class="text-indigo-600 dark:text-indigo-500 text-[0.65em] text-right">Bekijk alle projecten</NuxtLink>
 								</div>
 								<div :class="savedLikes.length < 4 ? ' gap-[0.45rem]' : ' gap-[0.6rem]'" class="snap-x snap-proximity scroll-smooth w-full rounded-lg overflow-auto flex items-center mt-1" v-if="savedLikes.length > 0">
 									<div class="snap-start bg-black dark:bg-white p-[0.41rem] px-3 rounded-lg font-semibold text-[0.65em] dark:text-black text-white" v-for="item in savedLikes">

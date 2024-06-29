@@ -9,6 +9,6 @@
 	}
 	.page-enter-from,
 	.page-leave-to {
-		@apply opacity-100;
+		@apply duration-300 md:duration-0 opacity-0 md:opacity-100;
 	}
 </style>

@@ -1,5 +1,6 @@
 import { authenticator } from 'otplib';
-
+import consola from 'consola';
+import crypto from 'crypto';
 export default defineEventHandler(async (event) => {
     return new Promise(async (resolve, reject) => {
 
@@ -15,6 +16,7 @@ export default defineEventHandler(async (event) => {
         const request = await readBody(event)
         const { token } = request;
 
+        const hash = crypto.createHash('sha1').update(SessionId).digest('hex');
         const response: any = await User.findOne({ Email: user.Email })
         const secret = response.TwoFactorSecret;
         const isValid = authenticator.verify({ token, secret });
@@ -38,6 +40,8 @@ export default defineEventHandler(async (event) => {
         useUserStorage(event, UserResponse)
         await useStorage("OptRequired").removeItem(SessionId)
         deleteCookie(event, "OptRequired")
+
+        consola.success("2FA Token verified", hash)
 
         return resolve({
             statusCode: 200,

@@ -25,6 +25,15 @@ export default defineNuxtConfig({
     "nuxt-build-cache",
     "nuxt-tour"
   ],
+  routeRules: {
+    "/dashboard/**": { ssr: false },
+    "/berichten/": { ssr: false },
+    "/berichten/**": { ssr: false },
+    "/profile/": { ssr: false },
+    "/about/": { ssr: false },
+    "/portfolio/" : { static: true },
+    "//" : { ssr: false },
+  },
   tour: { 
     injectSass: false
   },

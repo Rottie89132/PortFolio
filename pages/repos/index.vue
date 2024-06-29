@@ -71,6 +71,10 @@
 	const loadingIndicater = ref(true);
 	const datatype = ref("");
 
+	definePageMeta({
+		middleware: "analytics",
+	})
+
 	useSeoMeta({
 		title: `PortFolio - Repositories`,
 		description: "Hier vind je een overzicht van al mijn repositories!",
