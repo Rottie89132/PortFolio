@@ -14,8 +14,10 @@ export default defineEventHandler((event) => {
                 await useStorage("OptRequired").setItem(SessionId, response.user)
 
                 setTimeout(async () => {
-                    await useStorage("OptRequired").removeItem(SessionId)
-                    consola.info("2FA Token expired", hash)
+                    if (await useStorage("OptRequired").getItem(SessionId)) {
+                        await useStorage("OptRequired").removeItem(SessionId)
+                        consola.info("2FA Token expired", hash)
+                    }
                 }, 5.5 * 60 * 1000);
             
                 consola.info("2FA Token created", hash)
