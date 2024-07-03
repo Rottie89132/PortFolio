@@ -59,6 +59,6 @@
 
     setTimeout(() => {
         showLoading.value = false;
-    }, 500);
+    }, 1000);
 
 </script>

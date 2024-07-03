@@ -67,6 +67,7 @@
 					loading.value = false;
 				}, 3000);
 			} else {
+
 				success.value = true;
 				setTimeout(() => {
 					if (data.value.user.Admin) return navigateTo("/dashboard");

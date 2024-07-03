@@ -1,10 +1,12 @@
 import consola from "consola"
 import crypto from "crypto"
-export default async (event: any, { Session, Refresh }: { Session: string, Refresh: string }) => {
+export default async (event: any, options: object | any) => {
+
+    const { Session, Refresh } = options
 
     const newSessionId = crypto.randomUUID()
     const newRefreshId = crypto.randomUUID()
-
+    
     const User: any = await useStorage("Refresh").getItem(Refresh)
 
     if (!User) return {
@@ -42,7 +44,7 @@ export default async (event: any, { Session, Refresh }: { Session: string, Refre
     });
 
     return {
-        data: { ...User, Admin: undefined },
+        data: { ...User },
         error: null
     }
 

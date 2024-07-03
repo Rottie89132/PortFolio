@@ -51,7 +51,7 @@ export default defineEventHandler(async (event) => {
                 Id: response._id,
                 Email: response.Email,
                 Username: response.Username,
-                Admin: response.Role == "Eigenaar",
+                Admin: response.Role == "Eigenaar" ? true : false,
                 is2FAEnabled: response.TwoFactorSecret ? true : false
             }
         })

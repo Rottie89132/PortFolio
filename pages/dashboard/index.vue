@@ -108,7 +108,10 @@
 	Analytics.value = AnalyticsData.value;
 	MonthlyVisted.value = Analytics.value.result[Analytics.value.result.length - 1].MonthlyVisted || 0;
 
+	const store = useSessionsStore()
+	
 	const Logout = async () => {
+		store.clearSession();
 		await $csrfFetch("/api/users", { method: "DELETE" });
 		return navigateTo("/");
 	};

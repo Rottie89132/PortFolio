@@ -53,7 +53,7 @@
 		}, 3000);
 	};
 
-	if (process.client) {
+	if (document) {
 		handleInstall();
 	}
 </script>

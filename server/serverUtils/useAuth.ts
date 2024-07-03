@@ -33,7 +33,7 @@ export default async (event: any,) => {
             Id: user._id,
             Email: user.Email,
             Username: user.Username,
-            Admin: user.Role == "Eigenaar",
+            Admin: user.Role == "Eigenaar" ? true : false,
             is2FAEnabled: user.TwoFactorSecret ? true : false
         }
     }

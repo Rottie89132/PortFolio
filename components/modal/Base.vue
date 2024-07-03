@@ -39,6 +39,7 @@
 <script setup lang="ts">
 	import { configure } from "vee-validate";
 	import * as yup from "yup";
+import authorized from "~/middleware/authorized";
 
 	const { texthead, textbase, textLabel, status, DelayStatus, AuthModule, type } = defineModels<{
 		texthead: String;
@@ -157,6 +158,9 @@
 		loading.value = true;
 		const { data, error, pending, refresh }: Record<string, any> = AuthModule.value ? await useCsrfFetch("/api/auth", { method: "post", body: values }) : type.value == "Contact" ? await useCsrfFetch("/api/berichten", { method: "post", body: values }) : type.value == "Vergeten" ? await useCsrfFetch("/api/forgot", { method: "post", body: values }) : await useCsrfFetch("/api/register", { method: "post", body: values });
 
+		const store = useSessionsStore()
+		store.setSession(data.value);
+
 		if (error.value) {
 			loading.value = false;
 
@@ -177,7 +181,9 @@
 			if (AuthModule.value) closeModal();
 			
 			setTimeout(() => {
-				
+
+				store.setSession({ ...data.value, authorized: data.value.user.Admin});
+
 				if (AuthModule.value && data.value.user.is2FAEnabled) navigateTo(`/auth/prompt/2fa?token=${data.value.user.Id}`);
 				else if (AuthModule.value && data.value.user.Admin) navigateTo("/dashboard");
 				else if (AuthModule.value) navigateTo("/profile");

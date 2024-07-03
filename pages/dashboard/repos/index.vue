@@ -83,7 +83,10 @@
 	const OpenModuleDelay = ref(false);
 
 	currentPage.value = useRoute().query.Page;
+	const store = useSessionsStore()
+
 	const Logout = async () => {
+		store.clearSession();
 		await $csrfFetch("/api/users", { method: "DELETE" });
 		return navigateTo("/");
 	};

@@ -26,21 +26,12 @@
 	});
 
 
-	const result = ref()
+	const store = useSessionsStore()
+	const result = ref(await store.getSession())
 
-	const { data } = await useFetch('/api/users')
-	result.value = data.value
-
-	if (process.client) {
-
-		if (result.value.statusCode !== 200) {
-			const refresh = await $fetch("/api/auth/refresh");
-			result.value = refresh;
-		}
-
-		if (result.value.statusCode !== 200) { navigateTo('/portfolio') }
-		if (result.value.statusCode == 200 && result.value.authorized) { navigateTo('/dashboard') }
-		if (result.value.statusCode == 200 && !result.value.authorized) { navigateTo('/profile') }
-	}
+	if (result.value.statusCode !== 200) { navigateTo('/portfolio') }
+	if (result.value.statusCode == 200 && result.value.authorized) { navigateTo('/dashboard') }
+	if (result.value.statusCode == 200 && !result.value.authorized) { navigateTo('/profile') }
+	
 
 </script>

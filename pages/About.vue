@@ -23,7 +23,7 @@
 				<div class="w-full h-fit mt-6 md:my-10 xl:mt-20 md:w-[98%] lg:w-[88%] xl:w-[89.2%]">
 					<h1 class="text-[1.5em] select-none text-black dark:text-white font-extrabold -mb-1">Curriculum Vitae</h1>
 
-					<div v-if="data?.statusCode != 401 && data?.statusCode != 428 && !error">
+					<div v-if="data?.statusCode != 401 && data?.statusCode != 428">
 						<div class="-mb-3 select-none xl:-mb-2 hidden md:flex items-center justify-between">
 							<div>
 								<h3 class="text-[1.25em] dark:text-white text-black font-semibold mb-6 md:mb-3">Roland Meijer</h3>
@@ -308,13 +308,11 @@
 	const currentPage = useLocalStorage("RepoPage").value;
 	repoLink.value = `/Repos?Page=${currentPage}`;
 
-	const { data, error, pending, refresh } = await useFetch("/api/users");
-	if (data.value.statusCode !== 200) {
-		const refresh = await $fetch("/api/auth/refresh");
-		data.value = refresh;
-	}
+	const store = useSessionsStore();
+	const data = ref(await store.getSession());
 
 	const Logout = async () => {
+		store.clearSession();
 		await $csrfFetch("/api/users", { method: "DELETE" });
 		return navigateTo("/");
 	};

@@ -81,7 +81,10 @@
 		});
 	}
 
+	const store = useSessionsStore()
+
 	const Logout = async () => {
+		store.clearSession();
 		await $csrfFetch("/api/users", { method: "DELETE" });
 		return navigateTo("/");
 	};

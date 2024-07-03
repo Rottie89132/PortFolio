@@ -166,7 +166,8 @@
 	repoLink.value = `/Repos?Page=${currentPage || 1}`;
 	berichtenLink.value = `/berichten?Page=${berichten || 1}`;
 
-	const { data } = await useFetch("/api/users");
+	const store = useSessionsStore()
+	const data = ref(await store.getSession())
 
 	if (data.value.authorized) {
 		const { data: Berichten } = await useFetch(`/api/berichten/`);
@@ -240,6 +241,7 @@
 	};
 
 	const Logout = async () => {
+		store.clearSession();
 		await $csrfFetch("/api/users", { method: "DELETE" });
 		return navigateTo("/");
 	};

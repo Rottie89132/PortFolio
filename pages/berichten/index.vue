@@ -101,7 +101,7 @@
 	const ReactiveEvent = ref();
 
 	currentPage.value = useRoute().query.Page;
-	const { data: Berichten, error, pending, refresh } = await useFetch(`/api/berichten/${currentPage.value}`);
+	const { data: Berichten } = await useFetch(`/api/berichten/${currentPage.value}`);
 
 	onMounted(() => {
 		if ($pwa.isInstalled) Installed.value = true;
@@ -109,7 +109,10 @@
 		$PusherOnEvent("client-eventNotification", ReactiveEvent);
 	});
 
+	const store = useSessionsStore()
+
 	const Logout = async () => {
+		store.clearSession();
 		await $csrfFetch("/api/users", { method: "DELETE" });
 		return navigateTo("/");
 	};

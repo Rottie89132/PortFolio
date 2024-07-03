@@ -102,16 +102,12 @@
 	const currentPage = useLocalStorage("RepoPage").value;
 	repoLink.value = `/Repos?Page=${currentPage || 1}`;
 
-	const { data, error, pending, refresh } = await useFetch("/api/users");
-
-	if (data.value.statusCode !== 200)  {
-		const refresh = await $fetch("/api/auth/refresh");
-		data.value = refresh;
-	}
+	const store = useSessionsStore()
+	const data = ref(await store.getSession())
 
 	if (useRoute().query.Page) navigateTo("/portfolio");
-
 	const Logout = async () => {
+		store.clearSession();
 		await $csrfFetch("/api/users", { method: "DELETE" });
 		data.value = null;
 	};

@@ -23,7 +23,8 @@ export default defineNuxtConfig({
     'nuxt-scheduler',
     '@vue-email/nuxt',
     "nuxt-build-cache",
-    "nuxt-tour"
+    "nuxt-tour",
+    "@pinia/nuxt"
   ],
   routeRules: {
     "/dashboard/**": { ssr: false },

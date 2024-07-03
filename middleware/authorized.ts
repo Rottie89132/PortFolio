@@ -1,6 +1,7 @@
 export default defineNuxtRouteMiddleware(async (to, from) => {
 
-    const { data }: Record<string, any> = await useFetch('/api/users')
+    const store = useSessionsStore()
+    const data: Record<string, any> = ref(await store.getSession())
 
     if (data.value.statusCode != 200) {
 

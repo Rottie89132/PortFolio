@@ -23,6 +23,6 @@ export default defineEventHandler(async (event) => {
         statusMessage: "OK",
         message: "The request has succeeded.",
         user: { ...user, Admin: undefined },
-        authorized: user.Admin
+        authorized: user.Admin ? true : false
     }
 })
