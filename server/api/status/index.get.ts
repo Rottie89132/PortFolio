@@ -1,7 +1,7 @@
 export default defineEventHandler( async (event) => {
     return new Promise((resolve, reject) => {
         setTimeout(async () => {
-            return resolve({ statusCode: 200, statusMessage: "OK",})
+            return resolve({"status":200,"message":"OK"})
         }, 200)
     })
 })
