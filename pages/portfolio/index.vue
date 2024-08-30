@@ -10,22 +10,21 @@
 						<NavLinksAdmin v-if="data?.statusCode == 200 && data.authorized" />
 						<NavLinksUser v-else-if="data?.statusCode == 200 && !data.authorized" />
 						<NavLinks v-else />
-							<div class="flex gap-4 items-center">
-								<ClientOnly>
-									<ColorMode />
-									<Online />
-									<button v-if="data?.statusCode == 200" @click="Logout"
-										class="px-6 py-1 dark:text-neutral-800 font-semibold dark:bg-white dark:hover:bg-white dark:hover:ring-white dark:ring-white text-white rounded-lg bg-neutral-800 hover:bg-neutral-900 ring-2 ring-neutral-800 hover:ring-neutral-900">Uitloggen</button>
-									<button v-else @click="HandleModule('Inloggen')"
-										class="px-6 py-1 dark:text-neutral-800 font-semibold dark:bg-white dark:hover:bg-white dark:hover:ring-white dark:ring-white text-white rounded-lg bg-neutral-800 hover:bg-neutral-900 ring-2 ring-neutral-800 hover:ring-neutral-900">{{
-										textLabel }}</button>
-								</ClientOnly>
-							</div>
+						<div class="flex gap-4 items-center">
+							<ClientOnly>
+								<ColorMode />
+								<Online />
+								<button v-if="data?.statusCode == 200" @click="Logout"
+									class="px-6 py-1 dark:text-neutral-800 font-semibold dark:bg-white dark:hover:bg-white dark:hover:ring-white dark:ring-white text-white rounded-lg bg-neutral-800 hover:bg-neutral-900 ring-2 ring-neutral-800 hover:ring-neutral-900">Uitloggen</button>
+								<button v-else @click="HandleModule('Inloggen')"
+									class="px-6 py-1 dark:text-neutral-800 font-semibold dark:bg-white dark:hover:bg-white dark:hover:ring-white dark:ring-white text-white rounded-lg bg-neutral-800 hover:bg-neutral-900 ring-2 ring-neutral-800 hover:ring-neutral-900">{{ textLabel }}</button>
+							</ClientOnly>
+						</div>
 					</div>
 					<div class="items-center w-full h-[60vh] md:flex">
 						<div class="grid gap-8 md:gap-4">
 							<HeaderTitel Title="Hallo leer mij kennen!"
-								SubTitle="Hoi, ik ben Roland Meijer, een Software Developer in de maak! Momenteel zit ik in mijn tweede leerjaar en ontdek ik de kunst van het programmeren." />
+								SubTitle="Hoi, ik ben Roland Meijer, een gemotiveerde Software Developer. Met een sterke basis in programmeren en een passie voor technologie!" />
 							<div class="flex items-center gap-5">
 								<ClientOnly>
 									<NuxtLink :to="repoLink"
