@@ -39,7 +39,6 @@
 <script setup lang="ts">
 	import { configure } from "vee-validate";
 	import * as yup from "yup";
-import authorized from "~/middleware/authorized";
 
 	const { texthead, textbase, textLabel, status, DelayStatus, AuthModule, type } = defineModels<{
 		texthead: String;

@@ -1,4 +1,5 @@
-import { useCompiler } from '#vue-email'
+import UseEmail from '~~/components/emails/success.vue'
+import { render } from '@vue-email/render'
 
 export default defineEventHandler((event) => {
     return new Promise((resolve, reject) => {
@@ -39,8 +40,8 @@ export default defineEventHandler((event) => {
                 }
             }
 
-            const template = await useCompiler('success.vue', {
-                props: { Username: newUser.Username }
+            const template = await render(UseEmail, {
+                Username: newUser.Username
             })
 
             await useMail({

@@ -1,5 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 
+import vue from '@vitejs/plugin-vue'
+
 export default defineNuxtConfig({
   devtools: {
     enabled: false,
@@ -7,25 +9,25 @@ export default defineNuxtConfig({
       enabled: true
     }
   },
+
   modules: [
-    '@nuxtjs/tailwindcss',
     '@nuxt/image',
-    'nuxt-icon',
     '@vite-pwa/nuxt',
     '@vue-macros/nuxt',
     "@vee-validate/nuxt",
     "@vueuse/nuxt",
-    'nuxt-mongoose',
     "@formkit/auto-animate/nuxt",
     '@nuxtjs/color-mode',
     'nuxt-rate-limit',
     "nuxt-csurf",
     'nuxt-scheduler',
-    '@vue-email/nuxt',
     "nuxt-build-cache",
-    "nuxt-tour",
-    "@pinia/nuxt"
+    "@pinia/nuxt",
+    "@nuxt/icon",
+    "@nuxtjs/tailwindcss",
+    "nuxt-mongoose",
   ],
+
   routeRules: {
     "/dashboard/**": { ssr: false },
     "/berichten/": { ssr: false },
@@ -35,28 +37,26 @@ export default defineNuxtConfig({
     "/portfolio/" : { static: true },
     "//" : { ssr: false },
   },
-  tour: { 
-    injectSass: false
-  },
-  vueEmail: {
-    playground: true,
-    autoImport: true,
-  },
+
   csurf: {
     cookieKey: 'csrf-token',
     https: process.env.production === 'true',
     methodsToProtect: ['POST', 'PUT', 'PATCH', 'DELETE'],
     addCsrfTokenToEventCtx: true
   },
+
   colorMode: {
     classSuffix: ''
   },
+
   mongoose: {
     uri: process.env.DataBaseUrl,
   },
+
   veeValidate: {
     autoImports: true,
   },
+
   runtimeConfig: {
     Hostadress: process.env.Hostadress,
     SaltToken: process.env.SaltToken,
@@ -78,6 +78,7 @@ export default defineNuxtConfig({
       PusherChannel: process.env.PusherChannel,
     }
   },
+
   nuxtRateLimit: {
     enabled: true,
     routes: {
@@ -99,6 +100,7 @@ export default defineNuxtConfig({
       },
     },
   },
+
   pwa: {
     strategies: "injectManifest",
     registerType: 'autoUpdate',
@@ -143,6 +145,7 @@ export default defineNuxtConfig({
       suppressWarnings: true,
     },
   },
+
   app: {
     pageTransition: { name: 'page', mode: 'out-in' },
     head: {
@@ -157,6 +160,7 @@ export default defineNuxtConfig({
       viewport: 'viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no',
     }
   },
+
   nitro: {
     imports: {
       dirs: ["./server/serverUtils"],
@@ -165,5 +169,12 @@ export default defineNuxtConfig({
         imports: [{ name: "default", as: "bcrypt" }],
       }],
     },
+    rollupConfig: {
+      plugins: [vue()]
+    }
   },
+  compatibilityDate: "2024-09-10",
 })
+
+
+

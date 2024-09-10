@@ -1,15 +1,22 @@
 <script lang="ts" setup>
+	
+	import { Tailwind, Html, Head, Preview, Body } from '@vue-email/components';
+	
+	
 	defineProps({
 		Username: { type: String, default: "Bezoeker" },
+	
 	});
 </script>
 
 <template>
-	<ETailwind>
-		<EHtml>
-			<EHead />
-			<EPreview> Uw account is succesvol geverifieerd en geactiveerd. Bedankt voor uw interesse in mijn portfolio. </EPreview>
-			<EBody class="">
+	<Tailwind>
+		<Html>
+			<Head>
+				<title>Account geactiveerd</title>
+			</Head>
+			<Preview> Uw account is succesvol geverifieerd en geactiveerd. Bedankt voor uw interesse in mijn portfolio. </Preview>
+			<Body class="">
 				<div class="w-full pb-6 pt-2 max-w-sm">
 					<div class="">
 						<h2 class="text-3xl -mt-4 font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">Acount geactiveerd.</h2>
@@ -20,7 +27,7 @@
 						</p>
 					</div>
 				</div>
-			</EBody>
-		</EHtml>
-	</ETailwind>
+			</Body>
+		</Html>
+	</Tailwind>
 </template>

@@ -1,5 +1,7 @@
 import bcrypt from "bcrypt"
-import { useCompiler } from '#vue-email'
+import UseEmail from '~~/components/emails/verification.vue'
+
+import { render } from '@vue-email/render'
 const { Hostadress } = useRuntimeConfig()
 
 export default defineEventHandler((event) => {
@@ -39,10 +41,8 @@ export default defineEventHandler((event) => {
                 Username: email.split("@")[0],
             })
 
-            const template = await useCompiler('verification.vue', {
-                props: {
-                    url: `${Hostadress}/auth/prompt/email?token=${SessionId}`,
-                }
+            const template = await render(UseEmail, {
+                url: `${Hostadress}/auth/prompt/email?token=${SessionId}`,
             })
 
             await useMail({

@@ -8,7 +8,8 @@ const transporter = createTransport({
     port: 587,
     secure: false,
     tls: {
-        ciphers: 'SSLv3'
+        ciphers: 'SSLv3',
+        rejectUnauthorized: false
     },
     auth: {
         user: User,
@@ -17,7 +18,7 @@ const transporter = createTransport({
 });
 
 transporter.verify((error) => {
-    if (error) consola.error('Server is not ready to send mail');
+    if (error) consola.error('Server is not ready to send mail', error);
     else consola.success('Server is ready to send mail');
 });
 
@@ -28,12 +29,12 @@ export default async (options: any) => {
         from: Sender,
         to: recepient,
         subject: subject,
-        html: body.html,
+        html: body,
     }
 
     transporter.sendMail(mailOptions, (error, info) => {
-        if (error) consola.error('Email not sent: ' + error);
-        else consola.success('Email sent: ' + info.response);
+        if (error) consola.error('Email not sent: ', error);
+        else consola.success('Email sent: ', info.response);
     });
 
 };
