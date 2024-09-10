@@ -29,8 +29,8 @@
 								<h3 class="text-[1.25em] dark:text-white text-black font-semibold mb-6 md:mb-3">Roland Meijer</h3>
 							</div>
 							<div class="flex gap-x-4 -mt-6">
-								<a href="https://www.linkedin.com/in/roland-meijer-07bb97198/" target="_blank" class="px-4 py-2 font-semibold dark:text-neutral-800 dark:hover:bg-gray-100 dark:hover:ring-gray-100 dark:bg-white dark:ring-white text-sm text-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-md"> <Icon class="-mt-1 mr-1" name="ri:external-link-line" size="1.2em" />Linkedin </a>
-								<a :href="datalink" download class="px-2 py-2 font-semibold dark:text-neutral-800 dark:hover:bg-gray-100 dark:hover:ring-gray-100 dark:bg-white dark:ring-white text-sm text-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-md">
+								<a href="https://www.linkedin.com/in/roland-meijer-07bb97198/" target="_blank" class="flex items-center justify-center px-4 py-2 font-semibold dark:text-neutral-800 dark:hover:bg-gray-100 dark:hover:ring-gray-100 dark:bg-white dark:ring-white text-sm text-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-md"> <Icon class="-mt-1 mr-1" name="ri:external-link-line" size="1.2em" />Linkedin </a>
+								<a :href="datalink" download class="flex items-center justify-center p-2 font-semibold dark:text-neutral-800 dark:hover:bg-gray-100 dark:hover:ring-gray-100 dark:bg-white dark:ring-white text-sm text-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-md">
 									<Icon class=" " name="ri:file-pdf-2-line" size="1.4em" />
 								</a>
 							</div>
@@ -40,8 +40,8 @@
 								<h3 class="text-[1.25em] dark:text-white text-black font-semibold mb-6 md:mb-3">Roland Meijer</h3>
 							</div>
 							<div class="flex gap-x-4">
-								<a href="https://www.linkedin.com/in/roland-meijer-07bb97198/" target="_blank" class="px-4 py-2 font-semibold dark:text-neutral-800 dark:hover:bg-gray-100 dark:hover:ring-gray-100 dark:bg-white dark:ring-white text-sm text-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-md"> <Icon class="-mt-1 mr-1" name="ri:external-link-line" size="1.2em" />Linkedin </a>
-								<a :href="datalink" class="px-2 py-2 font-semibold dark:text-neutral-800 dark:hover:bg-gray-100 dark:hover:ring-gray-100 dark:bg-white dark:ring-white text-sm text-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-md">
+								<a href="https://www.linkedin.com/in/roland-meijer-07bb97198/" target="_blank" class="flex items-center justify-center px-4 py-2 font-semibold dark:text-neutral-800 dark:hover:bg-gray-100 dark:hover:ring-gray-100 dark:bg-white dark:ring-white text-sm text-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-md"> <Icon class="-mt-1 mr-1" name="ri:external-link-line" size="1.2em" />Linkedin </a>
+								<a :href="datalink" class="flex items-center justify-center p-2 font-semibold dark:text-neutral-800 dark:hover:bg-gray-100 dark:hover:ring-gray-100 dark:bg-white dark:ring-white text-sm text-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-md">
 									<Icon class=" " name="ri:file-pdf-2-line" size="1.4em" />
 								</a>
 							</div>
