@@ -45,10 +45,16 @@ export default defineEventHandler((event) => {
                 url: `${Hostadress}/auth/prompt/email?token=${SessionId}`,
             })
 
-            await useMail({
+            const { error } = await useMail({
                 recepient: email,
                 subject: "Bevestig uw e-mailadres!",
                 body: template
+            })
+
+            if (error) return reject({
+                statusCode: 500,
+                statusMessage: "Internal Server Error",
+                message: "The server has encountered a situation it doesn't know how to handle."
             })
 
             setTimeout(async () => {

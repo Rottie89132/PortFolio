@@ -46,10 +46,16 @@ export default defineEventHandler((event) => {
             Username: email.split("@")[0]
         })
 
-        await useMail({
+        const { error } =await useMail({
             recepient: email,
             subject: "Reset uw wachtwoord!",
             body: template
+        })
+
+        if (error) return reject({
+            statusCode: 500,
+            statusMessage: "Internal Server Error",
+            message: "The server has encountered a situation it doesn't know how to handle."
         })
 
         setTimeout(async () => {
