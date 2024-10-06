@@ -1,28 +1,25 @@
-import { Octokit } from "@octokit/core"
+import { Octokit } from "@octokit/core";
 
-export default async (token: any, currentPage: any, resolve: any) => {
-    const octokit: any = new Octokit({ auth: token });
-    let response: Record<string, any> | boolean | any = await useGetCache("Repositories")
+export default async (token: string, currentPage: number, resolve: Function): Promise<void> => {
+    const fetchItemsAtOnce = 20;
+    const repositoriesPerPage = 4;
+    const repositories: Repositories = (await useGetCache("Repositories")) as Repositories || { data: { repositories: [] } };
+    const octokit = new Octokit({ auth: token });
 
-    if (!response) {
-        response = await octokit.request('GET /installation/repositories');
-        useSetCache(response, "Repositories")
+    if (!repositories.data.repositories.length) {
+        repositories.data.repositories = await fetchAllRepositories(octokit, fetchItemsAtOnce);
+        useSetCache(repositories, "Repositories");
     }
 
-    response.data.repositories.sort((a: any, b: any) => new Date(b.pushed_at).getTime() - new Date(a.pushed_at).getTime());
-    const result = [];
-    
-    for (let i = 0; i < response.data.repositories.length; i += 4) result.push(response.data.repositories.slice(i, i + 4))
-    const data = result[currentPage]
+    const sortedRepositories = sortRepositories(repositories.data.repositories);
+    const paginatedRepositories = paginateRepositories(sortedRepositories, repositoriesPerPage);
 
     return resolve({
         statusCode: 200,
         statusMessage: "OK",
         message: "The request has succeeded.",
         page: currentPage + 1,
-        total: result.length,
-        repositories: data
-    })
+        total: paginatedRepositories.length,
+        repositories: paginatedRepositories[currentPage]
+    });
 }
-
-

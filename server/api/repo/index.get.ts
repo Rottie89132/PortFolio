@@ -16,13 +16,15 @@ export default defineEventHandler((event) => {
             message: "The server understood the request but refuses to authorize it."
         })
 
-        const Item = (await Repositories.find()).reverse()
+        const Item = await Repositories.find({})
+
+        const ItemIds = Item.map((item: any) => { return {repo_id: item.repo_id}})
 
         return resolve({
             statusCode: 200,
             statusMessage: "OK",
             message: "The request has succeeded.",
-            Response: Item
+            Response: ItemIds
         })
     })
 })

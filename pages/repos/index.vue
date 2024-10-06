@@ -7,9 +7,7 @@
 				class="w-full md:h-full p-5 md:rounded-none pb-4 rounded-3xl md:pl-8 lg:pl-36 xl:pl-52 bg-[#f0f0f0] md:bg-white dark:bg-[#131313] dark:md:bg-neutral-900 overflow-auto">
 				<div class="grid gap-24">
 					<div class="flex items-center justify-between">
-						<NavLinksAdmin v-if="data?.statusCode == 200 && data.authorized" />
-						<NavLinksUser v-else-if="data?.statusCode == 200 && !data.authorized" />
-						<NavLinks v-else />
+						<Navigation :data />
 						<div class="flex gap-4 items-center">
 							<ClientOnly>
 								<ColorMode />
@@ -27,11 +25,12 @@
 				<div class="w-full h-fit mt-6 md:my-10 xl:mt-20 md:w-[98%] lg:w-[88%] xl:w-[89.2%]">
 					<div class="flex items-center justify-between gap-3 mb-3">
 						<h1 class="text-[1.5em] text-black dark:text-white font-extrabold">Repositories</h1>
-						<NavButtons :items="items" :hidebuttons="hidebuttons" :loading="loading"
+						<PaginationButtons :items="items" :hidebuttons="hidebuttons" :loading="loading"
 							v-model:currentPage="currentPage" :PreviousPage="PreviousPage" :NextPage="NextPage"
-							:navigateToPage="navigateToPage"> </NavButtons>
+							:navigateToPage="navigateToPage"> 
+						</PaginationButtons>
 					</div>
-					<Status :items="items" :loadingIndicater="loadingIndicater" />
+					<CardDisplay :items="items" :loadingIndicater="loadingIndicater" />
 				</div>
 			</div>
 		</div>
@@ -52,6 +51,7 @@
 </template>
 
 <script setup>
+
 	const { $pwa, $PusherOnStart, $PusherOnEvent, $csrfFetch } = useNuxtApp();
 	const items = ref([]);
 	const currentPage = ref();

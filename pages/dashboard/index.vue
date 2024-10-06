@@ -6,7 +6,7 @@
 			<div :class="!Installed ? 'h-full' : 'h-[95%]'" class="w-full md:h-full p-5 pb-4 md:rounded-none rounded-3xl md:pl-8 lg:pl-36 xl:pl-52 bg-[#f0f0f0] md:bg-white dark:bg-[#131313] dark:md:bg-neutral-900 overflow-auto md:overflow-hidden xl:overflow-hidden">
 				<div class="grid gap-24">
 					<div class="flex items-center justify-between">
-						<NavLinksAdmin />
+						<NavigationLinksAdmin />
 						<div class="flex gap-4 items-center">
 							<ColorMode />
 							<Online />
@@ -31,7 +31,7 @@
 						</div>
 					</div>
 					<div class="mb-3 bg-[#F7F7F7] md:max-h-64 flex flex-col justify-center dark:bg-[#111111] rounded-lg p-3 py-5">
-						<Chart :Analytics />
+						<Charts :Analytics />
 					</div>
 					<div class="p-3 xl:hidden bg-[#F7F7F7] dark:bg-[#111111] rounded-2xl mb-3">
 						<div class="flex items-center justify-between">

@@ -163,7 +163,7 @@ export default defineNuxtConfig({
 
   nitro: {
     imports: {
-      dirs: ["./server/serverUtils"],
+      dirs: ["./server/serverUtils/**/**"],
       presets: [{
         from: "bcrypt",
         imports: [{ name: "default", as: "bcrypt" }],

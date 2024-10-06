@@ -21,11 +21,6 @@ transporter.verify((error) => {
     else consola.success('Server is ready to send mail');
 });
 
-type reponseType = {
-    success: boolean | null,  
-    error: null | Error
-}
-
 export default async (options: any) => {
     const { recepient, subject, body } = options
 

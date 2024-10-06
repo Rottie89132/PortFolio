@@ -6,8 +6,8 @@
 			<div :class="!Installed ? 'h-full' : 'h-[95%]'" class="w-full md:h-full p-5 md:rounded-none rounded-3xl md:pl-8 lg:pl-36 xl:pl-52 bg-[#f0f0f0] md:bg-white dark:bg-[#131313] dark:md:bg-neutral-900 md:overflow-hidden overflow-auto">
 				<div class="grid gap-24">
 					<div class="flex items-center justify-between">
-						<NavLinksAdmin v-if="data?.statusCode == 200 && data.authorized" />
-						<NavLinksUser v-else />
+						<NavigationLinksAdmin v-if="data?.statusCode == 200 && data.authorized" />
+						<NavigationLinksUser v-else />
 						<div class="flex gap-4 items-center">
 							<ColorMode />
 							<Online />
@@ -57,7 +57,7 @@
 										<span class="cursor-not-allowed flex items-center gap-[0.28rem]" v-else> <icon name="ri:lock-2-line" size="1.2em" />{{ item.name }} </span>
 									</div>
 								</div>
-								<p v-else class="text-[0.7em] dark:text-white opacity-75 leading-4 font-medium">Je hebt nog geen projecten gemarkeerd, klik op het duimpje om een project te markeren.</p>
+								<p v-else class="text-[0.7em] dark:text-white opacity-75 font-medium leading-4">Je hebt nog geen projecten gemarkeerd, klik op het duimpje om een project te markeren.</p>
 							</div>
 						</div>
 						<div v-if="userAuthorized" class="bg-[#F7F7F7] dark:bg-[#111111] p-4 rounded-xl">
@@ -166,16 +166,20 @@
 	repoLink.value = `/Repos?Page=${currentPage || 1}`;
 	berichtenLink.value = `/berichten?Page=${berichten || 1}`;
 
-	const store = useSessionsStore()
-	const data = ref(await store.getSession())
+	const store = useSessionsStore();
+	const data = ref(await store.getSession());
 
-	if (data.value.authorized) {
+	if (!data.value.authorized) {
 		const { data: Berichten } = await useFetch(`/api/berichten/`);
 		readObjects.value = Berichten.value.Response.filter((obj) => obj.read === true);
-	} else {
+
 		const { data: likes, error } = await useFetch("/api/repo/liked");
 		if (!error.value) savedLikes.value = likes.value.data;
 	}
+
+	// else {
+
+	// }
 
 	TwoFAEnabled.value = data.value.user.is2FAEnabled;
 	userAuthorized.value = data.value.authorized;
