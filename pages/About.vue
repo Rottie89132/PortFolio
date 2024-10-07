@@ -245,8 +245,8 @@
 					<div v-else>
 						<p class="mt-3 mb-4 leading-4 dark:text-white text-sm">Om toegang te krijgen tot mijn informatie
 							moet je een account hebben en ingelogd zijn.</p>
-						<button @click="HandleModule('Aanmelden')"
-							class="px-4 py-1 text-sm font-semibold dark:ring-white text-white dark:hover:bg-gray-100 dark:hover:ring-gray-100 dark:text-neutral-800 dark:bg-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-lg">Aanmelden</button>
+						<!-- <button @click="HandleModule('Aanmelden')"
+							class="px-4 py-1 text-sm font-semibold dark:ring-white text-white dark:hover:bg-gray-100 dark:hover:ring-gray-100 dark:text-neutral-800 dark:bg-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-lg">Aanmelden</button> -->
 						<div :class="Installed ? ' max-h-[63.5vh]' : 'max-h-[68.5vh]'"
 							class="mt-3 md:mt-6 dark:text-black rounded-md overflow-auto text-white grid grid-cols-2 md:grid-cols-3 gap-3">
 							<div class="dark:bg-white bg-neutral-800 p-2 flex items-center justify-center rounded-md">
@@ -281,24 +281,9 @@
 				</div>
 			</div>
 		</div>
-		<ModalBase v-model:texthead="title" v-model:type="datatype" v-model:textbase="subtitle"
-			v-model:status="OpenModule" v-model:DelayStatus="OpenModuleDelay" v-model:textLabel="buttonLabel"
-			v-model:AuthModule="AuthModule">
-			<div v-if="AuthModule && datatype != 'Vergeten'">
-				<FieldInput :name="'email'" :type="'email'" :label="'Gebuikersnaam'" />
-				<FieldInput :name="'wachtwoord'" :type="'password'" :label="'Wachtwoord'" />
-			</div>
-			<div v-else-if="datatype == 'Vergeten'">
-				<FieldInput :name="'email'" :type="'email'" :label="'Email adress'" />
-				<FieldInput :name="'wachtwoord'" :type="'password'" :label="'Nieuwe wachtwoord'" />
-				<FieldInput :name="'confirmatie'" :type="'password'" :label="'Confirmatie'" />
-			</div>
-			<div v-else>
-				<FieldInput :name="'email'" :type="'email'" :label="'Email'" />
-				<FieldInput :name="'wachtwoord'" :type="'password'" :label="'Wachtwoord'" />
-				<FieldInput :name="'confirmatie'" :type="'password'" :label="'Confirmatie'" />
-			</div>
-		</ModalBase>
+		<ModalAuth v-model:type="datatype" v-model:texthead="title" v-model:textbase="subtitle" v-model:status="OpenModule"
+			v-model:DelayStatus="OpenModuleDelay" v-model:textLabel="buttonLabel" v-model:AuthModule="AuthModule">
+		</ModalAuth>
 	</div>
 </template>
 
@@ -367,12 +352,12 @@
 		window.removeEventListener("resize", handleResize);
 	});
 
-	const HandleModule = async (type) => {
+	const HandleModule = (type) => {
 		datatype.value = type;
-		AuthModule.value = type != "Aanmelden";
+		AuthModule.value = true;
 		title.value = type;
-		buttonLabel.value = type == "Aanmelden" ? "Aanmelden" : "Login";
-		subtitle.value = type == "Aanmelden" ? "Vul hieronder je gegevens in om een account aan te maken." : "Vul hieronder je gebruikersnaam en wachtwoord in om toegang te krijgen tot je account.";
+		buttonLabel.value = "Login";
+		subtitle.value = "Vul hieronder je gebruikersnaam en wachtwoord in om toegang te krijgen tot je account.";
 
 		OpenModule.value = true;
 		setTimeout(() => {

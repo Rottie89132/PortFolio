@@ -15,9 +15,18 @@
 								<p class="mb-6 font-medium opacity-70">{{ textbase }}</p>
 								<Form class="" @submit="handleRequest" :validation-schema="schema" v-slot="{ meta }">
 									<slot></slot>
-									<div v-if="type == 'Inloggen'" class="flex justify-between items-center">
-										<div @click="forgotPassword" class="text-sm select-none cursor-pointer text-neutral-800 hover:text-neutral-900">Wachtwoord vergeten?</div>
+									<div v-if="type == 'Inloggen'" class="flex">
+										<p class=" text-balance">
+											<span @click="forgotPassword" class="text-sm select-none cursor-pointer underline text-neutral-800 hover:text-neutral-900">Wachtwoord vergeten?</span>
+											<span> of </span>
+											<span @click="maakAccount" class="text-sm select-none underline cursor-pointer text-neutral-800 hover:text-neutral-900">aanmelden</span>
+										</p>
 									</div>
+
+									<div v-if="type != 'Contact' && type != 'Inloggen'" class="flex justify-between items-start">
+										<div @click="KeerTerug()" class="text-sm select-none underline cursor-pointer text-neutral-800 hover:text-neutral-900">Terug naar inloggen</div>
+									</div>
+
 									<button :disabled="loading" id="Button" aria-label="Sumbit" class="relative flex items-center justify-center w-full mt-3 mb-3 duration-300 ease-in outline-none btn-focus btn-login">
 										<Icon v-if="loading" class="animate-spin" name="ri:refresh-line" size="1.25em" />
 										<p v-else>{{ textLabel }}</p>
@@ -58,16 +67,28 @@
 	const phoneRegExp = /^\+[0-9]{2} [0-9]{2} [0-9]{2} [0-9]{2} [0-9]{2} [0-9]{2}$/;
 	let schema: any;
 
-	const forgotPassword = () => {
+	const updateAuthState = (typeValue: string | String, textheadValue: string | String, textbaseValue: string | String, textLabelValue: string | String, authModuleValue: boolean | Boolean) => {
 		DelayStatus.value = false;
 
-		type.value = "Vergeten";
-		texthead.value = "Vergeten";
-		textbase.value = "Vul je email adres in om een link te ontvangen om je wachtwoord te resetten";
-		textLabel.value = "Verstuur";
-		AuthModule.value = false;
+		type.value = typeValue;
+		texthead.value = textheadValue;
+		textbase.value = textbaseValue;
+		textLabel.value = textLabelValue;
+		AuthModule.value = authModuleValue;
 
 		setTimeout(() => (DelayStatus.value = true), 1000);
+	};
+
+	const forgotPassword = () => {
+		updateAuthState("Vergeten", "Vergeten", "Vul je email adres in om een link te ontvangen om je wachtwoord te resetten", "Verstuur", false);
+	};
+
+	const maakAccount = () => {
+		updateAuthState("Aanmelden", "Aanmelden", "Vul je gegevens in om een account aan te maken", "Aanmelden", false);
+	};
+
+	const KeerTerug = () => {
+		updateAuthState("Inloggen", "Inloggen", "Vul je gegevens in om een account aan te maken", "Inloggen", true);
 	};
 
 	watch(AuthModule, (Auth: Boolean) => {
@@ -157,7 +178,7 @@
 		loading.value = true;
 		const { data, error, pending, refresh }: Record<string, any> = AuthModule.value ? await useCsrfFetch("/api/auth", { method: "post", body: values }) : type.value == "Contact" ? await useCsrfFetch("/api/berichten", { method: "post", body: values }) : type.value == "Vergeten" ? await useCsrfFetch("/api/forgot", { method: "post", body: values }) : await useCsrfFetch("/api/register", { method: "post", body: values });
 
-		const store = useSessionsStore()
+		const store = useSessionsStore();
 		store.setSession(data.value);
 
 		if (error.value) {
@@ -178,10 +199,9 @@
 			actions.resetForm();
 
 			if (AuthModule.value) closeModal();
-			
-			setTimeout(() => {
 
-				store.setSession({ ...data.value, authorized: data.value.user.Admin});
+			setTimeout(() => {
+				store.setSession({ ...data.value, authorized: data.value.user.Admin });
 
 				if (AuthModule.value && data.value.user.is2FAEnabled) navigateTo(`/auth/prompt/2fa?token=${data.value.user.Id}`);
 				else if (AuthModule.value && data.value.user.Admin) navigateTo("/dashboard");

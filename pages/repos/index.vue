@@ -34,19 +34,9 @@
 				</div>
 			</div>
 		</div>
-		<ModalBase v-model:texthead="title" v-model:textbase="subtitle" v-model:status="OpenModule"
-			v-model:DelayStatus="OpenModuleDelay" v-model:textLabel="buttonLabel" v-model:AuthModule="AuthModule"
-			v-model:type="datatype">
-			<div v-if="AuthModule && datatype != 'Vergeten'">
-				<FieldInput :name="'email'" :type="'email'" :label="'Gebuikersnaam'" />
-				<FieldInput :name="'wachtwoord'" :type="'password'" :label="'Wachtwoord'" />
-			</div>
-			<div v-else>
-				<FieldInput :name="'email'" :type="'email'" :label="'Email adress'" />
-				<FieldInput :name="'wachtwoord'" :type="'password'" :label="'Nieuwe wachtwoord'" />
-				<FieldInput :name="'confirmatie'" :type="'password'" :label="'Confirmatie'" />
-			</div>
-		</ModalBase>
+		<ModalAuth v-model:type="datatype" v-model:texthead="title" v-model:textbase="subtitle" v-model:status="OpenModule"
+			v-model:DelayStatus="OpenModuleDelay" v-model:textLabel="buttonLabel" v-model:AuthModule="AuthModule">
+		</ModalAuth>
 	</div>
 </template>
 
@@ -148,8 +138,9 @@
 	};
 
 	const HandleModule = (type) => {
+		console.log(type);
 		datatype.value = type;
-		AuthModule.value = type != "Contact";
+		AuthModule.value = true;
 		title.value = type;
 		buttonLabel.value = "Login";
 		subtitle.value = "Vul hieronder je gebruikersnaam en wachtwoord in om toegang te krijgen tot je account.";
@@ -212,7 +203,7 @@
 		loadedRepos(Repositories);
 	});
 
-	if (process.client) {
+	if (document) {
 		setTimeout(async () => {
 			const { data: Repositories } = await useCsrfFetch(`/api/repo/${currentPage.value}`);
 

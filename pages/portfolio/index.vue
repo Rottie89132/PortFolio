@@ -3,7 +3,8 @@
 		<VitePwaManifest />
 		<Landscape />
 		<div class="fixed w-full h-full p-4 pb-5 md:pb-0 md:p-0 select-none">
-			<div :class="!Installed ? 'h-full' : 'h-[95%]'" class="w-full md:h-full p-5 md:rounded-none rounded-3xl md:pl-8 lg:pl-36 xl:pl-52 bg-gradient-to-r from-teal-50 to-yellow-50 dark:from-[#131313] dark:to-[#22221E]">
+			<div :class="!Installed ? 'h-full' : 'h-[95%]'"
+				class="w-full md:h-full p-5 md:rounded-none rounded-3xl md:pl-8 lg:pl-36 xl:pl-52 bg-gradient-to-r from-teal-50 to-yellow-50 dark:from-[#131313] dark:to-[#22221E]">
 				<div class="grid gap-24">
 					<div class="flex items-center justify-between">
 						<Navigation :data />
@@ -11,46 +12,42 @@
 							<ClientOnly>
 								<ColorMode />
 								<Online />
-								<button v-if="data?.statusCode == 200" @click="Logout" class="px-6 py-1 dark:text-neutral-800 font-semibold dark:bg-white dark:hover:bg-white dark:hover:ring-white dark:ring-white text-white rounded-lg bg-neutral-800 hover:bg-neutral-900 ring-2 ring-neutral-800 hover:ring-neutral-900">Uitloggen</button>
-								<button v-else @click="HandleModule('Inloggen')" class="px-6 py-1 dark:text-neutral-800 font-semibold dark:bg-white dark:hover:bg-white dark:hover:ring-white dark:ring-white text-white rounded-lg bg-neutral-800 hover:bg-neutral-900 ring-2 ring-neutral-800 hover:ring-neutral-900">{{ textLabel }}</button>
+								<button v-if="data?.statusCode == 200" @click="Logout"
+									class="px-6 py-1 dark:text-neutral-800 font-semibold dark:bg-white dark:hover:bg-white dark:hover:ring-white dark:ring-white text-white rounded-lg bg-neutral-800 hover:bg-neutral-900 ring-2 ring-neutral-800 hover:ring-neutral-900">Uitloggen</button>
+								<button v-else @click="HandleModule('Inloggen')"
+									class="px-6 py-1 dark:text-neutral-800 font-semibold dark:bg-white dark:hover:bg-white dark:hover:ring-white dark:ring-white text-white rounded-lg bg-neutral-800 hover:bg-neutral-900 ring-2 ring-neutral-800 hover:ring-neutral-900">{{
+									textLabel }}</button>
 							</ClientOnly>
 						</div>
 					</div>
 					<div class="items-center w-full h-[60vh] md:flex">
 						<div class="grid gap-8 md:gap-4">
-							<HeaderTitel Title="Hallo leer mij kennen!" SubTitle="Hoi, ik ben Roland Meijer, een gemotiveerde Software Developer. Met een sterke basis in programmeren en een passie voor technologie!" />
+							<HeaderTitel Title="Hallo leer mij kennen!"
+								SubTitle="Hoi, ik ben Roland Meijer, een gemotiveerde Software Developer. Met een sterke basis in programmeren en een passie voor technologie!" />
 							<div class="flex items-center gap-5">
 								<ClientOnly>
-									<NuxtLink :to="repoLink" class="flex dark:text-neutral-800 font-semibold dark:bg-white dark:hover:bg-white dark:hover:ring-white dark:ring-white items-center gap-2 px-5 py-3 text-sm text-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-xl"> Bekijk projecten </NuxtLink>
+									<NuxtLink :to="repoLink"
+										class="flex dark:text-neutral-800 font-semibold dark:bg-white dark:hover:bg-white dark:hover:ring-white dark:ring-white items-center gap-2 px-5 py-3 text-sm text-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-xl">
+										Bekijk projecten </NuxtLink>
 									<template #fallback>
-										<NuxtLink to="/Repos" class="flex dark:text-neutral-800 font-semibold dark:bg-white dark:hover:bg-white dark:hover:ring-white dark:ring-white items-center gap-2 px-5 py-3 text-sm text-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-xl"> Bekijk projecten </NuxtLink>
+										<NuxtLink to="/Repos"
+											class="flex dark:text-neutral-800 font-semibold dark:bg-white dark:hover:bg-white dark:hover:ring-white dark:ring-white items-center gap-2 px-5 py-3 text-sm text-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-xl">
+											Bekijk projecten </NuxtLink>
 									</template>
 								</ClientOnly>
 
-								<button @click="HandleModule('Contact')" class="px-6 py-3 dark:hover:text-white dark:ring-white dark:hover:ring-white text-sm font-semibold dark:text-white text-neutral-800 hover:text-neutral-900 ring-2 ring-neutral-800 hover:ring-neutral-900 rounded-xl">Maak contact</button>
+								<button @click="HandleModule('Contact')"
+									class="px-6 py-3 dark:hover:text-white dark:ring-white dark:hover:ring-white text-sm font-semibold dark:text-white text-neutral-800 hover:text-neutral-900 ring-2 ring-neutral-800 hover:ring-neutral-900 rounded-xl">Maak
+									contact</button>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<ModalBase v-model:type="datatype" v-model:texthead="title" v-model:textbase="subtitle" v-model:status="OpenModule" v-model:DelayStatus="OpenModuleDelay" v-model:textLabel="buttonLabel" v-model:AuthModule="AuthModule">
-			<div v-if="AuthModule && datatype != 'Vergeten'">
-				<FieldInput :name="'email'" :type="'email'" :label="'Gebuikersnaam'" />
-				<FieldInput :name="'wachtwoord'" :type="'password'" :label="'Wachtwoord'" />
-			</div>
-			<div v-else-if="datatype == 'Vergeten'">
-				<FieldInput :name="'email'" :type="'email'" :label="'Email adress'" />
-				<FieldInput :name="'wachtwoord'" :type="'password'" :label="'Nieuwe wachtwoord'" />
-				<FieldInput :name="'confirmatie'" :type="'password'" :label="'Confirmatie'" />
-			</div>
-			<div v-else>
-				<FieldInput :name="'naam'" :type="'name'" :label="'Contact persoon'" />
-				<FieldInput :name="'email'" :type="'email'" :label="'Email adress'" />
-				<FieldTextarea :name="'bericht'" :type="'bericht'" :label="'bericht'" />
-				<FieldInput :name="'telefoon'" :value="'+31 06 12 34 56 78'" :type="'phone'" :label="'Telefoon'" />
-			</div>
-		</ModalBase>
+		<ModalAuth v-model:type="datatype" v-model:texthead="title" v-model:textbase="subtitle" v-model:status="OpenModule"
+			v-model:DelayStatus="OpenModuleDelay" v-model:textLabel="buttonLabel" v-model:AuthModule="AuthModule">
+		</ModalAuth>
 	</div>
 </template>
 

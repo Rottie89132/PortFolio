@@ -3,44 +3,33 @@
 		<VitePwaManifest />
 		<Landscape />
 		<div class="fixed select-none w-full h-full p-4 pb-5 md:pb-0 md:p-0">
-			<div :class="!Installed ? 'h-full' : 'h-[95%]'"
-				class="w-full md:h-full p-5 pb-4 md:rounded-none rounded-3xl md:pl-8 lg:pl-36 xl:pl-52 bg-[#f0f0f0] md:bg-white dark:bg-[#131313] dark:md:bg-neutral-900 overflow-auto xl:overflow-hidden md:overflow-hidden">
+			<div :class="!Installed ? 'h-full' : 'h-[95%]'" class="w-full md:h-full p-5 pb-4 md:rounded-none rounded-3xl md:pl-8 lg:pl-36 xl:pl-52 bg-[#f0f0f0] md:bg-white dark:bg-[#131313] dark:md:bg-neutral-900 overflow-auto xl:overflow-hidden md:overflow-hidden">
 				<div class="grid gap-24">
 					<div class="flex items-center justify-between">
 						<NavigationLinksAdmin />
 						<div class="flex gap-4 items-center">
 							<ColorMode />
 							<Online />
-							<button @click="Logout"
-								class="px-6 py-1 dark:text-neutral-800 font-semibold dark:bg-white dark:hover:bg-white dark:hover:ring-white dark:ring-white text-white rounded-lg bg-neutral-800 hover:bg-neutral-900 ring-2 ring-neutral-800 hover:ring-neutral-900">Uitloggen</button>
+							<button @click="Logout" class="px-6 py-1 dark:text-neutral-800 font-semibold dark:bg-white dark:hover:bg-white dark:hover:ring-white dark:ring-white text-white rounded-lg bg-neutral-800 hover:bg-neutral-900 ring-2 ring-neutral-800 hover:ring-neutral-900">Uitloggen</button>
 						</div>
 					</div>
 				</div>
 				<div class="w-full h-fit mt-6 md:my-10 xl:mt-20 md:w-[98%] lg:w-[88%] xl:w-[89.2%]">
 					<div class="flex items-center justify-between gap-3 mb-3">
 						<h1 class="text-[1.5em] dark:text-white text-black font-extrabold">Repositories</h1>
-						<PaginationButtons :items="items" :hidebuttons="hidebuttons" :loading="loading"
-							v-model:currentPage="currentPage" :PreviousPage="PreviousPage" :NextPage="NextPage"
-							:navigateToPage="navigateToPage"> 
-						</PaginationButtons>
+						<PaginationButtons :items="items" :hidebuttons="hidebuttons" :loading="loading" v-model:currentPage="currentPage" :PreviousPage="PreviousPage" :NextPage="NextPage" :navigateToPage="navigateToPage"> </PaginationButtons>
 					</div>
 					<CardDisplay :items="items" :loadingIndicater="loadingIndicater" :loading="loading" :Repositories="Repositories" :DeleteRepo="DeleteRepo" :SaveRepo="SaveRepo" />
 				</div>
 			</div>
 		</div>
-		<ModalConfirmation v-model:texthead="title" v-model:textbase="subtitle" v-model:status="OpenModule"
-			v-model:DelayStatus="OpenModuleDelay">
+		<ModalConfirmation v-model:texthead="title" v-model:textbase="subtitle" v-model:status="OpenModule" v-model:DelayStatus="OpenModuleDelay">
 			<div v-if="!loadingRepos" class="flex mb-2 items-center gap-4">
-				<button @click="DeleteRepoConfirm"
-					class="flex font-semibold items-center gap-2 px-8 py-2 text-sm text-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-md">Verwijderen</button>
-				<button @click="closeModal"
-					class="flex font-semibold items-center gap-2 px-6 py-2 text-sm bg-gray-100 ring-2 ring-gray-100 text-neutral-800 rounded-md">Annuleren</button>
+				<button @click="DeleteRepoConfirm" class="flex font-semibold items-center gap-2 px-8 py-2 text-sm text-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-md">Verwijderen</button>
+				<button @click="closeModal" class="flex font-semibold items-center gap-2 px-6 py-2 text-sm bg-gray-100 ring-2 ring-gray-100 text-neutral-800 rounded-md">Annuleren</button>
 			</div>
 			<div v-else-if="loadingRepos" class="flex mb-2 items-center gap-4">
-				<button disabled
-					class="flex font-semibold items-center gap-2 px-6 py-2 text-sm text-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-md">
-					<Icon class="animate-spin" name="ri:refresh-line" size="1.25em" />Verwerken
-				</button>
+				<button disabled class="flex font-semibold items-center gap-2 px-6 py-2 text-sm text-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-md"><Icon class="animate-spin" name="ri:refresh-line" size="1.25em" />Verwerken</button>
 			</div>
 		</ModalConfirmation>
 	</div>
@@ -94,7 +83,7 @@
 	const OpenModuleDelay = ref(false);
 
 	currentPage.value = useRoute().query.Page;
-	const store = useSessionsStore()
+	const store = useSessionsStore();
 
 	const Logout = async () => {
 		store.clearSession();
@@ -247,7 +236,7 @@
 		}, 100);
 	};
 
-	if (process.client) {
+	if (document) {
 		setTimeout(async () => {
 			const { data, error } = await useFetch(`/api/repo/auth?page=${currentPage.value}`);
 			const { data: SaveRepo } = await useFetch(`/api/repo`);
