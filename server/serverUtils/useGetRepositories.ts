@@ -12,7 +12,7 @@ export default async (token: string, currentPage: number, resolve: Function): Pr
     }
 
     const sortedRepositories = sortRepositories(repositories.data.repositories);
-    const paginatedRepositories = paginateRepositories(sortedRepositories, repositoriesPerPage);
+    const paginatedRepositories = paginate(sortedRepositories, repositoriesPerPage);
 
     return resolve({
         statusCode: 200,

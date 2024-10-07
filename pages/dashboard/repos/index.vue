@@ -19,13 +19,14 @@
 						<h1 class="text-[1.5em] dark:text-white text-black font-extrabold">Repositories</h1>
 						<PaginationButtons :items="items" :hidebuttons="hidebuttons" :loading="loading" v-model:currentPage="currentPage" :PreviousPage="PreviousPage" :NextPage="NextPage" :navigateToPage="navigateToPage"> </PaginationButtons>
 					</div>
-					<CardDisplay :items="items" :loadingIndicater="loadingIndicater" :loading="loading" :Repositories="Repositories" :DeleteRepo="DeleteRepo" :SaveRepo="SaveRepo" />
+					<CardDisplay :items="items" :loadingIndicater="loadingIndicater" :loading="loading" :Repositories="Repositories" :DeleteRepo="DeleteRepo" :SaveRepo="SaveRepo" :UpdateRepo="UpdateRepo" />
 				</div>
 			</div>
 		</div>
 		<ModalConfirmation v-model:texthead="title" v-model:textbase="subtitle" v-model:status="OpenModule" v-model:DelayStatus="OpenModuleDelay">
 			<div v-if="!loadingRepos" class="flex mb-2 items-center gap-4">
-				<button @click="DeleteRepoConfirm" class="flex font-semibold items-center gap-2 px-8 py-2 text-sm text-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-md">Verwijderen</button>
+				<button v-if="typeOfAction == 'update'" @click="UpdateRepoConfirm" class="flex font-semibold items-center gap-2 px-8 py-2 text-sm text-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-md">Updaten</button>
+				<button v-else @click="DeleteRepoConfirm" class="flex font-semibold items-center gap-2 px-8 py-2 text-sm text-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-md">Verwijderen</button>
 				<button @click="closeModal" class="flex font-semibold items-center gap-2 px-6 py-2 text-sm bg-gray-100 ring-2 ring-gray-100 text-neutral-800 rounded-md">Annuleren</button>
 			</div>
 			<div v-else-if="loadingRepos" class="flex mb-2 items-center gap-4">
@@ -75,6 +76,7 @@
 	const Saved = ref(false);
 	const SavedRepo = ref();
 
+	const typeOfAction = ref();
 	const Repositories = ref([]);
 	const SavedRepositories = ref([]);
 	const title = ref();
@@ -82,7 +84,7 @@
 	const OpenModule = ref(false);
 	const OpenModuleDelay = ref(false);
 
-	currentPage.value = useRoute().query.Page;
+	currentPage.value = useRoute().query.Page ? Number(useRoute().query.Page) : 1;
 	const store = useSessionsStore();
 
 	const Logout = async () => {
@@ -204,6 +206,7 @@
 	};
 
 	const DeleteRepo = async (item) => {
+		typeOfAction.value = "delete";
 		Saved.value = false;
 		ItemData.value = item;
 		title.value = item.full_name;
@@ -213,6 +216,33 @@
 		setTimeout(() => {
 			OpenModuleDelay.value = true;
 		}, 100);
+	};
+
+	const UpdateRepo = async (item) => {
+		typeOfAction.value = "update";
+		Saved.value = true;
+		ItemData.value = item;
+		title.value = item.full_name;
+		subtitle.value = "Weet je zeker dat je deze repository wilt updaten?";
+
+		OpenModule.value = true;
+		setTimeout(() => {
+			OpenModuleDelay.value = true;
+		}, 100);
+	};
+
+	const UpdateRepoConfirm = async () => {
+		loadingRepos.value = true;
+		await useCsrfFetch(`/api/repo/`, { method: "patch", body: { data: ItemData.value.id } });
+
+		const { data: Repositories } = await useFetch(`/api/repo/auth?page=${currentPage.value}`);
+		const { data: SavedRepo } = await useFetch(`/api/repo`);
+
+		setTimeout(() => {
+			closeModal();
+			loadedRepos(Repositories, SavedRepo);
+			loadingRepos.value = false;
+		}, 500);
 	};
 
 	const DeleteRepoConfirm = async () => {

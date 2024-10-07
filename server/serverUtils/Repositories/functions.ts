@@ -1,3 +1,33 @@
+export const fetchAllRepositoriesIssues = async (octokit: any, name: string, itemsPerPage: number) => {
+    let issues: any[] = [];
+    let page = 1;
+    let fetchedIssues;
+
+    while (true) {
+        fetchedIssues = await octokit.request(`GET /repos/Rottie89132/${name}/issues`, {
+            owner: 'Rottie89132',
+            repo: 'PortFolio',
+        });
+
+        for (const issue of fetchedIssues.data) {
+            const fetchedLabels = await octokit.request(`GET /repos/${issue.user.login}/${name}/issues/${issue.number}/labels`, {
+                owner: 'Rottie89132',
+                repo: 'PortFolio',
+                issue_number: issue.number
+            });
+
+            fetchedIssues.data.labels = fetchedLabels.data;
+        }
+
+        issues.push(...fetchedIssues.data);
+        if (fetchedIssues.data.length < itemsPerPage) break;
+        page++;
+    }
+
+    return issues;
+};
+
+
 
 export const fetchAllRepositories = async (octokit: any, itemsPerPage: number): Promise<Repository[]> => {
     let repositories: Repository[] = [];
@@ -22,10 +52,12 @@ export const sortRepositories = (repositories: Repository[]): Repository[] => {
     });
 };
 
-export const paginateRepositories = (repositories: Repository[], repositoriesPerPage: number): Repository[][] => {
+export const paginate = (repositories: Repository[], repositoriesPerPage: number): Repository[][] => {
     return Array.from({ length: Math.ceil(repositories.length / repositoriesPerPage) }, (_, i) =>
         repositories.slice(i * repositoriesPerPage, (i + 1) * repositoriesPerPage)
     );
 };
+
+
 
 

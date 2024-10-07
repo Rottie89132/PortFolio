@@ -18,8 +18,12 @@
 		class="p-3 bg-[#F7F7F7] dark:bg-[#111111] h-fit rounded-2xl transition-transform">
 		<div class="w-full h-full overflow-y-auto snap-y snap-proximity rounded-xl scroll-smooth">
 			<div v-for="(item, index) in items" :key="index" class="last:mb-0 mb-3">
-				<CardGithub :item="item" :DeleteRepo="(item: any) => DeleteRepo?.(item)"
-					:SaveRepo="(item: any) => SaveRepo?.(item)" />
+				<CardGithub 
+					:item="item" 
+					:DeleteRepo="(item: any) => DeleteRepo?.(item)"
+					:SaveRepo="(item: any) => SaveRepo?.(item)" 
+					:UpdateRepo="(item: any) => UpdateRepo?.(item)"
+					/>
 			</div>
 		</div>
 	</div>
@@ -40,5 +44,6 @@
 		Repositories?: any;
 		DeleteRepo?: (item: any) => void;
 		SaveRepo?: (item: any) => void;
+		UpdateRepo?: (item: any) => void;
 	}>();
 </script>
