@@ -4,8 +4,8 @@ const { Server, Password, User, Sender } = useRuntimeConfig()
 
 const transporter = createTransport({
     host: Server,
-    port: 587,
-    secure: false,
+    port: 465,
+    secure: true,
     tls: {
         ciphers: 'SSLv3',
         rejectUnauthorized: false
