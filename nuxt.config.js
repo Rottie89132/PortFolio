@@ -54,7 +54,7 @@ export default defineNuxtConfig({
   },
 
   veeValidate: {
-    autoImports: true,
+    autoImports: false,
   },
 
   runtimeConfig: {
@@ -175,6 +175,3 @@ export default defineNuxtConfig({
   },
   compatibilityDate: "2024-09-10",
 })
-
-
-
