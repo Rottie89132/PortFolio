@@ -33,8 +33,12 @@
 									</button>
 									<span role="alert" v-if="meta.touched && msgError" class="flex text-xs text-left text-[#B92538]">{{ msgError }}</span>
 									<span role="alert" v-if="MessageSend && type == 'Contact'" class="flex text-xs text-left">Je bericht is vestuured</span>
-									<span role="alert" v-if="MessageSend && type == 'Aanmelden'" class="flex text-xs text-left">Je account is aangemaakt, controleer je email om je account te activeren</span>
-									<span role="alert" v-if="MessageSend && type == 'Vergeten'" class="flex text-xs text-left"> Er is een email verstuurd naar het opgegeven email adres </span>
+									<span role="alert" v-if="MessageSend && type == 'Aanmelden'" class="flex text-xs text-left">
+										Je account is aangemaakt, controleer je email om je account te activeren. dit kan enkele minuten duren, check ook je spam folder.
+									</span>
+									<span role="alert" v-if="MessageSend && type == 'Vergeten'" class="flex text-xs text-left"> 
+										Er is een email verstuurd naar het opgegeven email adres dit kan enkele minuten duren, check ook je spam folder.
+									</span>
 								</Form>
 							</div>
 						</div>
