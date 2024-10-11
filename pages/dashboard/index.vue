@@ -31,7 +31,7 @@
 						</div>
 					</div>
 					<div class="mb-3 bg-[#F7F7F7] md:max-h-64 flex flex-col justify-center dark:bg-[#111111] rounded-lg p-3 py-5">
-						<Charts :Analytics />
+						<ChartVisits :Analytics />
 					</div>
 					<div class="p-3 xl:hidden bg-[#F7F7F7] dark:bg-[#111111] rounded-2xl mb-3">
 						<div class="flex items-center justify-between">

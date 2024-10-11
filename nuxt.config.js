@@ -33,9 +33,8 @@ export default defineNuxtConfig({
     "/berichten/": { ssr: false },
     "/berichten/**": { ssr: false },
     "/profile/": { ssr: false },
-    "/about/": { ssr: false },
     "/portfolio/" : { static: true },
-    "//" : { ssr: false },
+    "/" : { ssr: false },
   },
 
   csurf: {
@@ -175,3 +174,4 @@ export default defineNuxtConfig({
   },
   compatibilityDate: "2024-09-10",
 })
+

@@ -26,5 +26,7 @@ logs
 PK.private-key.pem
 Resources/
 pages/test.vue
+components/chart/heatmap
+plugins/heatmap.client.ts
 
 

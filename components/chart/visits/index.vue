@@ -1,7 +1,7 @@
 <template>
     <div class=" md:max-h-64" v-if="!showLoading">
-        <ChartsDark :chartData :chartOptions v-if="isDark" />
-        <ChartsLight :chartData :chartOptions v-else />
+        <ChartVisitsDark :chartData :chartOptions v-if="isDark" />
+        <ChartVisitsLight :chartData :chartOptions v-else />
     </div>
     <div v-else class=" flex justify-center flex-col">
         <div class=" flex justify-between items-center xl:-mb-2">
