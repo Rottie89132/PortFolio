@@ -89,7 +89,7 @@
 		$PusherOnEvent("client-eventRepositories", ReactiveEvent);
 	});
 
-	currentPage.value = useRoute().query.Page;
+	currentPage.value = useRoute().query.Page ? Number(useRoute().query.Page) : 1;
 
 	const store = useSessionsStore()
 	const data = ref(await store.getSession())

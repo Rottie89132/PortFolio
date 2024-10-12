@@ -5,6 +5,7 @@
 </template>
 
 <script setup lang="ts">
+
     const { text } = defineProps<({text: any})>();
 
     const inputText = text;
@@ -21,7 +22,7 @@
                     clearInterval(interval);
                     resolve();
                 }
-            }, 5);
+            }, 20);
         });
     };
 

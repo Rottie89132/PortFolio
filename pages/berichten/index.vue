@@ -76,7 +76,7 @@
 	const berichten = ref([]);
 	const ReactiveEvent = ref();
 
-	currentPage.value = useRoute().query.Page;
+	currentPage.value = useRoute().query.Page ? Number(useRoute().query.Page) : 1;
 	const { data: Berichten } = await useFetch(`/api/berichten/${currentPage.value}`);
 
 	onMounted(() => {
