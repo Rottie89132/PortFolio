@@ -5,8 +5,11 @@
 	</div>
 </template>
 
-<script setup>
 
+
+
+
+<script setup>
 	useSeoMeta({
 		title: "PortFolio - Home",
 		description: "Welkom op de startpagina van mijn portfolio-website! Neem gerust een kijkje en laat een berichtje achter!",
@@ -25,13 +28,14 @@
 		link: [{ rel: "icon", type: "image/png" }],
 	});
 
+	
 
-	const store = useSessionsStore()
-	const result = ref(await store.getSession())
+	const store = useSessionsStore();
+	const result = ref(await store.getSession());
+	
 
 	if (result.value.statusCode !== 200) { navigateTo('/portfolio') }
 	if (result.value.statusCode == 200 && result.value.authorized) { navigateTo('/dashboard') }
-	if (result.value.statusCode == 200 && !result.value.authorized) { navigateTo('/profile') }
-	
+	if (result.value.statusCode == 200 && !result.value.authorized) { navigateTo('navigascript/profile') }
 
 </script>

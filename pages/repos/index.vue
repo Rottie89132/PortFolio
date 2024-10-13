@@ -3,9 +3,8 @@
 		<VitePwaManifest />
 		<Landscape />
 		<div class="fixed w-full select-none h-full p-4 pb-5 md:pb-0 md:p-0">
-			<div :class="!Installed ? 'h-full' : 'h-[95%]'"
-				class="w-full md:h-full p-5 md:rounded-none pb-4 rounded-3xl md:pl-8 lg:pl-36 xl:pl-52 bg-[#f0f0f0] md:bg-white dark:bg-[#131313] dark:md:bg-neutral-900 overflow-auto">
-				<div class="grid gap-24">
+			<div :class="!Installed ? 'h-full' : 'h-[95%]'" class="w-full md:h-full p-5 md:rounded-none pb-4 rounded-3xl md:pl-8 lg:pl-36 xl:pl-52 bg-[#f0f0f0] md:bg-white dark:bg-[#131313] dark:md:bg-neutral-900 overflow-auto">
+				<div class="grid gap-24 ">
 					<div class="flex items-center justify-between">
 						<Navigation :data />
 						<div class="flex gap-4 items-center">

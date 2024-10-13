@@ -2,9 +2,9 @@
 	<div>
 		<VitePwaManifest />
 		<Landscape />
-		<div class="fixed w-full h-full p-4 pb-5 md:pb-0 md:p-0 select-none dark:text-white">
+		<div class="fixed w-full h-full p-4 pb-5 md:pb-0 md:p-0 select-none">
 			<div :class="!Installed ? 'h-full' : 'h-[95%]'" class="w-full md:h-full p-5 pb-4 md:rounded-none rounded-3xl md:pl-8 lg:pl-36 xl:pl-52 bg-[#f0f0f0] md:bg-white dark:bg-[#131313] dark:md:bg-neutral-900 overflow-auto md:overflow-hidden">
-				<div class="grid gap-24">
+				<div class="grid gap-24 z-40">
 					<div class="flex select-none items-center justify-between">
 						<Navigation :data />
 						<div class="flex gap-4 items-center">
@@ -33,8 +33,8 @@
 					<p class="mt-4 xl:mt-0 text-black dark:text-white opacity-70">Mijn curriculum vitae is hier te vinden. Klik op de download knop om het bestand te downloaden.</p>
 
 					<h2 class="mt-8 text-black dark:text-white font-bold">Leer mij kennen</h2>
-					<div class="mt-4 grid gap-3 md:gap-4 grid-cols-1 md:grid-cols-1 lg:grid-cols-3 p-3 bg-[#F7F7F7] dark:bg-[#111111] h-fit rounded-2xl transition-transform">
-						<div v-for="(item, index) in items.data" :key="index">
+					<div  class="mt-4 grid gap-3 md:gap-4 grid-cols-1 md:grid-cols-1 lg:grid-cols-3 p-3 bg-[#F7F7F7] dark:bg-[#111111] h-fit rounded-2xl transition-transform">
+						<div  v-for="(item, index) in items.data" :key="index">
 							<CardAboutMe :item="item" :card="card" :toggleCard="toggleCard" />
 						</div>
 					</div>

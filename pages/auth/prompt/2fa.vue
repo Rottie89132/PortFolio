@@ -14,7 +14,7 @@
 						</ClientOnly>
 					</div>
 					<div class="flex mt-20 md:hidden items-center justify-center">
-						<Icon :class="error ? ' text-[#B92538]' : success ? ' text-[#28B925]' : 'text-indigo-600 dark:text-indigo-500'" :name="success ? 'ri:shield-check-fill' : 'ri:shield-user-fill'" size="10em" />
+						<Icon :class="error ? ' text-[#B92538]' : success ? ' text-[#28B925]' : 'text-indigo-600 dark:text-indigo-500'" name="ri:shield-user-fill" size="10em" />
 					</div>
 					<div class="mb-3 mt-12 md:-mt-8">
 						<h1 class="text-2xl text-clip md:text-left text-center font-bold text-[#131313] dark:text-white">Account verfificatie</h1>

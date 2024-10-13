@@ -66,7 +66,10 @@
 								<NuxtLink to="/about" class="text-indigo-600 dark:text-indigo-500 text-[0.65em] text-right"> Bekijken</NuxtLink>
 							</div>
 							<p class="text-[0.7em] dark:text-white opacity-75 leading-4 font-medium">Hier bevindt zich de optie om de inhoud van de 'About'-pagina te bewerken naar jouw wensen</p>
-							<button @click="FileUpload" class="mt-2 px-4 py-1 rounded-lg text-white dark:text-black bg-black dark:bg-white font-medium text-[0.8em]">Bewerken</button>
+							<div class="flex items-center gap-2">
+								<button @click="FileUpload" class="mt-2 px-4 py-1 rounded-lg text-white dark:text-black bg-black dark:bg-white font-medium text-[0.8em]">Uploaden</button>
+								<button @click="AboutUpdate" class="mt-2 px-4 py-1 rounded-lg text-white dark:text-black bg-black dark:bg-white font-medium text-[0.8em]">Bijwerken</button>
+							</div>
 						</div>
 						<div class="grid md:grid-cols-3 gap-y-3 gap-x-4">
 							<div @click="PasswordChange" class="bg-[#F7F7F7] dark:bg-[#111111] p-4 rounded-xl">
@@ -110,7 +113,7 @@
 				</div>
 			</div>
 		</div>
-		<ModalUpload v-model:status="OpenUploadModule" v-model:DelayStatus="OpenUploadModuleDelay" v-model:title="title" />
+		<ModalAbout v-model:status="OpenUploadModule" v-model:DelayStatus="OpenUploadModuleDelay" v-model:title="title" v-model:type="type" />
 		<ModalVerification v-model:username="username" v-model:email="email" v-model:type="type" v-model:status="OpenModule" v-model:DelayStatus="OpenModuleDelay" v-model:title="title">
 			<Action2fa v-if="type == '2fa'" v-model:Generated="Generated" />
 			<ActionDeletion v-model:status="OpenModule" v-model:DelayStatus="OpenModuleDelay" v-else-if="type == 'delete'" />
@@ -177,9 +180,7 @@
 		if (!error.value) savedLikes.value = likes.value.data;
 	}
 
-	// else {
-
-	// }
+	
 
 	TwoFAEnabled.value = data.value.user.is2FAEnabled;
 	userAuthorized.value = data.value.authorized;
@@ -202,6 +203,15 @@
 	const FileUpload = async () => {
 		type.value = "upload";
 		title.value = "Uploaden";
+		OpenUploadModule.value = true;
+		setTimeout(() => {
+			OpenUploadModuleDelay.value = true;
+		}, 100);
+	};
+
+	const AboutUpdate = async () => {
+		type.value = "wijzig";
+		title.value = "Bijwerken";
 		OpenUploadModule.value = true;
 		setTimeout(() => {
 			OpenUploadModuleDelay.value = true;

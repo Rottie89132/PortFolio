@@ -9,7 +9,7 @@
 					<p class="mb-2 text-sm"><span class="font-semibold">Click to upload</span> or drag and drop</p>
 					<p class="text-xs">png (MAX. 5MB)</p>
 				</div>
-				<input id="dropzone-file" :placeholder="value" class="hidden" :ref="type" :type="type" @change="handleChange" @blur="handleBlur" :aria-label="type" :autocomplete="label == 'email' || label == 'Gebuikersnaam' ? `current-${probs.type}` : `new-${probs.type}`" />
+				<input id="dropzone-file" :placeholder="value" class="hidden" :ref="type" :type="type" @change="handleChange" @blur="handleBlur" :aria-label="type" :autocomplete="label == 'email' || label == 'Gebuikersnaam' ? `current-${probs.type}` : `new-${probs.type}`" :class="['btn-Input mt-2 mb-5', meta.touched && !meta.valid ? 'text-[#B92538] ring-2 ring-[#B92538] outline-none appearance-none border-none' : '']" />
 			</label>
 		</div>
 		<ErrorMessage class="mt-3 mb-4 text-xs text-[#B92538] block" :name="name" />

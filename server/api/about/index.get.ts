@@ -1,6 +1,18 @@
 export default defineEventHandler(async (event) => {
 
     const items = await Information.find({})
+    
+
+
+
+
+
+    
+
+    
+
+
+
 
     return {
         statusCode: 200,
@@ -10,3 +22,6 @@ export default defineEventHandler(async (event) => {
         
     }
 })
+
+
+

@@ -26,6 +26,7 @@ export default defineNuxtConfig({
     "@nuxt/icon",
     "@nuxtjs/tailwindcss",
     "nuxt-mongoose",
+    "@vueuse/motion/nuxt",
   ],
 
   routeRules: {
@@ -174,4 +175,3 @@ export default defineNuxtConfig({
   },
   compatibilityDate: "2024-09-10",
 })
-

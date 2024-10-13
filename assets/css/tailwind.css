@@ -63,6 +63,11 @@ input:-webkit-autofill:focus {
         @apply w-full p-2 px-3 font-normal text-black bg-transparent border border-black appearance-none;
     }
 
+    .btn-Input-Number {
+        border-radius: 0.8em;
+        @apply  p-2 font-normal text-white bg-transparent border bg-black border-black appearance-none;
+    }
+
     .btn-Input:focus {
         @apply ring-1 ring-black outline-none;
     }

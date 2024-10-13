@@ -9,6 +9,7 @@
 			<NuxtLink class="opacity-50 hover:opacity-80" :to="berichtenLinkPublic">Berichten</NuxtLink>
 			<NuxtLink class="opacity-50 hover:opacity-80" :to="repoLinkPublic">Projecten</NuxtLink>
 			<NuxtLink class="opacity-50 hover:opacity-80" :to="repoLink">Github</NuxtLink>
+			<NuxtLink class="opacity-50 hover:opacity-80" to="/about">About</NuxtLink>
 			<template #fallback>
 				<NuxtLink class="opacity-50 hover:opacity-80" to="/Repos">Projecten</NuxtLink>
 				<NuxtLink class="opacity-50 hover:opacity-80" to="/about">About</NuxtLink>
@@ -27,18 +28,15 @@
 					<NuxtLink class="opacity-20 dark:opacity-60 hover:opacity-80" to="/profile">Profiel</NuxtLink>
 					<NuxtLink class="opacity-20 dark:opacity-60 hover:opacity-80" to="/dashboard">Dashboard</NuxtLink>
 					<ClientOnly>
-						<NuxtLink class="opacity-20 dark:opacity-60 hover:opacity-80" :to="berichtenLinkPublic">
-							Berichten</NuxtLink>
-						<NuxtLink class="opacity-20 dark:opacity-60 hover:opacity-80" :to="repoLinkPublic">Projecten
-						</NuxtLink>
+						<NuxtLink class="opacity-20 dark:opacity-60 hover:opacity-80" :to="berichtenLinkPublic">Berichten</NuxtLink>
+						<NuxtLink class="opacity-20 dark:opacity-60 hover:opacity-80" :to="repoLinkPublic">Projecten</NuxtLink>
 						<NuxtLink class="opacity-20 dark:opacity-60 hover:opacity-80" :to="repoLink">Github</NuxtLink>
+						<NuxtLink class="opacity-20 dark:opacity-60 hover:opacity-80" to="/about">About</NuxtLink>
 						<template #fallback>
-							<NuxtLink class="opacity-20 dark:opacity-60 hover:opacity-80" to="/dashboard/berichten">
-								Berichten</NuxtLink>
-							<NuxtLink class="opacity-20 dark:opacity-60 hover:opacity-80" to="/Repos">Projecten
-							</NuxtLink>
-							<NuxtLink class="opacity-20 dark:opacity-60 hover:opacity-80" to="/dashboard/Repos">Github
-							</NuxtLink>
+							<NuxtLink class="opacity-20 dark:opacity-60 hover:opacity-80" to="/dashboard/berichten">Berichten</NuxtLink>
+							<NuxtLink class="opacity-20 dark:opacity-60 hover:opacity-80" to="/Repos">Projecten</NuxtLink>
+							<NuxtLink class="opacity-20 dark:opacity-60 hover:opacity-80" to="/dashboard/Repos">Github</NuxtLink>
+							<NuxtLink class="opacity-20 dark:opacity-60 hover:opacity-80" to="/about">About</NuxtLink>
 						</template>
 					</ClientOnly>
 				</div>
