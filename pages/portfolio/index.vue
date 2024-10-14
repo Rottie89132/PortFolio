@@ -16,7 +16,7 @@
 							</ClientOnly>
 						</div>
 					</div>
-					<div class="items-center w-full h-[60vh] md:flex">
+					<div class="items-center w-full h-[60vh] md:flex z-10">
 						<div class="grid gap-8 md:gap-4">
 							<HeaderTitel Title="Hallo leer mij kennen!" SubTitle="Hoi, ik ben Roland Meijer, een gemotiveerde Software Developer. Met een sterke basis in programmeren en een passie voor technologie!" />
 							<div class="flex items-center gap-5">
