@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class=" z-20">
         <NavigationLinksAdmin v-if="data?.statusCode == 200 && data.authorized" />
         <NavigationLinksUser v-else-if="data?.statusCode == 200 && !data.authorized" />
         <NavigationLinks v-else />
