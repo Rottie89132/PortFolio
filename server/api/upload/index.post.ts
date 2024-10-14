@@ -30,7 +30,7 @@ export default defineEventHandler((event) => {
                     message: "The server is refusing to process a request because the request payload is larger than the server is willing or able to process."
                 })
 
-                if (file.type !== "image/png") return reject({
+                if (file.type !== "application/pdf") return reject({
                     statusCode: 415,
                     statusMessage: "Unsupported Media Type",
                     message: "The server is refusing to service the request because the payload is in a format not supported by this method on the target resource."

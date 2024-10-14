@@ -23,8 +23,7 @@
 						<h1 class="text-[1.5em] select-none text-black dark:text-white font-extrabold -mb-1">Curriculum Vitae</h1>
 						<div class="flex gap-x-4 mt-4">
 							<a href="https://www.linkedin.com/in/roland-meijer-07bb97198/" target="_blank" class="flex items-center justify-center px-4 py-2 font-semibold dark:text-neutral-800 dark:hover:bg-gray-100 dark:hover:ring-gray-100 dark:bg-white dark:ring-white text-sm text-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-md"> <Icon class="mr-1" name="ri:external-link-line" size="1.2em" />Linkedin </a>
-							<a :href="CVLink" download class="hidden md:flex items-center justify-center p-2 font-semibold dark:text-neutral-800 dark:hover:bg-gray-100 dark:hover:ring-gray-100 dark:bg-white dark:ring-white text-sm text-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-md"><Icon class=" " name="ri:file-pdf-2-line" size="1.4em" /> </a>
-							<a :href="CVLink" class="flex md:hidden items-center justify-center p-2 font-semibold dark:text-neutral-800 dark:hover:bg-gray-100 dark:hover:ring-gray-100 dark:bg-white dark:ring-white text-sm text-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-md"><Icon class=" " name="ri:file-pdf-2-line" size="1.4em" /> </a>
+							<a :href="CVLink" target="_blank" class="flex items-center justify-center p-2 font-semibold dark:text-neutral-800 dark:hover:bg-gray-100 dark:hover:ring-gray-100 dark:bg-white dark:ring-white text-sm text-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-md"><Icon class=" " name="ri:file-pdf-2-line" size="1.4em" /> </a>
 							<a :href="TelLink" class="flex items-center justify-center p-2 font-semibold dark:text-neutral-800 dark:hover:bg-gray-100 dark:hover:ring-gray-100 dark:bg-white dark:ring-white text-sm text-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-md"><Icon class=" " name="ri:phone-line" size="1.4em" /> </a>
 							<a :href="MailLink" class="flex items-center justify-center p-2 font-semibold dark:text-neutral-800 dark:hover:bg-gray-100 dark:hover:ring-gray-100 dark:bg-white dark:ring-white text-sm text-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-md"><Icon class=" " name="ri:mail-send-line" size="1.4em" /> </a>
 						</div>
@@ -74,7 +73,7 @@
 	const textLabel = ref("Inloggen");
 	const Installed = ref(false);
 	const datatype = ref("");
-	const CVLink = ref("./file/roland-cv.png");
+	const CVLink = ref("./file/roland-cv.pdf");
 	const TelLink = ref("tel:+31638305453");
 	const MailLink = ref("mailto:rolandmeijer03@gmail.com");
 
