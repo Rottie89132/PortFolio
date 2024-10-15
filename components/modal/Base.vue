@@ -16,7 +16,7 @@
 								<Form class="" @submit="handleRequest" :validation-schema="schema" v-slot="{ meta }">
 									<slot></slot>
 									<div v-if="type == 'Inloggen'" class="flex">
-										<p class=" text-balance">
+										<p class="text-balance">
 											<span @click="forgotPassword" class="text-sm select-none cursor-pointer underline text-neutral-800 hover:text-neutral-900">Wachtwoord vergeten?</span>
 											<span> of </span>
 											<span @click="maakAccount" class="text-sm select-none underline cursor-pointer text-neutral-800 hover:text-neutral-900">aanmelden</span>
@@ -31,14 +31,13 @@
 										<Icon v-if="loading" class="animate-spin" name="ri:refresh-line" size="1.25em" />
 										<p v-else>{{ textLabel }}</p>
 									</button>
+									
 									<span role="alert" v-if="meta.touched && msgError" class="flex text-xs text-left text-[#B92538]">{{ msgError }}</span>
-									<span role="alert" v-if="MessageSend && type == 'Contact'" class="flex text-xs text-left">Je bericht is vestuured</span>
-									<span role="alert" v-if="MessageSend && type == 'Aanmelden'" class="flex text-xs text-left">
-										Je account is aangemaakt, controleer je email om je account te activeren. dit kan enkele minuten duren, check ook je spam folder.
-									</span>
-									<span role="alert" v-if="MessageSend && type == 'Vergeten'" class="flex text-xs text-left"> 
-										Er is een email verstuurd naar het opgegeven email adres dit kan enkele minuten duren, check ook je spam folder.
-									</span>
+									<div v-if="!msgError">
+										<span role="alert" v-if="MessageSend && type == 'Contact'" class="flex text-xs text-left"> Bedankt voor je bericht, we nemen zo snel mogelijk contact met je op. </span>
+										<span role="alert" v-if="MessageSend && type == 'Aanmelden'" class="flex text-xs text-left"> Je account is aangemaakt, controleer je email om je account te activeren. dit kan enkele minuten duren, check ook je spam folder. </span>
+										<span role="alert" v-if="MessageSend && type == 'Vergeten'" class="flex text-xs text-left"> Er is een email verstuurd naar het opgegeven email adres dit kan enkele minuten duren, check ook je spam folder. </span>
+									</div>
 								</Form>
 							</div>
 						</div>
@@ -203,9 +202,10 @@
 			actions.resetForm();
 
 			if (AuthModule.value) closeModal();
+			else setTimeout(() => closeModal(), 5000);
 
 			setTimeout(() => {
-				store.setSession({ ...data.value, authorized: data.value.user.Admin });
+				store.setSession({ ...data.value, authorized: data.value.user?.Admin });
 
 				if (AuthModule.value && data.value.user.is2FAEnabled) navigateTo(`/auth/prompt/2fa?token=${data.value.user.Id}`);
 				else if (AuthModule.value && data.value.user.Admin) navigateTo("/dashboard");

@@ -16,10 +16,12 @@
 			<FieldInput :name="'confirmatie'" :type="'password'" :label="'Confirmatie'" />
 		</div>
         <div v-else>
-            <FieldInput :name="'naam'" :type="'name'" :label="'Contact persoon'" />
-            <FieldInput :name="'email'" :type="'email'" :label="'Email adress'" />
-            <FieldTextarea :name="'bericht'" :type="'bericht'" :label="'bericht'" />
+            <div class=" flex gap-4">
+                <FieldInput :name="'naam'" :type="'name'" :label="'Naam'" />
+                <FieldInput :name="'email'" :type="'email'" :label="'Email'" />
+            </div>
             <FieldInput :name="'telefoon'" :value="'+31 06 12 34 56 78'" :type="'phone'" :label="'Telefoon'" />
+            <FieldTextarea :name="'bericht'" :type="'bericht'" :label="'bericht'" />
         </div>
     </ModalBase>
 </template>

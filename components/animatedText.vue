@@ -1,6 +1,6 @@
 <template>
     <div>
-        <p class=" text-sm dark:opacity-75 mt-2">{{ animatedText }}</p>
+        <p class=" text-sm pr-2 dark:opacity-75 mt-2">{{ animatedText }}</p>
     </div>
 </template>
 

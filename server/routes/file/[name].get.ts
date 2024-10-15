@@ -15,6 +15,11 @@ export default defineEventHandler((event) => {
             })
         }
 
+        await FileLog.create({
+            FileName: getRouterParams(event).name,
+            FileIp: await useIP(event),
+        })
+
         return resolve(sendStream(event, fs.createReadStream(filePath)))
     });
 

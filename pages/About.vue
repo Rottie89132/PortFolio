@@ -22,14 +22,20 @@
 					<div class="md:flex justify-between items-center">
 						<h1 class="text-[1.5em] select-none text-black dark:text-white font-extrabold -mb-1">Curriculum Vitae</h1>
 						<div class="flex gap-x-4 mt-4">
+							<button @click="HandleModule('Contact')" class="flex items-center justify-center p-2 font-semibold dark:text-neutral-800 dark:hover:bg-gray-100 dark:hover:ring-gray-100 dark:bg-white dark:ring-white text-sm text-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-md"><Icon class=" " name="ri:send-plane-line" size="1.4em" /> </button>
 							<a href="https://www.linkedin.com/in/roland-meijer-07bb97198/" target="_blank" class="flex items-center justify-center px-4 py-2 font-semibold dark:text-neutral-800 dark:hover:bg-gray-100 dark:hover:ring-gray-100 dark:bg-white dark:ring-white text-sm text-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-md"> <Icon class="mr-1" name="ri:external-link-line" size="1.2em" />Linkedin </a>
 							<a :href="CVLink" target="_blank" class="flex items-center justify-center p-2 font-semibold dark:text-neutral-800 dark:hover:bg-gray-100 dark:hover:ring-gray-100 dark:bg-white dark:ring-white text-sm text-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-md"><Icon class=" " name="ri:file-pdf-2-line" size="1.4em" /> </a>
 							<a :href="TelLink" class="flex items-center justify-center p-2 font-semibold dark:text-neutral-800 dark:hover:bg-gray-100 dark:hover:ring-gray-100 dark:bg-white dark:ring-white text-sm text-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-md"><Icon class=" " name="ri:phone-line" size="1.4em" /> </a>
 							<a :href="MailLink" class="flex items-center justify-center p-2 font-semibold dark:text-neutral-800 dark:hover:bg-gray-100 dark:hover:ring-gray-100 dark:bg-white dark:ring-white text-sm text-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-md"><Icon class=" " name="ri:mail-send-line" size="1.4em" /> </a>
+							
 						</div>
 					</div>
 
-					<p class="mt-4 xl:mt-0 text-black dark:text-white opacity-70">Mijn curriculum vitae is hier te vinden. Klik op de download knop om het bestand te downloaden.</p>
+					<p class="mt-4 xl:mt-0 text-black dark:text-white opacity-70">
+						
+						Voor meer informatie over mijn werkervaring en opleidingen, kunt u mijn cv bekijken.
+						<br />Heeft u vragen of wilt u contact met mij opnemen? Gebruik dan de contact knoppen hierboven.
+					</p>
 
 					<h2 class="mt-8 text-black dark:text-white font-bold">Leer mij kennen</h2>
 					<div  class="mt-4 grid gap-3 md:gap-4 grid-cols-1 md:grid-cols-1 lg:grid-cols-3 p-3 bg-[#F7F7F7] dark:bg-[#111111] h-fit rounded-2xl transition-transform">
@@ -97,12 +103,12 @@
 		$PusherOnStart();
 	});
 
-	const HandleModule = (type) => {
+	const HandleModule = async (type) => {
 		datatype.value = type;
-		AuthModule.value = true;
+		AuthModule.value = type != "Contact";
 		title.value = type;
-		buttonLabel.value = "Login";
-		subtitle.value = "Vul hieronder je gebruikersnaam en wachtwoord in om toegang te krijgen tot je account.";
+		buttonLabel.value = type == "Contact" ? "Maak contact" : "Login";
+		subtitle.value = type == "Contact" ? "Vul hieronder je contact gegevens in en laat een bericht achter." : "Vul hieronder je gebruikersnaam en wachtwoord in om toegang te krijgen tot je account.";
 
 		OpenModule.value = true;
 		setTimeout(() => {
