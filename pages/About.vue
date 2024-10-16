@@ -31,10 +31,10 @@
 						</div>
 					</div>
 
-					<p class="mt-4 xl:mt-0 text-black dark:text-white opacity-70">
+					<p class="mt-4 xl:mt-0  text-black dark:text-white opacity-70">
 						
 						Voor meer informatie over mijn werkervaring en opleidingen, kunt u mijn cv bekijken.
-						<br />Heeft u vragen of wilt u contact met mij opnemen? Gebruik dan de contact knoppen hierboven.
+						<br class=" hidden md:inline">Heeft u vragen of wilt u contact met mij opnemen? Gebruik dan de contact knoppen hierboven.
 					</p>
 
 					<h2 class="mt-8 text-black dark:text-white font-bold">Leer mij kennen</h2>
