@@ -10,7 +10,7 @@
 						<div class="flex gap-4 items-center">
 							<ColorMode />
 							<Online />
-							<button @click="Logout" class="px-6 py-1 dark:text-neutral-800 font-semibold dark:bg-white dark:hover:bg-white dark:hover:ring-white dark:ring-white text-white rounded-lg bg-neutral-800 hover:bg-neutral-900 ring-2 ring-neutral-800 hover:ring-neutral-900">Uitloggen</button>
+							<button @click="Logout" class="px-6 py-1 dark:text-neutral-800 font-semibold dark:bg-white dark:hover:bg-gray-50 dark:hover:ring-gray-50 dark:ring-white text-white rounded-lg bg-neutral-800 hover:bg-neutral-900 ring-2 ring-neutral-800 hover:ring-neutral-900">Uitloggen</button>
 						</div>
 					</div>
 				</div>
@@ -26,7 +26,7 @@
 						<div class="p-3 hidden xl:block bg-[#F7F7F7] dark:bg-[#111111] rounded-2xl mb-3">
 							<div class="flex items-center justify-between">
 								<p class="font-black dark:text-white">Projecten</p>
-								<NuxtLink :to="`/dashboard/Repos?Page=${currentPage}`" class="px-5 py-1 text-sm font-medium text-white dark:bg-indigo-500 dark:ring-indigo-500 bg-indigo-600 rounded-lg ring-2 ring-indigo-600"> Toevoegen</NuxtLink>
+								<NuxtLink :to="`/dashboard/Repos?Page=${currentPage}`" class="px-5 py-1 text-sm font-medium text-white dark:bg-indigo-500 dark:ring-indigo-500 bg-indigo-600 rounded-lg ring-2 ring-indigo-600 dark:hover:bg-indigo-600 dark:hover:ring-indigo-600 hover:bg-indigo-500 hover:ring-indigo-500"> Toevoegen</NuxtLink>
 							</div>
 						</div>
 					</div>
@@ -36,7 +36,7 @@
 					<div class="p-3 xl:hidden bg-[#F7F7F7] dark:bg-[#111111] rounded-2xl mb-3">
 						<div class="flex items-center justify-between">
 							<p class="font-black dark:text-white">Projecten</p>
-							<NuxtLink :to="`/dashboard/Repos?Page=${currentPage}`" class="px-5 py-1 text-sm font-medium text-white dark:bg-indigo-500 dark:ring-indigo-500 bg-indigo-600 rounded-lg ring-2 ring-indigo-600"> Toevoegen</NuxtLink>
+							<NuxtLink :to="`/dashboard/Repos?Page=${currentPage}`" class="px-5 py-1 text-sm font-medium text-white dark:bg-indigo-500 dark:ring-indigo-500 bg-indigo-600 rounded-lg ring-2 ring-indigo-600 dark:hover:bg-indigo-600 dark:hover:ring-indigo-600 hover:bg-indigo-500 hover:ring-indigo-500 "> Toevoegen</NuxtLink>
 						</div>
 					</div>
 					<div class="p-3 bg-[#F7F7F7] dark:bg-[#111111] rounded-2xl mb-3">

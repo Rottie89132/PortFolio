@@ -1,6 +1,6 @@
 <template>
 	<div @click="like" class="flex liked items-center justify-center gap-1 px-[0.6rem] py-1 mt-3 mb-1 text-xs rounded dark:text-neutral-300 text-neutral-600">
-		<Icon v-if="!failed" :class="liked ? 'dark:text-indigo-500 text-indigo-600 like-animation' : 'dark:text-gray-500 text-gray-300'" class="transition-all delay-200" name="prime:thumbs-up-fill" size="1.9em"></Icon>
+		<Icon v-if="!failed" :class="liked ? 'dark:text-indigo-500 text-indigo-600 like-animation' : 'dark:text-gray-500 hover:text-gray-400 dark:hover:text-gray-400 text-gray-300'" class="transition-all delay-200" name="prime:thumbs-up-fill" size="1.9em"></Icon>
 		<div v-else class="relative group">
 			<Icon class="transition-all delay-200 dark:text-red-500 text-red-600 failed-animation" name="prime:thumbs-up-fill" size="1.9em"></Icon>
 

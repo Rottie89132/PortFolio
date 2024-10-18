@@ -6,6 +6,7 @@
 				<Icon class="dark:text-white text-black" :name="card[item.action] ? 'ri:arrow-up-s-line' : 'ri:arrow-down-s-line'" size="1.4em" />
 			</button>
 		</div>
+		
 		<div v-if="card[item.action]" class="md:hidden ">
 			<ClientOnly >
 				<AnimatedText :text="item.content" />

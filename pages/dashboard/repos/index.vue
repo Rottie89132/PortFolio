@@ -10,11 +10,11 @@
 						<div class="flex gap-4 items-center">
 							<ColorMode />
 							<Online />
-							<button @click="Logout" class="px-6 py-1 dark:text-neutral-800 font-semibold dark:bg-white dark:hover:bg-white dark:hover:ring-white dark:ring-white text-white rounded-lg bg-neutral-800 hover:bg-neutral-900 ring-2 ring-neutral-800 hover:ring-neutral-900">Uitloggen</button>
+							<button @click="Logout" class="px-6 py-1 dark:text-neutral-800 font-semibold dark:bg-white dark:hover:bg-gray-50 dark:hover:ring-gray-50 dark:ring-white text-white rounded-lg bg-neutral-800 hover:bg-neutral-900 ring-2 ring-neutral-800 hover:ring-neutral-900">Uitloggen</button>
 						</div>
 					</div>
 				</div>
-				<div class="w-full h-fit mt-6 md:my-10 xl:mt-20 md:w-[98%] lg:w-[88%] xl:w-[89.2%]">
+				<div class="w-full h-fit mt-6 md:mt-10 xl:mt-20 md:w-[98%] lg:w-[88%] xl:w-[89.2%]">
 					<div class="flex items-center justify-between gap-3 mb-3">
 						<h1 class="text-[1.5em] dark:text-white text-black font-extrabold">Repositories</h1>
 						<PaginationButtons :items="items" :hidebuttons="hidebuttons" :loading="loading" v-model:currentPage="currentPage" :PreviousPage="PreviousPage" :NextPage="NextPage" :navigateToPage="navigateToPage"> </PaginationButtons>
@@ -33,6 +33,7 @@
 				<button disabled class="flex font-semibold items-center gap-2 px-6 py-2 text-sm text-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-md"><Icon class="animate-spin" name="ri:refresh-line" size="1.25em" />Verwerken</button>
 			</div>
 		</ModalConfirmation>
+		
 	</div>
 </template>
 
@@ -58,7 +59,6 @@
 		htmlAttrs: { lang: "nl" },
 		link: [
 			{ rel: "icon", type: "image/png" },
-			{ rel: "preload", as: "image", href: "/Trash.svg" },
 		],
 	});
 

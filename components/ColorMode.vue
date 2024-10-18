@@ -1,9 +1,9 @@
 <template>
-	<button aria-label="WijzigKleur" v-if="preferredColor == 'dark'" class="dark:bg-white text-white dark:text-black bg-neutral-800 p-2 flex items-center justify-center rounded-lg" @click="toggleLight()">
+	<button aria-label="WijzigKleur" v-if="preferredColor == 'dark'" class="dark:bg-white text-white dark:text-black bg-neutral-800 hover:bg-neutral-900 dark:hover:bg-gray-50 p-2 flex items-center justify-center rounded-lg" @click="toggleLight()">
 		<Icon v-if="colormode.value == 'dark'" class="text-white dark:text-black" name="ri:sun-fill" size="1.2em" />
 		<Icon v-else class="text-white dark:text-black" name="ri:moon-clear-fill" size="1.2em" />
 	</button>
-	<button aria-label="WijzigKleur" v-else-if="preferredColor == 'light'" class="dark:bg-white text-white dark:text-black bg-neutral-800 p-2 flex items-center justify-center rounded-lg" @click="toggleDark()">
+	<button aria-label="WijzigKleur" v-else-if="preferredColor == 'light'" class="dark:bg-white text-white dark:text-black bg-neutral-800 hover:bg-neutral-900 dark:hover:bg-gray-50 p-2 flex items-center justify-center rounded-lg" @click="toggleDark()">
 		<Icon v-if="colormode.value == 'dark'" class="text-white dark:text-black" name="ri:sun-fill" size="1.2em" />
 		<Icon v-else class="text-white dark:text-black" name="ri:moon-clear-fill" size="1.2em" />
 	</button>

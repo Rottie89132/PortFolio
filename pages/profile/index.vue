@@ -11,7 +11,7 @@
 						<div class="flex gap-4 items-center">
 							<ColorMode />
 							<Online />
-							<button @click="Logout" class="px-6 py-1 dark:text-neutral-800 font-semibold dark:bg-white dark:hover:bg-white dark:hover:ring-white dark:ring-white text-white rounded-lg bg-neutral-800 hover:bg-neutral-900 ring-2 ring-neutral-800 hover:ring-neutral-900">Uitloggen</button>
+							<button @click="Logout" class="px-6 py-1 dark:text-neutral-800 font-semibold dark:bg-white dark:hover:bg-gray-50 dark:hover:ring-gray-50 dark:ring-white text-white rounded-lg bg-neutral-800 hover:bg-neutral-900 ring-2 ring-neutral-800 hover:ring-neutral-900">Uitloggen</button>
 						</div>
 					</div>
 				</div>
@@ -67,8 +67,8 @@
 							</div>
 							<p class="text-[0.7em] dark:text-white opacity-75 leading-4 font-medium">Hier bevindt zich de optie om de inhoud van de 'About'-pagina te bewerken naar jouw wensen</p>
 							<div class="flex items-center gap-2">
-								<button @click="FileUpload" class="mt-2 px-4 py-1 rounded-lg text-white dark:text-black bg-black dark:bg-white font-medium text-[0.8em]">Uploaden</button>
-								<button @click="AboutUpdate" class="mt-2 px-4 py-1 rounded-lg text-white dark:text-black bg-black dark:bg-white font-medium text-[0.8em]">Bijwerken</button>
+								<button @click="FileUpload" class="mt-2 px-4 py-1 rounded-lg text-white dark:text-black bg-neutral-800 dark:bg-white dark:hover:bg-gray-50 hover:bg-neutral-900 font-medium text-[0.8em]">Uploaden</button>
+								<button @click="AboutUpdate" class="mt-2 px-4 py-1 rounded-lg text-white dark:text-black bg-neutral-800 dark:bg-white dark:hover:bg-gray-50 hover:bg-neutral-900 font-medium text-[0.8em]">Bijwerken</button>
 							</div>
 						</div>
 						<div class="grid md:grid-cols-3 gap-y-3 gap-x-4">

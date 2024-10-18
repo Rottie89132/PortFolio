@@ -9,14 +9,14 @@
 				{{ item.description || defaultDescription }}
 			</p>
 			<div class="flex items-center gap-3 mt-3 mb-1 font-semibold">
-				<button v-if="item.saved" @click="DeleteRepo(item)" class="flex items-center justify-center font-semibold px-3 py-1 text-xs dark:text-black dark:bg-white dark:ring-white text-white bg-black rounded ring-2 ring-black">Verwijderen</button>
-				<button v-else @click="SaveRepo(item)" class="flex items-center justify-center px-3 py-1 font-semibold text-xs dark:text-black dark:bg-white dark:ring-white text-white bg-black rounded ring-2 ring-black">Toevoegen</button>
+				<button v-if="item.saved" @click="DeleteRepo(item)" class="flex items-center justify-center font-semibold px-3 py-1 text-xs dark:text-black dark:bg-white dark:ring-white text-white bg-neutral-800 rounded ring-2 ring-neutral-800 dark:hover:bg-gray-50 dark:hover:ring-gray-50 hover:bg-neutral-900 hover:ring-neutral-900">Verwijderen</button>
+				<button v-else @click="SaveRepo(item)" class="flex items-center justify-center font-semibold px-3 py-1 text-xs dark:text-black dark:bg-white dark:ring-white text-white bg-neutral-800 rounded ring-2 ring-neutral-800 dark:hover:bg-gray-50 dark:hover:ring-gray-50 hover:bg-neutral-900 hover:ring-neutral-900">Toevoegen</button>
 
-				<button v-if="item.saved" @click="UpdateRepo(item)" class="p-[0.33em] rounded-md text-xs flex justify-center items-center font-semibold dark:text-neutral-300 dark:bg-neutral-800 dark:ring-neutral-800 text-neutral-600 bg-neutral-200 ring-2 ring-neutral-200">
+				<button v-if="item.saved" @click="UpdateRepo(item)" class="p-[0.33em] rounded-md text-xs flex justify-center items-center font-semibold dark:text-neutral-300 dark:bg-neutral-800 dark:ring-neutral-800 text-neutral-600 bg-neutral-200 ring-2 ring-neutral-200 dark:hover:bg-neutral-700 dark:hover:ring-neutral-700 hover:bg-neutral-300 hover:ring-neutral-300">
 					<Icon name="material-symbols:feature-search" size="1.4em"></Icon>
 				</button>
 
-				<NuxtLink :to="`/dashboard/repos/issues/${item.name}`" v-if="item.open_issues_count > 0" class="p-[0.33em] rounded-md text-xs flex justify-center items-center font-semibold dark:text-neutral-300 dark:bg-neutral-800 dark:ring-neutral-800 text-neutral-600 bg-neutral-200 ring-2 ring-neutral-200">
+				<NuxtLink :to="`/dashboard/repos/issues/${item.name}`" v-if="item.open_issues_count > 0" class="p-[0.33em] rounded-md text-xs flex justify-center items-center font-semibold dark:text-neutral-300 dark:bg-neutral-800 dark:ring-neutral-800 text-neutral-600 bg-neutral-200 ring-2 ring-neutral-200 dark:hover:bg-neutral-700 dark:hover:ring-neutral-700 hover:bg-neutral-300 hover:ring-neutral-300">
 					<Icon name="material-symbols:release-alert" size="1.4em"></Icon>
 				</NuxtLink>
 			</div>

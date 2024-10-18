@@ -11,8 +11,8 @@
 							<ClientOnly>
 								<ColorMode />
 								<Online />
-								<button v-if="data?.statusCode == 200" @click="Logout" class="px-6 py-1 dark:text-neutral-800 font-semibold dark:bg-white dark:hover:bg-white dark:hover:ring-white dark:ring-white text-white rounded-lg bg-neutral-800 hover:bg-neutral-900 ring-2 ring-neutral-800 hover:ring-neutral-900">Uitloggen</button>
-								<button v-else @click="HandleModule('Inloggen')" class="px-6 py-1 dark:text-neutral-800 font-semibold dark:bg-white dark:hover:bg-white dark:hover:ring-white dark:ring-white text-white rounded-lg bg-neutral-800 hover:bg-neutral-900 ring-2 ring-neutral-800 hover:ring-neutral-900">{{ textLabel }}</button>
+								<button v-if="data?.statusCode == 200" @click="Logout" class="px-6 py-1 dark:text-neutral-800 font-semibold dark:bg-white dark:hover:bg-gray-50 dark:hover:ring-gray-50 dark:ring-white text-white rounded-lg bg-neutral-800 hover:bg-neutral-900 ring-2 ring-neutral-800 hover:ring-neutral-900">Uitloggen</button>
+								<button v-else @click="HandleModule('Inloggen')" class="px-6 py-1 dark:text-neutral-800 font-semibold dark:bg-white dark:hover:bg-gray-50 dark:hover:ring-gray-50 dark:ring-white text-white rounded-lg bg-neutral-800 hover:bg-neutral-900 ring-2 ring-neutral-800 hover:ring-neutral-900">{{ textLabel }}</button>
 							</ClientOnly>
 						</div>
 					</div>
@@ -22,24 +22,22 @@
 					<div class="md:flex justify-between items-center">
 						<h1 class="text-[1.5em] select-none text-black dark:text-white font-extrabold -mb-1">Curriculum Vitae</h1>
 						<div class="flex gap-x-4 mt-4">
-							<button @click="HandleModule('Contact')" class="flex items-center justify-center p-2 font-semibold dark:text-neutral-800 dark:hover:bg-gray-100 dark:hover:ring-gray-100 dark:bg-white dark:ring-white text-sm text-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-md"><Icon class=" " name="ri:send-plane-line" size="1.4em" /> </button>
+							<button @click="HandleModule('Contact')" class="flex items-center justify-center p-2 font-semibold dark:text-neutral-800 dark:hover:bg-gray-100 dark:hover:ring-gray-100 dark:bg-white dark:ring-white text-sm text-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-md"><Icon class=" " name="ri:send-plane-line" size="1.4em" /></button>
 							<a href="https://www.linkedin.com/in/roland-meijer-07bb97198/" target="_blank" class="flex items-center justify-center px-4 py-2 font-semibold dark:text-neutral-800 dark:hover:bg-gray-100 dark:hover:ring-gray-100 dark:bg-white dark:ring-white text-sm text-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-md"> <Icon class="mr-1" name="ri:external-link-line" size="1.2em" />Linkedin </a>
 							<a :href="CVLink" target="_blank" class="flex items-center justify-center p-2 font-semibold dark:text-neutral-800 dark:hover:bg-gray-100 dark:hover:ring-gray-100 dark:bg-white dark:ring-white text-sm text-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-md"><Icon class=" " name="ri:file-pdf-2-line" size="1.4em" /> </a>
 							<a :href="TelLink" class="flex items-center justify-center p-2 font-semibold dark:text-neutral-800 dark:hover:bg-gray-100 dark:hover:ring-gray-100 dark:bg-white dark:ring-white text-sm text-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-md"><Icon class=" " name="ri:phone-line" size="1.4em" /> </a>
 							<a :href="MailLink" class="flex items-center justify-center p-2 font-semibold dark:text-neutral-800 dark:hover:bg-gray-100 dark:hover:ring-gray-100 dark:bg-white dark:ring-white text-sm text-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-md"><Icon class=" " name="ri:mail-send-line" size="1.4em" /> </a>
-							
 						</div>
 					</div>
 
-					<p class="mt-4 xl:mt-0  text-black dark:text-white opacity-70">
-						
+					<p class="mt-4 xl:mt-0 text-black dark:text-white opacity-70">
 						Voor meer informatie over mijn werkervaring en opleidingen, kunt u mijn cv bekijken.
-						<br class=" hidden md:inline">Heeft u vragen of wilt u contact met mij opnemen? Gebruik dan de contact knoppen hierboven.
+						<br class="hidden md:inline" />Heeft u vragen of wilt u contact met mij opnemen? Gebruik dan de contact knoppen hierboven.
 					</p>
 
 					<h2 class="mt-8 text-black dark:text-white font-bold">Leer mij kennen</h2>
-					<div  class="mt-4 grid gap-3 md:gap-4 grid-cols-1 md:grid-cols-1 lg:grid-cols-3 p-3 bg-[#F7F7F7] dark:bg-[#111111] h-fit rounded-2xl transition-transform">
-						<div  v-for="(item, index) in items.data" :key="index">
+					<div class="mt-4 grid gap-3 md:gap-4 grid-cols-1 md:grid-cols-1 lg:grid-cols-3 p-3 bg-[#F7F7F7] dark:bg-[#111111] h-fit rounded-2xl transition-transform">
+						<div v-for="(item, index) in items.data" :key="index">
 							<CardAboutMe :item="item" :card="card" :toggleCard="toggleCard" />
 						</div>
 					</div>
@@ -70,6 +68,8 @@
 	});
 
 	const { $pwa, $PusherOnStart, $csrfFetch } = useNuxtApp();
+	const subject = encodeURIComponent("Contactverzoek via Portfolio");
+
 	const OpenModule = ref(false);
 	const OpenModuleDelay = ref(false);
 	const AuthModule = ref(true);
@@ -79,9 +79,10 @@
 	const textLabel = ref("Inloggen");
 	const Installed = ref(false);
 	const datatype = ref("");
+
 	const CVLink = ref("./file/roland-cv.pdf");
 	const TelLink = ref("tel:+31638305453");
-	const MailLink = ref("mailto:rolandmeijer03@gmail.com");
+	const MailLink = ref(`mailto:rolandmeijer03@gmail.com?subject=${subject}`);
 
 	const card = ref({});
 

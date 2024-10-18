@@ -173,13 +173,14 @@
 		DelayStatus.value = false;
 		setTimeout(() => {
 			status.value = false;
+			MessageSend.value = false;
 		}, 100);
-		MessageSend.value = false;
+		
 	};
 
 	const handleRequest = async (values: any, actions: any) => {
 		loading.value = true;
-		const { data, error, pending, refresh }: Record<string, any> = AuthModule.value ? await useCsrfFetch("/api/auth", { method: "post", body: values }) : type.value == "Contact" ? await useCsrfFetch("/api/berichten", { method: "post", body: values }) : type.value == "Vergeten" ? await useCsrfFetch("/api/forgot", { method: "post", body: values }) : await useCsrfFetch("/api/register", { method: "post", body: values });
+		const { data, error }: Record<string, any> = AuthModule.value ? await useCsrfFetch("/api/auth", { method: "post", body: values }) : type.value == "Contact" ? await useCsrfFetch("/api/berichten", { method: "post", body: values }) : type.value == "Vergeten" ? await useCsrfFetch("/api/forgot", { method: "post", body: values }) : await useCsrfFetch("/api/register", { method: "post", body: values });
 
 		const store = useSessionsStore();
 		store.setSession(data.value);
@@ -194,7 +195,7 @@
 
 			setTimeout(() => {
 				actions.resetForm();
-				msgError.value = "";
+				msgError.value = null;
 			}, 5000);
 		} else {
 			MessageSend.value = AuthModule.value ? false : true;
@@ -212,8 +213,6 @@
 				else if (AuthModule.value) navigateTo("/profile");
 				else if (AuthModule.value && data.value.user.Admin) navigateTo("/dashboard");
 				else if (AuthModule.value) navigateTo("/profile");
-
-				if (type.value != "Aanmelden" && type.value != "Vergeten") MessageSend.value = false;
 			}, 1000);
 		}
 	};

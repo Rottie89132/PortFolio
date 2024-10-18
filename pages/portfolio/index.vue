@@ -11,8 +11,8 @@
 							<ClientOnly>
 								<ColorMode />
 								<Online />
-								<button v-if="data?.statusCode == 200" @click="Logout" class="px-6 py-1 dark:text-neutral-800 font-semibold dark:bg-white dark:hover:bg-white dark:hover:ring-white dark:ring-white text-white rounded-lg bg-neutral-800 hover:bg-neutral-900 ring-2 ring-neutral-800 hover:ring-neutral-900">Uitloggen</button>
-								<button v-else @click="HandleModule('Inloggen')" class="px-6 py-1 dark:text-neutral-800 font-semibold dark:bg-white dark:hover:bg-white dark:hover:ring-white dark:ring-white text-white rounded-lg bg-neutral-800 hover:bg-neutral-900 ring-2 ring-neutral-800 hover:ring-neutral-900">{{ textLabel }}</button>
+								<button v-if="data?.statusCode == 200" @click="Logout" class="px-6 py-1 dark:text-neutral-800 font-semibold dark:bg-white dark:hover:bg-gray-50 dark:hover:ring-gray-50 dark:ring-white text-white rounded-lg bg-neutral-800 hover:bg-neutral-900 ring-2 ring-neutral-800 hover:ring-neutral-900">Uitloggen</button>
+								<button v-else @click="HandleModule('Inloggen')" class="px-6 py-1 dark:text-neutral-800 font-semibold dark:bg-white dark:hover:bg-gray-50 dark:hover:ring-gray-50 dark:ring-white text-white rounded-lg bg-neutral-800 hover:bg-neutral-900 ring-2 ring-neutral-800 hover:ring-neutral-900">{{ textLabel }}</button>
 							</ClientOnly>
 						</div>
 					</div>
@@ -21,13 +21,13 @@
 							<HeaderTitel Title="Hallo leer mij kennen!" SubTitle="Hoi, ik ben Roland Meijer, een gemotiveerde Software Developer. Met een sterke basis in programmeren en een passie voor technologie!" />
 							<div class="flex items-center gap-5">
 								<ClientOnly>
-									<NuxtLink :to="repoLink" class="flex dark:text-neutral-800 font-semibold dark:bg-white dark:hover:bg-white dark:hover:ring-white dark:ring-white items-center gap-2 px-5 py-3 text-sm text-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-xl"> Bekijk projecten </NuxtLink>
+									<NuxtLink :to="repoLink" class="flex dark:text-neutral-800 font-semibold dark:bg-white dark:hover:bg-gray-50 dark:hover:ring-gray-50 dark:ring-white items-center gap-2 px-5 py-3 text-sm text-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-xl"> Bekijk projecten </NuxtLink>
 									<template #fallback>
-										<NuxtLink to="/Repos" class="flex dark:text-neutral-800 font-semibold dark:bg-white dark:hover:bg-white dark:hover:ring-white dark:ring-white items-center gap-2 px-5 py-3 text-sm text-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-xl"> Bekijk projecten </NuxtLink>
+										<NuxtLink to="/Repos" class="flex dark:text-neutral-800 font-semibold dark:bg-white dark:hover:bg-gray-50 dark:hover:ring-gray-50 dark:ring-white items-center gap-2 px-5 py-3 text-sm text-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-xl"> Bekijk projecten </NuxtLink>
 									</template>
 								</ClientOnly>
 
-								<button @click="HandleModule('Contact')" class="px-6 py-3 dark:hover:text-white dark:ring-white dark:hover:ring-white text-sm font-semibold dark:text-white text-neutral-800 hover:text-neutral-900 ring-2 ring-neutral-800 hover:ring-neutral-900 rounded-xl">Maak contact</button>
+								<button @click="HandleModule('Contact')" class="px-6 py-3 dark:hover:text-gray-50 dark:ring-white dark:hover:ring-gray-50 text-sm font-semibold dark:text-white text-neutral-800 hover:text-neutral-900 ring-2 ring-neutral-800 hover:ring-neutral-900 rounded-xl">Maak contact</button>
 							</div>
 						</div>
 					</div>
@@ -59,6 +59,8 @@
 	});
 
 	const { $pwa, $PusherOnStart, $csrfFetch } = useNuxtApp();
+	const subject = encodeURIComponent("Contactverzoek via Portfolio");
+
 	const OpenModule = ref(false);
 	const OpenModuleDelay = ref(false);
 	const AuthModule = ref(true);
@@ -71,6 +73,10 @@
 	const repoLink = ref("");
 	const currentPage = useLocalStorage("RepoPage").value;
 	repoLink.value = `/Repos?Page=${currentPage || 1}`;
+
+	const CVLink = ref("./file/roland-cv.pdf");
+	const TelLink = ref("tel:+31638305453");
+	const MailLink = ref(`mailto:rolandmeijer03@gmail.com?subject=${subject}`);
 
 	const store = useSessionsStore();
 	const data = ref(await store.getSession());
