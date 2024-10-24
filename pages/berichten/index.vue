@@ -3,8 +3,7 @@
 		<VitePwaManifest />
 		<Landscape />
 		<div class="fixed w-full h-full p-4 pb-5 md:pb-0 md:p-0">
-			<div :class="!Installed ? 'h-full' : 'h-[95%]'"
-				class="w-full select-none md:h-full p-5 pb-4 md:rounded-none rounded-3xl md:pl-8 lg:pl-36 xl:pl-52 bg-[#f0f0f0] md:bg-white dark:bg-[#131313] dark:md:bg-neutral-900 overflow-auto">
+			<div :class="!Installed ? 'h-full' : 'h-[95%]'" class="w-full select-none md:h-full p-5 pb-4 md:rounded-none rounded-3xl md:pl-8 lg:pl-36 xl:pl-52 bg-[#f0f0f0] md:bg-white dark:bg-[#131313] dark:md:bg-neutral-900 overflow-auto">
 				<div class="grid gap-24">
 					<div class="flex items-center justify-between md:mt-[0.15em]">
 						<NavigationLinksUser />
@@ -18,21 +17,15 @@
 				<div class="w-full h-fit mt-6 md:my-10 xl:mt-20 md:w-[98%] lg:w-[88%] xl:w-[89.2%]">
 					<div class="flex items-center justify-between gap-3 mb-3">
 						<h1 class="text-[1.5em] dark:text-white text-black font-extrabold">Berichten</h1>
-						<PaginationButtons :items="Items" :hidebuttons="hidebuttons" :loading="loading"
-							v-model:currentPage="currentPage" :PreviousPage="PreviousPage" :NextPage="NextPage"
-							:navigateToPage="navigateToPage">
-						</PaginationButtons>
+						<PaginationButtons :items="Items" :hidebuttons="hidebuttons" :loading="loading" v-model:currentPage="currentPage" :PreviousPage="PreviousPage" :NextPage="NextPage" :navigateToPage="navigateToPage"> </PaginationButtons>
 					</div>
 					<div v-if="Items.length < 1">
-						<p class="opacity-75 dark:text-white">Je hebt nog geen berichten verstuurd, wanneer je een
-							bericht verstuurd zal je het hier terug vinden.</p>
+						<p class="opacity-75 dark:text-white">Je hebt nog geen berichten verstuurd, wanneer je een bericht verstuurd zal je het hier terug vinden.</p>
 					</div>
-					<div v-else :class="Items.length < 5 ? ' h-fit' : ' md:h-[64vh]'"
-						class="p-3 bg-[#F7F7F7] dark:bg-[#111111] xl:h-fit rounded-2xl transition-transform">
+					<div v-else :class="Items.length < 5 ? ' h-fit' : ' md:h-[64vh]'" class="p-3 bg-[#F7F7F7] dark:bg-[#111111] xl:h-fit rounded-2xl transition-transform">
 						<div class="w-full h-full snap-y snap-proximity rounded-xl scroll-smooth">
 							<div v-for="(item, index) in Items" :key="index" class="mb-3 delay-100 last:mb-0 animate-fade-in">
 								<CardMessages :isAdmin="false" :item="item" />
-								
 							</div>
 						</div>
 					</div>
@@ -84,7 +77,7 @@
 		$PusherOnEvent("client-eventNotification", ReactiveEvent);
 	});
 
-	const store = useSessionsStore()
+	const store = useSessionsStore();
 
 	const Logout = async () => {
 		store.clearSession();

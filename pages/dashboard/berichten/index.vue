@@ -3,8 +3,7 @@
 		<VitePwaManifest />
 		<Landscape />
 		<div class="fixed select-none w-full h-full p-4 pb-5 md:pb-0 md:p-0">
-			<div :class="!Installed ? 'h-full' : 'h-[95%]'"
-				class="w-full md:h-full p-5 pb-4 md:rounded-none rounded-3xl md:pl-8 lg:pl-36 xl:pl-52 bg-[#f0f0f0] md:bg-white dark:bg-[#131313] dark:md:bg-neutral-900 overflow-auto xl:overflow-hidden">
+			<div :class="!Installed ? 'h-full' : 'h-[95%]'" class="w-full md:h-full p-5 pb-4 md:rounded-none rounded-3xl md:pl-8 lg:pl-36 xl:pl-52 bg-[#f0f0f0] md:bg-white dark:bg-[#131313] dark:md:bg-neutral-900 overflow-auto xl:overflow-hidden">
 				<div class="grid gap-24">
 					<div class="flex items-center justify-between">
 						<NavigationLinksAdmin />
@@ -18,17 +17,12 @@
 				<div class="w-full h-fit mt-6 md:my-10 xl:mt-20 md:w-[98%] lg:w-[88%] xl:w-[89.2%]">
 					<div class="flex items-center justify-between gap-3 mb-3">
 						<h1 class="text-[1.5em] dark:text-white text-black font-extrabold">Berichten</h1>
-						<PaginationButtons :items="Items" :hidebuttons="hidebuttons" :loading="loading"
-							v-model:currentPage="currentPage" :PreviousPage="PreviousPage" :NextPage="NextPage"
-							:navigateToPage="navigateToPage">
-						</PaginationButtons>
+						<PaginationButtons :items="Items" :hidebuttons="hidebuttons" :loading="loading" v-model:currentPage="currentPage" :PreviousPage="PreviousPage" :NextPage="NextPage" :navigateToPage="navigateToPage"> </PaginationButtons>
 					</div>
 					<div v-if="Items.length < 1">
-						<p class="opacity-75 mb-6 dark:text-white text-sm">Helaas je hebt nog geen berichten ontvangen.
-							Kom later terug om te kijken of je berichten hebt ontvangen.</p>
+						<p class="opacity-75 mb-6 dark:text-white text-sm">Helaas je hebt nog geen berichten ontvangen. Kom later terug om te kijken of je berichten hebt ontvangen.</p>
 					</div>
-					<div v-else :class="Items.length < 5 ? ' h-fit' : ' md:h-[64vh]'"
-						class="p-3 bg-[#F7F7F7] dark:bg-[#111111] xl:h-fit rounded-2xl transition-transform">
+					<div v-else :class="Items.length < 5 ? ' h-fit' : ' md:h-[64vh]'" class="p-3 bg-[#F7F7F7] dark:bg-[#111111] xl:h-fit rounded-2xl transition-transform">
 						<div class="w-full h-full overflow-y-auto snap-y snap-proximity rounded-xl scroll-smooth">
 							<div v-for="(item, index) in Items" :key="index" class="mb-3 delay-100 last:mb-0 animate-fade-in">
 								<CardMessages :item :DeleteMail="DeleteMail" :isAdmin="true" />
@@ -38,19 +32,13 @@
 				</div>
 			</div>
 		</div>
-		<ModalConfirmation v-model:texthead="title" v-model:textbase="subtitle" v-model:status="OpenModule"
-			v-model:DelayStatus="OpenModuleDelay">
+		<ModalConfirmation v-model:texthead="title" v-model:textbase="subtitle" v-model:status="OpenModule" v-model:DelayStatus="OpenModuleDelay">
 			<div v-if="!loadingMail" class="flex mb-2 items-center gap-4">
-				<button @click="DeleteMailConfirm"
-					class="flex font-semibold items-center gap-2 px-8 py-2 text-sm text-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-md">Verwijderen</button>
-				<button @click="closeModal"
-					class="flex font-semibold items-center gap-2 px-6 py-2 text-sm bg-gray-100 ring-2 ring-gray-100 text-neutral-800 rounded-md">Annuleren</button>
+				<button @click="DeleteMailConfirm" class="flex font-semibold items-center gap-2 px-8 py-2 text-sm text-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-md">Verwijderen</button>
+				<button @click="closeModal" class="flex font-semibold items-center gap-2 px-6 py-2 text-sm bg-gray-100 ring-2 ring-gray-100 text-neutral-800 rounded-md">Annuleren</button>
 			</div>
 			<div v-else-if="loadingMail" class="flex mb-2 items-center gap-4">
-				<button disabled
-					class="flex font-semibold items-center gap-2 px-6 py-2 text-sm text-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-md">
-					<Icon class="animate-spin" name="ri:refresh-line" size="1.25em" />Verwerken
-				</button>
+				<button disabled class="flex font-semibold items-center gap-2 px-6 py-2 text-sm text-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-md"><Icon class="animate-spin" name="ri:refresh-line" size="1.25em" />Verwerken</button>
 			</div>
 		</ModalConfirmation>
 	</div>
@@ -105,7 +93,7 @@
 		$PusherOnEvent("client-eventNotification", ReactiveEvent);
 	});
 
-	const store = useSessionsStore()
+	const store = useSessionsStore();
 
 	const Logout = async () => {
 		store.clearSession();
