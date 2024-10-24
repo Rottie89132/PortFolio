@@ -16,17 +16,31 @@
 						</div>
 					</div>
 				</div>
-				<div class="w-full h-fit mt-6 md:my-10 xl:mt-20 md:w-[98%] lg:w-[88%] xl:w-[89.2%]">
-					<h1 class="text-2xl dark:text-white font-bold">Bericht</h1>
-					<div class="whitespace-pre-wrap scroll-smooth leading-[1.30em] break-words text-balance max-h-[75vh] w-full bg-white dark:bg-neutral-900 p-4 rounded-lg mt-2 dark:text-white">
-						<div class="max-h-[71vh] scroll-smooth overflow-auto">
-							<span id="ToTop" class="md:hidden -ml-1"></span>
-							{{ Berichten.Response.message }}
-							<div v-if="Berichten.Response.message.length > 600" class="md:hidden p-2 -mt-2 flex items-center justify-end" id="ToBottem">
-								<a class="dark:bg-white text-white dark:text-black bg-neutral-800 p-1 flex items-center justify-center rounded-lg" href="#ToTop">
-									<Icon class="" name="ri:arrow-up-s-line" size="1.8em" />
-								</a>
-							</div>
+				<div class="w-full h-fit mt-6 md:mt-10 xl:mt-20 md:w-[98%] lg:w-[88%] xl:w-[89.2%]">
+					<div class="md:flex justify-between items-center">
+						<h1 class="text-[1.5em] leading-7 text-balance select-none text-black dark:text-white font-medium -mb-1">
+							Contactverzoek van <span class="font-black">{{ berichten.name }}</span>
+							<span class="block text-sm text-neutral-700 dark:text-neutral-300">{{ new Date(berichten.created_at).toLocaleString("nl-NL", { dateStyle: "full", timeStyle: "short" }) }}</span>
+						</h1>
+						<div class="md:flex gap-x-4 mt-4 hidden">
+							<button @click="setScrollIndicatorToFull" class="flex items-center justify-center p-2 font-semibold dark:text-neutral-800 dark:hover:bg-gray-100 dark:hover:ring-gray-100 dark:bg-white dark:ring-white text-sm text-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-md">
+								<icon class="text-white dark:text-black" name="ri:arrow-left-right-line" size="1.4em" />
+							</button>
+						</div>
+					</div>
+					<hr class="mt-6 mb-4 rounded-md dark:border-neutral-500 border-black md:max-w-[56vw]" />
+					<div class="md:max-w-[56vw] relative">
+						<div class="absolute -top-7 max-w-[100.5%] left-0 h-1 dark:bg-white rounded-md bg-black transition-all duration-200" :style="{ width: scrollWidth + '%' }"></div>
+						<div class="whitespace-pre-wrap leading-[1.40em] break-words h-fit max-h-[57vh] w-full overflow-scroll rounded-lg mt-2 dark:text-neutral-300" @scroll="updateScrollIndicator" ref="scrollContainer">
+							{{ berichten.message }}
+						</div>
+					</div>
+					<hr class="mt-4 mb-4 rounded-md dark:border-neutral-500 border-black md:max-w-[60vw]" />
+					<div class="md:flex justify-between items-center">
+						<div class="flex md:hidden gap-x-4 mt-4">
+							<button @click="setScrollIndicatorToFull" class="flex items-center justify-center p-2 font-semibold dark:text-neutral-800 dark:hover:bg-gray-100 dark:hover:ring-gray-100 dark:bg-white dark:ring-white text-sm text-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-md">
+								<icon class="text-white dark:text-black" name="ri:arrow-left-right-line" size="1.4em" />
+							</button>
 						</div>
 					</div>
 				</div>
@@ -64,13 +78,12 @@
 	onMounted(() => {
 		if ($pwa.isInstalled) Installed.value = true;
 		$PusherOnStart();
-		setTimeout(() => {
-			location.replace(`#ToBottem`);
-		}, 3500);
 	});
 
+	const berichten = ref({});
 	const PostID = useRoute().params.post;
-	const { data: Berichten, error } = await useFetch(`/api/berichten/posts/${PostID}`);
+	const { data, error } = await useFetch(`/api/berichten/posts/${PostID}`);
+	berichten.value = data.value.Response;
 
 	if (error.value) {
 		throw createError({
@@ -81,8 +94,50 @@
 		});
 	}
 
-	const store = useSessionsStore()
+	const scrollWidth = ref(0);
+	const scrollContainer = ref(null);
 
+	const canScroll = computed(() => {
+		const container = scrollContainer.value;
+		return container && container.scrollHeight > container.clientHeight;
+	});
+
+	onMounted(() => {
+		if (!canScroll.value) {
+			scrollWidth.value = 100;
+			UpdateReadStatus();
+		}
+	});
+
+	const setScrollIndicatorToFull = () => {
+		if (scrollWidth.value >= 90) { scrollWidth.value = 0; scrollToTop(); }
+		else { scrollWidth.value = 100; scrollToBottom(); }
+	};
+
+	const scrollToBottom = () => {
+		const container = scrollContainer.value;
+		container.scrollTo({
+			top: container.scrollHeight,
+			behavior: "smooth",
+		});
+	};
+
+	const scrollToTop = () => {
+		const container = scrollContainer.value;
+		container.scrollTo({
+			top: 0,
+			behavior: "smooth",
+		});
+	};
+
+	const updateScrollIndicator = () => {
+		const container = scrollContainer.value;
+		const scrollHeight = container.scrollHeight - container.clientHeight;
+		const scrollTop = container.scrollTop;
+		scrollWidth.value = (scrollTop / scrollHeight) * 100;
+	};
+
+	const store = useSessionsStore()
 	const Logout = async () => {
 		store.clearSession();
 		await $csrfFetch("/api/users", { method: "DELETE" });

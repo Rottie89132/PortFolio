@@ -2,8 +2,11 @@
 	import { Body, Container, Head, Html, Img, Link, Preview, Section, Text, Hr } from "@vue-email/components";
 
 	defineProps({
-		url: { type: String, default: "/" },
-		email: { type: String, default: "Bezoeker" },
+		naam: { type: String, default: "Bezoeker" },
+		email: { type: String, default: "Bezoeker@mail.net" },
+		bericht: { type: String, default: "Geen inhoud gevonden" },
+		telefoon: { type: String, default: "" },
+		url: { type: String, default: "https://rottie.onrender.com" },
 	});
 
 	const main = {
@@ -29,22 +32,16 @@
 		borderRadius: "5px",
 	};
 
-	const text = {
+	const message = {
 		margin: "0 0 10px 0",
-		textAlign: "left",
-		lineHeight: 1.2
-	};
-
-	const hint = {
-		margin: "0 0 10px 0",
-		textAlign: "left",
-		color: "#878f99",
-		lineHeight: 1.1,
-		fontSize: "12px",
+		textAlign: "left" ,
+		"white-space": "pre-wrap",
+		backgroundColor: "#ffffff",
+		lineHeight: 1.2,
 	};
 
 	const links = {
-		textAlign: "left",
+		textAlign: "left" ,
 	};
 
 	const link = {
@@ -55,25 +52,37 @@
 	const footer = {
 		color: "#6a737d",
 		fontSize: "12px",
-		textAlign: "left",
+		textAlign: "left" ,
 		marginTop: "60px",
 	};
 
 	const image = {
-		"border-radius": "100%",
+		'border-radius': '100%',
+	}
+
+	const clamp = (str: string, numWords: number) => {
+		const words = str.split(' ');
+		return words.length > numWords ? words.slice(0, numWords).join(' ') + "..." : str;
 	};
+
 </script>
 
 <template>
 	<Html>
 		<Head></Head>
-		<Preview> Verzoek tot wachtwoord reset</Preview>
+		<Preview> Contactverzoek ontvangen </Preview>
 		<Body :style="main">
 			<Container :style="container">
 				<Img :style="image" src="https://rottie.onrender.com/icons/test.png" width="32" height="32" alt="Github" />
-				<Text :style="title"><strong>{{ email }}</strong>,<br/> U heeft een wachtwoord reset aangevraagd</Text>
-				<Text :style="links"><Link :style="link" :href="url"> Klik hier om uw wachtwoord te resetten </Link></Text>
-				<Text :style="hint"> Deze link is 24 uur geldig. Als u geen wachtwoord reset heb aangevraagd, kunt u deze email negeren. </Text>
+				<Text :style="title"><strong>{{ naam.charAt(0).toUpperCase() + naam.slice(1).toLowerCase() }}</strong>,
+					We hebben uw contactverzoek ontvangen en zullen zo snel mogelijk reageren.
+				</Text>
+				<Section :style="section">
+					<Text :style="message">{{ clamp(bericht, 150) }}</Text>
+					<Text :style="links">
+						<Link :style="link" :href="url">Bekijk het volledige contactverzoek op de website</Link>
+					</Text>
+				</Section>
 				<Text :style="footer"> © 2024 Rottie.onrender.com </Text>
 			</Container>
 		</Body>

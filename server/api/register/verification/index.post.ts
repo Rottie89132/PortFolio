@@ -1,4 +1,4 @@
-import UseEmail from '~~/components/emails/success.vue'
+import UseEmail from '~/components/emails/success.vue'
 import { render } from '@vue-email/render'
 
 export default defineEventHandler((event) => {

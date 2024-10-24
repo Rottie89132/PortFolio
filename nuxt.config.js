@@ -58,6 +58,7 @@ export default defineNuxtConfig({
   },
 
   runtimeConfig: {
+    emailToMe: process.env.personalEmail,
     Hostadress: process.env.Hostadress,
     SaltToken: process.env.SaltToken,
     AnalyticsID: process.env.AnalyticsID,

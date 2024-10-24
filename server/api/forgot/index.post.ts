@@ -1,5 +1,5 @@
 import bcrypt from "bcrypt"
-import UseEmail from '~~/components/emails/reset.vue'
+import UseEmail from '~/components/emails/reset.vue'
 import { render } from '@vue-email/render'
 
 const { Hostadress } = useRuntimeConfig()
@@ -42,13 +42,12 @@ export default defineEventHandler((event) => {
         })
 
         const template = await render(UseEmail, {
-            url: `${Hostadress}/auth/prompt/reset?token=${SessionId}`,
-            Username: email.split("@")[0]
+            email, url: `${Hostadress}/auth/prompt/reset?token=${SessionId}`
         })
 
-        const { error } =await useMail({
+        const { error } = await useMail({
             recepient: email,
-            subject: "Reset uw wachtwoord!",
+            subject: "Verzoek tot wachtwoord reset",
             body: template
         })
 

@@ -16,30 +16,36 @@
 						</div>
 					</div>
 				</div>
-				<div class="w-full h-fit mt-6 md:my-10 xl:mt-20 md:w-[98%] lg:w-[88%] xl:w-[89.2%]">
-					<div class="bg-[#F7F7F7] dark:bg-[#111111] dark:text-white md:bg-[#F7F7F7] md:dark:bg-[#111111] p-4 rounded-xl">
-						<div class="flex -mb-1 items-center gap-2">
-							<p class="font-black">{{ Berichten.Response.name }}</p>
-							<p class="select-text underline font-medium opacity-85 text-xs -mb-1">{{ Berichten.Response.phone }}</p>
+				<div class="w-full h-fit mt-6 md:mt-10 xl:mt-20 md:w-[98%] lg:w-[88%] xl:w-[89.2%]">
+					<div class="md:flex justify-between items-center">
+						<h1 class="text-[1.5em] leading-7 text-balance select-none text-black dark:text-white font-medium -mb-1">
+							Contactverzoek van <span class="font-black">{{ berichten.name }}</span>
+							<span class="block text-sm text-neutral-700 dark:text-neutral-300">{{ new Date(berichten.created_at).toLocaleString("nl-NL", { dateStyle: "full", timeStyle: "short" }) }}</span>
+						</h1>
+
+						<div class="md:flex gap-x-4 mt-4 hidden">
+							<NuxtLink :to="`mailto:${berichten.email}`" class="flex gap-3 items-center justify-center p-2 font-semibold dark:text-neutral-800 dark:hover:bg-gray-100 dark:hover:ring-gray-100 dark:bg-white dark:ring-white text-sm text-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-md"><Icon class=" " name="ri:mail-send-line" size="1.4em" />Stuur een mail</NuxtLink>
+							<NuxtLink v-if="berichten.phone" :to="`tel:${berichten.phone}`" class="flex items-center justify-center p-2 font-semibold dark:text-neutral-800 dark:hover:bg-gray-100 dark:hover:ring-gray-100 dark:bg-white dark:ring-white text-sm text-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-md"><Icon class=" " name="ri:phone-line" size="1.4em" /> </NuxtLink>
+							<button @click="setScrollIndicatorToFull" class="flex items-center justify-center p-2 font-semibold dark:text-neutral-800 dark:hover:bg-gray-100 dark:hover:ring-gray-100 dark:bg-white dark:ring-white text-sm text-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-md">
+								<icon class="text-white dark:text-black" name="ri:arrow-left-right-line" size="1.4em" />
+							</button>
 						</div>
-						<p class="font-medium opacity-75">{{ Berichten.Response.email }}</p>
-						<div class="grid grid-cols-[1fr,1fr,0.1fr] mt-1 mb-4 md:flex items-center gap-3">
-							<button class="dark:bg-white bg-neutral-800 hover:bg-neutral-900 hover:ring-neutral-900 dark:hover:bg-gray-50 dark:hover:ring-gray-50 ring-2 dark:ring-white ring-neutral-800 text-white dark:text-neutral-900 text-sm md:text-base font-bold p-1 md:px-8 rounded-md mt-2" @click="OpenMail(true)">Beantwoorden</button>
-							<button class="dark:text-neutral-300 text-sm md:text-base dark:bg-neutral-800 dark:ring-neutral-800 text-neutral-600 bg-gray-200 ring-2 ring-gray-200 font-bold p-1 md:px-8 rounded-md mt-2" @click="OpenMail(false)">Afwijzen</button>
-							<div class="dark:text-neutral-300 text-sm md:text-base justify-center dark:bg-neutral-800 dark:ring-neutral-800 text-neutral-600 bg-gray-200 ring-2 ring-gray-200 font-bold p-1 md:p-[0.40em] md:px-[0.40em] rounded mt-2 flex items-center" @click="markMessage">
-								<Icon :class="MarkedPostId ? ' dark:text-white text-black' : 'text-neutral-600 dark:text-neutral-300'" class=" " :name="MarkedPostId ? 'material-symbols:bookmark-added' : 'material-symbols:bookmark-add'" size="1.2em" />
-							</div>
+					</div>
+					<hr class="mt-6 mb-4 rounded-md dark:border-neutral-500 border-black md:max-w-[56vw]" />
+					<div class="md:max-w-[56vw] relative">
+						<div class="absolute -top-7 max-w-[100.5%] left-0 h-1 dark:bg-white rounded-md bg-black transition-all duration-200" :style="{ width: scrollWidth + '%' }"></div>
+						<div class="whitespace-pre-wrap leading-[1.40em] break-words h-fit max-h-[57vh] w-full overflow-scroll rounded-lg mt-2 dark:text-neutral-300" @scroll="updateScrollIndicator" ref="scrollContainer">
+							{{ berichten.message }}
 						</div>
-						<div class="whitespace-pre-wrap scroll-smooth leading-[1.30em] break-words text-balance max-h-[64vh] w-full bg-white dark:bg-neutral-900 p-4 rounded-lg mt-2 dark:text-white">
-							<div class="max-h-[59.7vh] scroll-smooth overflow-auto">
-								<span id="ToTop" class="md:hidden -ml-1"></span>
-								{{ Berichten.Response.message }}
-								<div v-if="Berichten.Response.message.length > 600" class="md:hidden p-2 -mt-2 flex items-center justify-end" id="ToBottem">
-									<a class="dark:bg-white text-white dark:text-black bg-neutral-800 p-1 flex items-center justify-center rounded-lg" href="#ToTop">
-										<Icon class="" name="ri:arrow-up-s-line" size="1.8em" />
-									</a>
-								</div>
-							</div>
+					</div>
+					<hr class="mt-4 mb-4 rounded-md dark:border-neutral-500 border-black md:max-w-[60vw]" />
+					<div class="md:flex justify-between items-center">
+						<div class="flex md:hidden gap-x-4 mt-4">
+							<NuxtLink :to="`mailto:${berichten.email}`" class="flex gap-3 items-center justify-center p-2 font-semibold dark:text-neutral-800 dark:hover:bg-gray-100 dark:hover:ring-gray-100 dark:bg-white dark:ring-white text-sm text-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-md"><Icon class=" " name="ri:mail-send-line" size="1.4em" />Stuur een mail</NuxtLink>
+							<NuxtLink v-if="berichten.phone" :to="`tel:${berichten.phone}`" class="flex items-center justify-center p-2 font-semibold dark:text-neutral-800 dark:hover:bg-gray-100 dark:hover:ring-gray-100 dark:bg-white dark:ring-white text-sm text-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-md"><Icon class=" " name="ri:phone-line" size="1.4em" /> </NuxtLink>
+							<button @click="setScrollIndicatorToFull" class="flex items-center justify-center p-2 font-semibold dark:text-neutral-800 dark:hover:bg-gray-100 dark:hover:ring-gray-100 dark:bg-white dark:ring-white text-sm text-white bg-neutral-800 hover:bg-neutral-900 ring-2 hover:ring-neutral-900 ring-neutral-800 rounded-md">
+								<icon class="text-white dark:text-black" name="ri:arrow-left-right-line" size="1.4em" />
+							</button>
 						</div>
 					</div>
 				</div>
@@ -73,21 +79,19 @@
 
 	const { $pwa, $csrfFetch, $PusherOnStart } = useNuxtApp();
 	const Installed = ref(false);
-	const MarkedPostId = ref(false);
 
 	onMounted(() => {
-		if ($pwa.isInstalled) {
-			Installed.value = true;
-			setTimeout(() => {
-				location.replace(`#ToBottem`);
-			}, 3500);
-		}
+		if ($pwa.isInstalled) Installed.value = true;
 		$PusherOnStart();
 	});
 
+	const completed = ref(false);
+	const berichten = ref({});
+
 	const PostID = useRoute().params.post;
-	const { data: Berichten, error, pending, refresh } = await useFetch(`/api/berichten/posts/${PostID}`);
-	MarkedPostId.value = Berichten.value.Response.read;
+	const { data, error } = await useFetch(`/api/berichten/posts/${PostID}`);
+	berichten.value = data.value.Response;
+	completed.value = berichten.value.read;
 
 	if (error.value) {
 		throw createError({
@@ -97,24 +101,71 @@
 		});
 	}
 
-	const store = useSessionsStore()
-	
+	const UpdateReadStatus = async () => {
+		if (!completed.value) {
+			completed.value = true;
+			await $csrfFetch(`/api/berichten/posts/${PostID}`, { method: "PATCH" });
+		}
+	};
+
+	const scrollWidth = ref(0);
+	const scrollContainer = ref(null);
+
+	const canScroll = computed(() => {
+		const container = scrollContainer.value;
+		return container && container.scrollHeight > container.clientHeight;
+	});
+
+	onMounted(() => {
+		if (!canScroll.value) {
+			scrollWidth.value = 100;
+			UpdateReadStatus();
+		}
+	});
+
+	const setScrollIndicatorToFull = () => {
+		if (scrollWidth.value >= 90) {
+			scrollWidth.value = 0;
+			scrollToTop();
+		} else {
+			scrollWidth.value = 100;
+			scrollToBottom();
+		}
+	};
+
+	const scrollToBottom = () => {
+		const container = scrollContainer.value;
+		container.scrollTo({
+			top: container.scrollHeight,
+			behavior: "smooth",
+		});
+	};
+
+	const scrollToTop = () => {
+		const container = scrollContainer.value;
+		container.scrollTo({
+			top: 0,
+			behavior: "smooth",
+		});
+	};
+
+	const updateScrollIndicator = () => {
+		const container = scrollContainer.value;
+		const scrollHeight = container.scrollHeight - container.clientHeight;
+		const scrollTop = container.scrollTop;
+		scrollWidth.value = (scrollTop / scrollHeight) * 100;
+	};
+
+	watch(scrollWidth, async () => {
+		if (scrollWidth.value >= 90) {
+			await UpdateReadStatus();
+		}
+	});
+
+	const store = useSessionsStore();
 	const Logout = async () => {
 		store.clearSession();
 		await $csrfFetch("/api/users", { method: "DELETE" });
 		return navigateTo("/");
-	};
-
-	const OpenMail = async (interested) => {
-		const mailtoLink = createEmailTemplate(interested, Berichten);
-		location.replace(mailtoLink);
-	};
-
-	const markMessage = async () => {
-		const data = await $csrfFetch(`/api/berichten/posts/${PostID}`, {
-			method: "PATCH",
-		});
-
-		MarkedPostId.value = data.Response;
 	};
 </script>

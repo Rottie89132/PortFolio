@@ -55,7 +55,7 @@
 										<p class="text-[0.65em] dark:text-white md:text-sm opacity-70">{{ useTimeAgo(item.created_at).value }}</p>
 									</div>
 									<p class="mt-2 md:mt-0 xl:mt-1 dark:text-white mr-11 xl:mr-32 text-xs line-clamp-2 opacity-80">
-										{{ item.message }}
+										{{ item.name }} Heeft zojuist een contactverzoek aangevraagt, bekijk het verzoek hieronder.
 									</p>
 								</div>
 							</div>

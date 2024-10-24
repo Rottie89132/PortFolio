@@ -1,5 +1,5 @@
 import bcrypt from "bcrypt"
-import UseEmail from '~~/components/emails/verification.vue'
+import UseEmail from '~/components/emails/verification.vue'
 
 import { render } from '@vue-email/render'
 const { Hostadress } = useRuntimeConfig()
