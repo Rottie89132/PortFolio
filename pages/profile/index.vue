@@ -41,9 +41,10 @@
 									<NuxtLink :to="berichtenLink" class="text-indigo-600 dark:text-indigo-500 text-[0.65em] text-right">Bekijk alle berichten</NuxtLink>
 								</div>
 								<p class="text-[0.7em] dark:text-white opacity-75 font-medium leading-4">
-									{{ readObjects.length > 0 ? "Je hebt " : "Je hebt nog geen" }}
-									{{ readObjects.length > 0 ? readObjects.length : "" }}
-									{{ readObjects.length > 0 ? (readObjects.length == 1 ? "nieuw bericht ontvangen, check je mailbox!" : "nieuw berichten ontvangen, check je mailbox! ") : "berichten ontvangen, stuur een bericht. Of wacht tot je een bericht ontvangt." }}
+									{{ readObjects.length > 0 ? readObjects.length : ''  }}
+									{{ readObjects.length >= 2 ? "" : "bericht van jouw is gelezen, check je berichten pagina voor meer informatie." }}
+									{{ readObjects.length >= 2 ? "berichten van jouw zijn gelezen, check je berichten pagina voor meer informatie." : "" }}
+									{{ readObjects.length < 1 ? "Je hebt nog geen berichten verstuurd of ze zijn nog niet gelezen. Zodra jouw bericht is gelezen zal je het hier terug vinden." : "" }}
 								</p>
 							</div>
 							<div v-if="!userAuthorized" class="overflow-auto bg-[#F7F7F7] dark:bg-[#111111] p-4 rounded-xl">

@@ -17,15 +17,15 @@
 				<div class="w-full h-fit mt-6 md:my-10 xl:mt-20 md:w-[98%] lg:w-[88%] xl:w-[89.2%]">
 					<div class="flex items-center justify-between gap-3 mb-3">
 						<h1 class="text-[1.5em] dark:text-white text-black font-extrabold">Berichten</h1>
-						<PaginationButtons :items="Items" :hidebuttons="hidebuttons" :loading="loading" v-model:currentPage="currentPage" :PreviousPage="PreviousPage" :NextPage="NextPage" :navigateToPage="navigateToPage"> </PaginationButtons>
+						<PaginationButtons :items :hidebuttons :loading v-model:currentPage="currentPage" :PreviousPage :NextPage :navigateToPage> </PaginationButtons>
 					</div>
-					<div v-if="Items.length < 1">
+					<div v-if="items.length < 1">
 						<p class="opacity-75 mb-6 dark:text-white text-sm">Helaas je hebt nog geen berichten ontvangen. Kom later terug om te kijken of je berichten hebt ontvangen.</p>
 					</div>
-					<div v-else :class="Items.length < 5 ? ' h-fit' : ' md:h-[64vh]'" class="p-3 bg-[#F7F7F7] dark:bg-[#111111] xl:h-fit rounded-2xl transition-transform">
+					<div v-else :class="items.length < 5 ? ' h-fit' : ' md:h-[64vh]'" class="p-3 bg-[#F7F7F7] dark:bg-[#111111] xl:h-fit rounded-2xl transition-transform">
 						<div class="w-full h-full overflow-y-auto snap-y snap-proximity rounded-xl scroll-smooth">
-							<div v-for="(item, index) in Items" :key="index" class="mb-3 delay-100 last:mb-0 animate-fade-in">
-								<CardMessages :item :DeleteMail="DeleteMail" :isAdmin="true" />
+							<div v-for="(item, index) in items" :key="index" class="mb-3 delay-100 last:mb-0 animate-fade-in">
+								<CardMessages :item :DeleteMail :isAdmin="true" />
 							</div>
 						</div>
 					</div>
@@ -69,7 +69,7 @@
 
 	const { $pwa, $PusherOnStart, $PusherOnEvent, $csrfFetch } = useNuxtApp();
 	const Installed = ref(false);
-	const Items = ref([]);
+	const items = ref([]);
 	const currentPage = ref();
 	const hidebuttons = ref([]);
 	const loading = ref(false);
@@ -148,7 +148,7 @@
 	const animateIn = () => {
 		loading.value = true;
 		setTimeout(() => {
-			Items.value.forEach((item, index) => {
+			items.value.forEach((item, index) => {
 				setTimeout(() => {
 					item.loaded = true;
 				}, index * 200);
@@ -184,7 +184,7 @@
 	};
 
 	const loadedBerichten = async (Repositories) => {
-		Items.value = [];
+		items.value = [];
 		berichten.value = Repositories.value?.Response;
 		hidebuttons.value = Repositories.value;
 
@@ -193,7 +193,7 @@
 			useLocalStorage("BerichtenPage").value = Repositories.value.page;
 
 			berichten.value.forEach((item) => {
-				Items.value.push({ ...item, loaded: false });
+				items.value.push({ ...item, loaded: false });
 			});
 		} else if (currentPage.value != 1) {
 			currentPage.value = 1;
@@ -208,7 +208,7 @@
 				currentPage.value = Berichten.value.page;
 				useLocalStorage("BerichtenPage").value = Berichten.value.page;
 				berichten.value.forEach((item) => {
-					Items.value.push({ ...item, loaded: false });
+					items.value.push({ ...item, loaded: false });
 				});
 			}
 		}

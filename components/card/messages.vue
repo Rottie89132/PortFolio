@@ -12,7 +12,7 @@
             <span v-if="isAdmin">{{ item.name }} Heeft zojuist een contactverzoek aangevraagt, bekijk het verzoek hieronder.</span>
             <span v-else> {{ item.name }}, We hebben uw contactverzoek ontvangen en zullen zo snel mogelijk reageren.</span>
         </p>
-        <div v-if="isAdmin" class="flex mt-3  items-center gap-3">
+        <div v-if="isAdmin" class="flex mt-[0.60rem] items-center gap-3">
             <NuxtLink :to="`/dashboard/berichten/${item._id}`" class="px-4 py-1 text-xs font-semibold text-white dark:text-black dark:bg-white dark:ring-white bg-neutral-800 rounded-md ring-2 ring-neutral-800 hover:bg-neutral-900 hover:ring-neutral-900 dark:hover:bg-gray-50 dark:hover:ring-gray-50">
                 Bekijken
             </NuxtLink>
@@ -21,7 +21,7 @@
                 <Icon name="material-symbols:delete-outline" size="1.3em"></Icon>
             </button>
         </div>
-        <div v-else class="flex mt-3  items-center gap-3">
+        <div v-else class="flex mt-[0.60rem] items-center gap-3">
             <NuxtLink :to="`/berichten/${item._id}`" class="px-4 py-1 text-xs font-semibold text-white dark:text-black dark:bg-white dark:ring-white bg-neutral-800 rounded-md ring-2 ring-neutral-800 hover:bg-neutral-900 hover:ring-neutral-900 dark:hover:bg-gray-50 dark:hover:ring-gray-50">
                 Bekijken
             </NuxtLink>

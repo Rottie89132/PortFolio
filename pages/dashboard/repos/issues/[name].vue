@@ -19,7 +19,7 @@
 				<div class="w-full h-fit mt-6 md:mt-10 xl:mt-20 md:w-[98%] lg:w-[88%] xl:w-[89.2%]">
 					<div class="flex items-center justify-between gap-3 mb-3">
 						<h1 class="text-[1.5em] dark:text-white text-black font-extrabold">Issues</h1>
-						<PaginationButtons :items="items" :hidebuttons="hidebuttons" :loading="loading" v-model:currentPage="currentPage" :PreviousPage="PreviousPage" :NextPage="NextPage" :navigateToPage="navigateToPage"> </PaginationButtons>
+						<PaginationButtons :items :hidebuttons :loading v-model:currentPage="currentPage" :PreviousPage :NextPage :navigateToPage> </PaginationButtons>
 					</div>
 
 					<div class="flex items-center gap-2 dark:text-white" v-if="loadingIndicater || loading">
@@ -40,6 +40,7 @@
 					</div>
 
 					<div v-else class="p-3 bg-[#F7F7F7] dark:bg-[#111111] h-fit rounded-2xl transition-transform">
+						
 						<div class="w-full h-full overflow-y-auto snap-y snap-proximity rounded-xl scroll-smooth">
 							<div v-for="(item, index) in items" :key="index" class="last:mb-0 mb-3">
 								<div class="delay-100 last:mb-0 animate-fade-in">

@@ -5,7 +5,7 @@
 				<NuxtImg draggable="false" :src="item.owner.avatar_url" class="w-5 rounded-full"> </NuxtImg>
 				<h3 class="font-semibold dark:text-white">{{ item.full_name }}</h3>
 			</div>
-			<p class="mt-3 md:mt-1 whitespace-pre-wrap text-balance dark:text-white mr-5 text-sm break-words opacity-70 line-clamp-2">
+			<p class="mt-3 md:mt-1 whitespace-pre-wrap text-balance dark:text-white mr-5 leading-[1.2rem] text-sm break-words opacity-70 line-clamp-2">
 				{{ item.description || defaultDescription }}
 			</p>
 			<div class="flex items-center gap-3 mt-3 mb-1 font-semibold">

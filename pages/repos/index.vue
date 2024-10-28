@@ -20,12 +20,9 @@
 				<div class="w-full h-fit mt-6 md:mt-10 xl:mt-20 md:w-[98%] lg:w-[88%] xl:w-[89.2%]">
 					<div class="flex items-center justify-between gap-3 mb-3">
 						<h1 class="text-[1.5em] text-black dark:text-white font-extrabold">Repositories</h1>
-						<PaginationButtons :items="items" :hidebuttons="hidebuttons" :loading="loading"
-							v-model:currentPage="currentPage" :PreviousPage="PreviousPage" :NextPage="NextPage"
-							:navigateToPage="navigateToPage"> 
-						</PaginationButtons>
+						<PaginationButtons :items :hidebuttons :loading v-model:currentPage="currentPage" :PreviousPage :NextPage :navigateToPage> </PaginationButtons>
 					</div>
-					<CardDisplay :items="items" :loadingIndicater="loadingIndicater" />
+					<CardDisplay :items :loadingIndicater  />
 				</div>
 			</div>
 		</div>
