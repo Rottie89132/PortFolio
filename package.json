@@ -68,6 +68,7 @@
     "yup": "^1.3.2"
   },
   "overrides": {
-    "vue": "latest"
+    "vue": "latest",
+    "nitropack": "^2.9.7"
   }
 }
