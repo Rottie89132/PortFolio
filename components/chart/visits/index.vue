@@ -26,7 +26,7 @@
     const colormode = useColorMode();
     const isDark = computed(() => colormode.value === 'dark');
     
-    const monthNames = ["januari", "februari", "maart", "april", "mei", "juni", "juli", "augustus", "september", "oktober", "november", "december"];
+    const monthNames = ["jan", "feb", "mrt", "apr", "mei", "jun", "jul", "aug", "sep", "okt", "nov", "dec"];
     const chartData = computed(() => {
         return {
             labels: probs.Analytics.result.map(item => `${monthNames[item.CurrentMonth - 1]} ${item.CurrentYear}`),
