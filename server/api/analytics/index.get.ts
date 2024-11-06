@@ -19,7 +19,7 @@ export default defineEventHandler(async (event) => {
             statusCode: 200,
             statusMessage: "OK",
             message: "The request has succeeded.",
-            result: (await analytics.find().sort({CurrentMonth: -1}).limit(6)).reverse()
+            result: (await analytics.find().sort({CurrentYear: -1, CurrentMonth: -1}).limit(6)).reverse()
         })
     })
 });

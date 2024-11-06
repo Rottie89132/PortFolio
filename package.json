@@ -32,7 +32,7 @@
     "@vue-macros/nuxt": "^1.9.6",
     "@vueuse/motion": "^2.2.6",
     "@vueuse/nuxt": "^10.6.1",
-    "nuxt": "^3.13.2",
+    "nuxt": "^3.14.159",
     "nuxt-build-cache": "^0.1.1",
     "nuxt-mongoose": "^1.0.6",
     "nuxt-rate-limit": "^1.1.0",

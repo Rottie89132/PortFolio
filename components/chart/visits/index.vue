@@ -29,7 +29,7 @@
     const monthNames = ["januari", "februari", "maart", "april", "mei", "juni", "juli", "augustus", "september", "oktober", "november", "december"];
     const chartData = computed(() => {
         return {
-            labels: probs.Analytics.result.map(item => monthNames[item.CurrentMonth - 1]),
+            labels: probs.Analytics.result.map(item => `${monthNames[item.CurrentMonth - 1]} ${item.CurrentYear}`),
             datasets: [
                 {
                     label: 'Bezoekers',
