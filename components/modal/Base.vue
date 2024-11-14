@@ -17,14 +17,14 @@
 									<slot></slot>
 									<div v-if="type == 'Inloggen'" class="flex">
 										<p class="text-balance">
-											<span @click="forgotPassword" class="text-sm select-none cursor-pointer underline text-neutral-800 hover:text-neutral-900">Wachtwoord vergeten?</span>
+											<span @click="forgotPassword" class="text-sm underline cursor-pointer select-none text-neutral-800 hover:text-neutral-900">Wachtwoord vergeten?</span>
 											<span> of </span>
-											<span @click="maakAccount" class="text-sm select-none underline cursor-pointer text-neutral-800 hover:text-neutral-900">aanmelden</span>
+											<span @click="maakAccount" class="text-sm underline cursor-pointer select-none text-neutral-800 hover:text-neutral-900">aanmelden</span>
 										</p>
 									</div>
 
-									<div v-if="type != 'Contact' && type != 'Inloggen'" class="flex justify-between items-start">
-										<div @click="KeerTerug()" class="text-sm select-none underline cursor-pointer text-neutral-800 hover:text-neutral-900">Terug naar inloggen</div>
+									<div v-if="type != 'Contact' && type != 'Inloggen'" class="flex items-start justify-between">
+										<div @click="KeerTerug()" class="text-sm underline cursor-pointer select-none text-neutral-800 hover:text-neutral-900">Terug naar inloggen</div>
 									</div>
 
 									<button :disabled="loading" id="Button" aria-label="Sumbit" class="relative flex items-center justify-center w-full mt-3 mb-3 duration-300 ease-in outline-none btn-focus btn-login">
@@ -67,7 +67,6 @@
 	const modalDelay = ref(null);
 	const loading = ref(false);
 	const MessageSend = ref(false);
-	const phoneRegExp = /^\+[0-9]{2} [0-9]{2} [0-9]{2} [0-9]{2} [0-9]{2} [0-9]{2}$/;
 	let schema: any;
 
 	const updateAuthState = (typeValue: string | String, textheadValue: string | String, textbaseValue: string | String, textLabelValue: string | String, authModuleValue: boolean | Boolean) => {
@@ -114,7 +113,7 @@
 						const wordCount = value.trim().split(/\s+/).length;
 						return wordCount > 6;
 					}),
-				telefoon: yup.string().matches(phoneRegExp, " telefoon nummer is niet geldig").optional(),
+				telefoon: yup.string().optional(),
 			});
 		else
 			schema = yup.object().shape({
@@ -146,7 +145,7 @@
 					const wordCount = value.trim().split(/\s+/).length;
 					return wordCount > 6;
 				}),
-			telefoon: yup.string().matches(phoneRegExp, " telefoon nummer is niet geldig").optional(),
+			telefoon: yup.string().optional(),
 		});
 	else
 		schema = yup.object().shape({
