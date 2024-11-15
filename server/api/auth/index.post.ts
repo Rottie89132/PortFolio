@@ -18,11 +18,11 @@ export default defineEventHandler((event) => {
                         await useStorage("OptRequired").removeItem(SessionId)
                         consola.info("2FA Token expired", hash)
                     }
-                }, 5.5 * 60 * 1000);
+                }, 1.1 * 60 * 1000);
             
                 consola.info("2FA Token created", hash)
                 setCookie(event, "OptRequired", SessionId, {
-                    httpOnly: true, secure: process.env.production === 'true', sameSite: true, maxAge: 300
+                    httpOnly: true, secure: process.env.production === 'true', sameSite: true, maxAge: 60
                 });
             }
 

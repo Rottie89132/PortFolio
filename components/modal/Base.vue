@@ -16,7 +16,7 @@
 								<Form class="" @submit="handleRequest" :validation-schema="schema" v-slot="{ meta }">
 									<slot></slot>
 									<div v-if="type == 'Inloggen'" class="flex">
-										<p class="text-balance">
+										<p class="select-none text-balance">
 											<span @click="forgotPassword" class="text-sm underline cursor-pointer select-none text-neutral-800 hover:text-neutral-900">Wachtwoord vergeten?</span>
 											<span> of </span>
 											<span @click="maakAccount" class="text-sm underline cursor-pointer select-none text-neutral-800 hover:text-neutral-900">aanmelden</span>

@@ -38,6 +38,13 @@ export default defineNuxtConfig({
     "/" : { ssr: false },
   },
 
+  icon: {
+    clientBundle: {
+      scan: true,
+    }
+
+  },
+
   csurf: {
     cookieKey: 'csrf-token',
     https: process.env.production === 'true',
@@ -156,6 +163,7 @@ export default defineNuxtConfig({
       ],
       link: [
         { rel: 'icon', type: 'image/png', href: '/icons/icon_144.png' },
+        { rel: 'prefetch', type: 'image/png', href: '/Trash.svg' },
       ],
       charset: 'utf-8',
       viewport: 'viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no',
